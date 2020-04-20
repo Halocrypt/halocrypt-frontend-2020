@@ -1,4 +1,5 @@
-body, html{
-    font-family: "Helvetica Neue",
-    v
+html {
+  font-family: "Manrope", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  --header-font-family: "Bebas";
 }
