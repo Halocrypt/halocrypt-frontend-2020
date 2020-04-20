@@ -69,7 +69,7 @@ function getCfg(isLegacy) {
         inject: "body",
         template: `${__dirname}/index.html`,
         xhtml: !0,
-        favicon: "./favicon.ico",
+        favicon: "./favicon.png",
         minify: prodOrDev(
           {
             collapseBooleanAttributes: !0,
