@@ -23,6 +23,12 @@ export default class LandingComponent extends Component {
             Login
           </A>
         </div>
+        <div class="powered-by-box">
+          <div class="powered-by" data-x="?">
+            Powered By:
+          </div>
+          <div></div>
+        </div>
       </div>
     );
   }

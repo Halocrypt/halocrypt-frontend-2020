@@ -9,6 +9,9 @@ html {
   --time-delta-font: "Orbitron";
 }
 
+main {
+  transition: 0.3s linear;
+}
 body {
   margin: 0;
   padding: 4px;

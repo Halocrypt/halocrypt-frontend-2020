@@ -7,6 +7,12 @@ const sLen = social_links.length;
 export default class MobileHeader extends PathSensitiveComponent {
   _toggleMenu = () => this.setState((ps) => ({ enabledMenu: !ps.enabledMenu }));
 
+  componentWillUpdate() {
+    const m = document.querySelector("main");
+
+    m && (m.style.transform = this.state.enabledMenu ? "scale(0.9)" : "unset");
+  }
+
   render(_, state) {
     return (
       <>
