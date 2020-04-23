@@ -1,0 +1,56 @@
+.mask {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #ced7dc6e;
+}
+
+.swipeable-button {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2050%205%22%3E%3Crect%20width=%2250%22%20height=%225%22%20fill=%22white%22%20rx=%225%22%20ry=%2220%22/%3E%3C/svg%3E");
+  height: 5px;
+  margin: auto;
+  margin-top: 10px;
+  width: 50px;
+}
+
+.swipeable-menu-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 95%;
+  height: 170px;
+  bottom: -140px;
+  background-color: black;
+  border-top-right-radius: 10px;
+  border: 1px solid var(--font-color);
+  border-top-left-radius: 10px;
+}
+
+.swipeable-menu-container.expanded {
+  height: fit-content;
+  bottom: 0;
+}
+
+.app-routes-mob {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.social-links-mob {
+  text-align: center;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.halocrypt-text {
+  margin: auto;
+  font-size: 35px;
+  text-decoration: underline;
+}

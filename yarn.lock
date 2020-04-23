@@ -848,10 +848,10 @@
   resolved "https://registry.yarnpkg.com/@hydrophobefireman/qwc/-/qwc-0.0.6.tgz#e1028ffa3ad0c9f05afb368b03cb10082c84d68e"
   integrity sha512-ofxA3P5Ztx2y+fvJ6nFrWnuimUSjOphmE+7klrgqpDWgfB1t9wPGo51jmGb/eSMzIhPM1TV98//+/WkkSGE0FQ==
 
-"@hydrophobefireman/ui-lib@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@hydrophobefireman/ui-lib/-/ui-lib-0.2.2.tgz#2db59ac130ee9e1aba5d8293b18005cd9661d126"
-  integrity sha512-YS3dGwBp7Q5kIDdU8TKWATUu2+zAd9Tko2eJXJcRs2/R9reKFXJ4JK8LtIVDNQhv98HA8XvcA14YPigAs4durQ==
+"@hydrophobefireman/ui-lib@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@hydrophobefireman/ui-lib/-/ui-lib-0.3.5.tgz#a1806f44bc9ad1bc10aed14761001e8654daa7d4"
+  integrity sha512-9tptVTbLw8wSVptj70zYn9e4JC4rk8DcY+8InUuqayR++SE1oyhsWDEenzkXT2KJdYzWe+lYWXeGVWYbYY+vsg==
 
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
@@ -1649,7 +1649,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-clean-css@^4.2.3:
+clean-css@^4.2.1, clean-css@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.2.3.tgz#507b5de7d97b48ee53d84adb0160ff6216380f78"
   integrity sha512-VcMWDN54ZN/DS+g58HYL5/n4Zrqe8vHJpGA8KdgUXFU4fuP/aHNw8eld9SyEIyabIMJX/0RaY/fplOo5hYLSFA==
@@ -5627,6 +5627,14 @@ strip-eof@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
   integrity sha1-u0P/VZim6wXYm1n80SnJgzE2Br8=
+
+style-ext-html-webpack-plugin@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/style-ext-html-webpack-plugin/-/style-ext-html-webpack-plugin-4.1.2.tgz#6e05cda52d933adee1af62bbaf907f876dc00582"
+  integrity sha512-HNpxCbUl5M0rUnZM6HDSYoUlo54qPSiwMZeg7Dms4zFlNbmMusQbYGielSH96wXddkix4FN4ng+2A+4R+Qn0wg==
+  dependencies:
+    clean-css "^4.2.1"
+    debug "^4.1.1"
 
 stylehacks@^4.0.0:
   version "4.0.3"

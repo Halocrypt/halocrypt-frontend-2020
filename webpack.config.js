@@ -7,8 +7,7 @@ const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin")
 
 const WebpackModuleNoModulePlugin = require("webpack-module-nomodule-plugin");
 
-// we are inlining css so we don't need this
-// const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const { basename } = require("path");
 const isProd = basename(__filename).includes(".prod");
@@ -45,8 +44,14 @@ const contentLoaderOptions = {
 };
 function getCfg(isLegacy) {
   return {
+    cache: {
+      type: "filesystem",
+      buildDependencies: {
+        config: [__filename],
+      },
+    },
     devServer: {
-      contentBase: `${__dirname}/build`,
+      contentBase: `${__dirname}/docs`,
       compress: !0,
       port: 4200,
       historyApiFallback: true,
@@ -60,7 +65,8 @@ function getCfg(isLegacy) {
     },
     entry: `${__dirname}/static/App.js`,
     output: {
-      path: `${__dirname}/build`,
+      ecmaVersion: isLegacy ? 5 : 6,
+      path: `${__dirname}/docs`,
       filename: `[name]/${isLegacy ? "legacy" : "es6"}/[contenthash].js`,
     },
     mode,
@@ -90,8 +96,11 @@ function getCfg(isLegacy) {
       }),
       new WebpackModuleNoModulePlugin(isLegacy ? "legacy" : "modern"),
       new MiniCssExtractPlugin({}),
-      new HTMLInlineCSSWebpackPlugin({}),
-    ],
+      isProd
+        ? new OptimizeCSSAssetsPlugin({ cssProcessor: require("cssnano") })
+        : null,
+      isProd ? new HTMLInlineCSSWebpackPlugin({}) : null,
+    ].filter(Boolean),
   };
 }
 

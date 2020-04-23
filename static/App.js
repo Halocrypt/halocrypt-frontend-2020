@@ -1,18 +1,30 @@
-import { Component, render } from "@hydrophobefireman/ui-lib";
+import Component, { render, Router, redirect } from "@hydrophobefireman/ui-lib";
 
 // Importing all CSS
 import "./device.css";
-import "./components/NavBar/NavBar.css";
-
+import "./components/Header/Header.css";
+import "./components/MobileHeader/MobileHeader.css";
+import "./components/LandingComponent/LandingComponent.css";
 // Importing components
-import LandingComponent from "./components/LandingComponent/LandingComponent";
+import LazyRouteLoader from "./lazyRouteLoader";
+
+import DynamicHeader from "./components/_DynamicHeader";
 
 class App extends Component {
-  render() {
+  componentDidMount() {
+    const qs = Router.getQs;
+    let c;
+    if ((c = new URLSearchParams(qs).get("__loader"))) {
+      redirect(c);
+      return;
+    }
+  }
+  render(props, state) {
     return (
-      <div>
-        <LandingComponent />
-      </div>
+      <>
+        <DynamicHeader />
+        <LazyRouteLoader />
+      </>
     );
   }
 }

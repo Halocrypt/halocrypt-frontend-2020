@@ -1,0 +1,55 @@
+.animated-landing-title {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.08;
+  animation: opacity_anim 0.6s linear 0.2s;
+  animation-fill-mode: forwards;
+}
+@keyframes opacity_anim {
+  from {
+    opacity: 0.08;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.main-title {
+  font-size: 65px;
+}
+
+.going-live-time-delta {
+  font-size: 90px;
+}
+
+@media only screen and (max-width: 600px) {
+  .main-title {
+    font-size: 48px;
+    margin: 30px;
+  }
+  .front-logo {
+    display: none;
+  }
+
+  .going-live-time-delta {
+    font-size: 65px;
+    margin-top: 10px;
+  }
+}
+.goes-live {
+  color: var(--spec-color);
+  font-size: 35px;
+}
+.landing-action-button {
+  margin: 10px;
+  display: inline-block;
+  padding: 8px;
+  width: 200px;
+  background: transparent;
+  color: var(--font-color);
+  border-radius: 7px;
+  outline: none;
+  border: 1px solid var(--spec-color);
+  font-size: 22px;
+}

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "rm -rf ./build && cp webpack.config.js webpack.config.prod.js && webpack --config webpack.config.prod.js && rm webpack.config.prod.js"
+    "build": "rm -rf ./docs && cp webpack.config.js webpack.config.prod.js && webpack --config webpack.config.prod.js && rm webpack.config.prod.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   "dependencies": {
     "@hydrophobefireman/j-utils": "^2.1.0",
     "@hydrophobefireman/qwc": "^0.0.6",
-    "@hydrophobefireman/ui-lib": "^0.2.2"
+    "@hydrophobefireman/ui-lib": "^0.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -42,6 +42,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-cli": "^7.1.0",
     "postcss-loader": "^3.0.0",
+    "style-ext-html-webpack-plugin": "^4.1.2",
     "terser": "^4.6.11",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "^4.1.0",
