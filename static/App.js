@@ -5,6 +5,7 @@ import "./device.css";
 import "./components/Header/Header.css";
 import "./components/MobileHeader/MobileHeader.css";
 import "./components/LandingComponent/LandingComponent.css";
+import "./aquireB64.css";
 // Importing components
 import LazyRouteLoader from "./lazyRouteLoader";
 

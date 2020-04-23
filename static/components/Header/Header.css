@@ -14,5 +14,6 @@ header[static-desktop] {
 .header-links {
   flex: 1;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  justify-content: flex-end;
 }

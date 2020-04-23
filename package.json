@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "rm -rf ./docs && cp webpack.config.js webpack.config.prod.js && webpack --config webpack.config.prod.js && rm webpack.config.prod.js"
+    "build": "webpack --config webpack.config.prod.js"
   },
   "repository": {
     "type": "git",

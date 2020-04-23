@@ -12,6 +12,7 @@ export default function LogoLink(props) {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         display: "inline-block",
+        margin: "auto",
       }}
     ></A>
   );

@@ -18,6 +18,7 @@ export default function (props) {
       <Router>
         {entries(componentMap).map(([path, promise]) => (
           <section data-application-state={path} path={absolutePath(path)}>
+            
             <AsyncComponent
               componentPromise={promise}
               compactLayout={props.compactLayout}

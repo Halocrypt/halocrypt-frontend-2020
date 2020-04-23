@@ -1,32 +1,17 @@
 import LogoLink from "../shared/LogoLink";
-import Draggable from "./DraggableComponent";
-import { getAppRoutes, getSocialLinks } from "../Header/Header";
+import { getAppRoutes, getSocialLinks } from "../shared/appLinks";
 import PathSensitiveComponent from "../_PathSensitiveComponent";
 import { A } from "@hydrophobefireman/ui-lib";
+const social_links = getSocialLinks({ margin: "auto" });
+const sLen = social_links.length;
 export default class MobileHeader extends PathSensitiveComponent {
-  _setCoords = () => {
-    this.setState({ enabledMenu: true });
-  };
   _toggleMenu = () => this.setState((ps) => ({ enabledMenu: !ps.enabledMenu }));
-  _headerChild = () => (
-    <>
-      <div
-        class="swipeable-button hoverable"
-        onClick={(e) => {
-          this.setState({ enabledMenu: true });
-        }}
-      ></div>
-      <div class="app-routes-mob">{getAppRoutes(this.state.currentPath)}</div>
-      <div class="social-links-mob" style={{ marginBottom: "5px" }}>
-        {getSocialLinks({ margin: "auto" })}
-      </div>
-    </>
-  );
 
   render(_, state) {
     return (
       <>
         <header>
+          <div class="hamburger-menu" onClick={this._toggleMenu} />
           {state.currentPath === "/" ? (
             <LogoLink size="60" />
           ) : (
@@ -35,25 +20,27 @@ export default class MobileHeader extends PathSensitiveComponent {
             </A>
           )}
         </header>
-        {!state.enabledMenu ? (
-          <Draggable
-            onlyY={true}
-            // onClick={this._toggleMenu}
-            dragChildName="div"
-            dragChildProps={{
-              class: "swipeable-menu-container",
-              children: this._headerChild(),
+        {state.enabledMenu ? (
+          <div class="mask" onClick={this._toggleMenu}></div>
+        ) : null}
+        <div
+          class={
+            "swipeable-menu-container" + (state.enabledMenu ? " expanded" : "")
+          }
+        >
+          <div class="app-routes-mob">
+            {getAppRoutes(this.state.currentPath)}
+          </div>
+          <div
+            class="social-links-mob"
+            style={{
+              "grid-template-columns": `repeat(${sLen}, 1fr)`,
+              marginBottom: "5px",
             }}
-            swipeThresholdExeeded={this._setCoords}
-          />
-        ) : (
-          <>
-            <div class="mask" onClick={this._toggleMenu}></div>
-            <div class="swipeable-menu-container expanded">
-              {this._headerChild()}
-            </div>
-          </>
-        )}
+          >
+            {social_links}
+          </div>
+        </div>
       </>
     );
   }

@@ -8,7 +8,7 @@ export default class LandingComponent extends Component {
           <div class="front-logo">
             <LogoLink size="200" />
           </div>
-          <div class="heading-text main-title">HaloCrypt</div>
+          <div class="heading-text main-title">HALOCRYPT</div>
         </div>
         <div class="heading-text goes-live">Going Live In</div>
         <div class="heading-text going-live-time-delta">00:00:00</div>

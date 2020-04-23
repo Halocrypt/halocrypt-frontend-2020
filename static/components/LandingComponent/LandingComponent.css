@@ -17,13 +17,17 @@
 }
 .main-title {
   font-size: 65px;
+  font-family: var(--time-delta-font);
+  text-transform: uppercase;
 }
 
 .going-live-time-delta {
   font-size: 90px;
+  color: var(--spec-color);
+  font-family: var(--time-delta-font), sans-serif;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 675px) {
   .main-title {
     font-size: 48px;
     margin: 30px;
@@ -34,22 +38,30 @@
 
   .going-live-time-delta {
     font-size: 65px;
+
     margin-top: 10px;
   }
 }
 .goes-live {
-  color: var(--spec-color);
+  color: var(--font-color);
   font-size: 35px;
+  margin-top: 50px;
 }
 .landing-action-button {
   margin: 10px;
   display: inline-block;
   padding: 8px;
-  width: 200px;
+  width: 150px;
   background: transparent;
   color: var(--font-color);
   border-radius: 7px;
   outline: none;
   border: 1px solid var(--spec-color);
   font-size: 22px;
+  transition: 0.3s linear;
+}
+.landing-action-button:hover,
+.landing-action-button:active,
+.landing-action-button:focus {
+  filter: grayscale(1);
 }
