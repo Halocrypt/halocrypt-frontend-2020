@@ -14,11 +14,11 @@
   left: 0;
   right: 0;
   margin: auto;
-  width: 95%;
+  width: 100%;
   bottom: -1000px;
   background-color: #000;
   border-top-right-radius: 10px;
-  border: 1px solid var(--font-color);
+  border: none;
   border-top-left-radius: 10px;
   height: fit-content;
   transition: 0.3s linear;

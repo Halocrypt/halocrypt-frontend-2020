@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Halocrypt - The Cryptic Hunt</title>
+    <link rel="preconnect" href="https://halocrypt-20.herokuapp.com" />
     <link rel="preload" href="https://fonts.pycode.tk/manrope.css" as="style" />
     <link
       rel="preload"
@@ -12,6 +13,9 @@
     />
     <script data-js="injected-css-preloader">
       <%= require('./injectables/preloadCSS.js') %>
+    </script>
+    <script data-js="touch-intent-css-fix">
+      <%= require("./injectables/css-fix.js") %>
     </script>
   </head>
   <body>

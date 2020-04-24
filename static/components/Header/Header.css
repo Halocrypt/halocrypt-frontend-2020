@@ -17,3 +17,7 @@ header[static-desktop] {
   flex-direction: row;
   justify-content: flex-end;
 }
+
+.social-links {
+  display: flex;
+}

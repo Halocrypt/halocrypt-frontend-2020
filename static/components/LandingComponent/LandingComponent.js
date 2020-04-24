@@ -1,5 +1,6 @@
 import { Component, A } from "@hydrophobefireman/ui-lib";
 import LogoLink from "../shared/LogoLink";
+import Timer from "./Timer";
 export default class LandingComponent extends Component {
   render(props) {
     return (
@@ -10,8 +11,7 @@ export default class LandingComponent extends Component {
           </div>
           <div class="heading-text main-title">HALOCRYPT</div>
         </div>
-        <div class="heading-text goes-live">Going Live In</div>
-        <div class="heading-text going-live-time-delta">00:00:00</div>
+        <Timer />
         <div class="reg-btn-box">
           <A
             href="/register"

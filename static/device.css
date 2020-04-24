@@ -9,8 +9,21 @@ html {
   --time-delta-font: "Orbitron";
 }
 
-main {
+.router-app {
+  margin: auto;
+  text-align: center;
   transition: 0.3s ease-in;
+  margin-top: 3%;
+}
+@media only screen and (max-width: 900px) {
+  .router-app {
+    margin-top: calc(7% + 10px);
+  }
+}
+@media only screen and (max-width: 600px) {
+  .router-app {
+    margin-top: 15%;
+  }
 }
 body {
   margin: 0;
@@ -23,16 +36,6 @@ body {
   font-family: var(--header-font-family), sans-serif;
 }
 
-.router-app {
-  margin: auto;
-  text-align: center;
-}
-.router-app.free-form {
-  margin-top: calc(10% + 20px);
-}
-.router-app.compact {
-  margin-top: 70px;
-}
 .hoverable:not([disabled]) {
   cursor: pointer;
   transition: 0.3s ease-in-out;

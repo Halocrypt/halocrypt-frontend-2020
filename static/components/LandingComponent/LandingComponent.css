@@ -19,6 +19,8 @@
   font-size: 65px;
   font-family: var(--time-delta-font);
   text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: var(--spec-color);
 }
 
 .going-live-time-delta {
@@ -45,7 +47,6 @@
 .goes-live {
   color: var(--font-color);
   font-size: 35px;
-  margin-top: 50px;
 }
 .landing-action-button {
   margin: 10px;

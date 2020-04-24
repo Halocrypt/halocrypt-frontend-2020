@@ -23,7 +23,7 @@ export const getAppRoutes = (routePath, style) =>
 const SOCIAL_LINKS_MAP = {
   instagram: "https://www.instagram.com/halocrypt/",
   discord: "https://discord.gg/",
-  twitter: "https://twitter.com",
+  twitter: "https://twitter.com/halocrypt1",
   github: "/github-info",
 };
 export const getSocialLinks = (style) =>

@@ -35,7 +35,10 @@ export default class MobileHeader extends PathSensitiveComponent {
           }
         >
           <div class="app-routes-mob">
-            {getAppRoutes(this.state.currentPath)}
+            {getAppRoutes(this.state.currentPath, {
+              marginTop: "5px",
+              marginBottom: "5px",
+            })}
           </div>
           <div
             class="social-links-mob"
