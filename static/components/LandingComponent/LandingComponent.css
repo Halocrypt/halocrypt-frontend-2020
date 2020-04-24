@@ -19,12 +19,15 @@
   font-size: 65px;
   font-family: var(--time-delta-font);
   text-transform: uppercase;
-  text-decoration: underline;
   text-decoration-color: var(--spec-color);
+  margin-left: -30px;
+  border-bottom: 2px solid var(--spec-color);
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .going-live-time-delta {
-  font-size: 90px;
+  font-size: 8rem;
   color: var(--spec-color);
   font-family: var(--time-delta-font), sans-serif;
 }
@@ -50,7 +53,6 @@
 }
 .landing-action-button {
   margin: 10px;
-  display: inline-block;
   padding: 8px;
   width: 150px;
   background: transparent;
@@ -60,6 +62,10 @@
   border: 1px solid var(--spec-color);
   font-size: 22px;
   transition: 0.3s linear;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .landing-action-button:hover,
 .landing-action-button:active,

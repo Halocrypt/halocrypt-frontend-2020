@@ -2,10 +2,13 @@ import FakeSet from "@hydrophobefireman/j-utils/@build-modern/src/modules/es6/lo
 /** @type {import("./store").Store} */
 const STORE = {
   currentTheme: null,
-  isLoggedIn: false,
+  userData: null,
   eventBeginTimeStamp: +new Date() + 10000, // todo
 };
 
+Object.defineProperty(STORE, "isLoggedIn", {
+  get: () => !!(STORE.userData && STORE.userData.secure_data),
+});
 const subscriptions = new FakeSet();
 export const appEvents = {
   subscribe(fn) {

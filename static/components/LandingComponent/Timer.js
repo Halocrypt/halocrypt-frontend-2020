@@ -6,21 +6,23 @@ const tFix = (t) => {
 };
 export default class Timer extends Component {
   state = {
-    isTiming: true,
+    // isTiming: true,
     timeLeft: appEvents.getStore().eventBeginTimeStamp - +new Date(),
   };
   _updateTime = () =>
     this.setState((ps) => {
       const tl = ps.timeLeft - 1000;
+      const isTiming = tl > 500;
 
-      let isTiming = true;
-      if (tl <= 0) {
-        isTiming = false;
-      }
       return { timeLeft: tl, isTiming };
     });
   componentDidMount() {
-    this.__interval = setInterval(this._updateTime, 1000);
+    const tl = this.state.timeLeft;
+    const isTiming = tl > 500;
+    this.setState({ isTiming });
+    if (isTiming) {
+      this.__interval = setInterval(this._updateTime, 1000);
+    }
   }
   componentWillUnmount() {
     clearInterval(this.__interval);

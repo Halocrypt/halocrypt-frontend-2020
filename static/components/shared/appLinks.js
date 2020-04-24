@@ -1,15 +1,17 @@
 import { A } from "@hydrophobefireman/ui-lib"; // optimiziation, do not map on re renders
-
+import { appEvents } from "../../globalStore";
+const store = appEvents.getStore();
 const routeData = [
   { text: "Leaderboard", path: "/leaderboard" },
   { text: "Rules", path: "/rules" },
   { text: "Play", path: "/play" },
   { text: "FAQ", path: "/faq" },
+  { text: "Logout", path: "/logout" },
 ];
 
 export const getAppRoutes = (routePath, style) =>
   routeData.map(({ text, path }) =>
-    path !== routePath ? (
+    path !== routePath && (path !== "/logout" || store.isLoggedIn) ? (
       <A
         style={style}
         href={`${path}`}

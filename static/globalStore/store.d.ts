@@ -1,7 +1,7 @@
-import { userData } from "../api";
+import { UserData } from "../api";
 export type Store = {
   isLoggedIn?: boolean;
-  userData?: userData;
+  userData?: UserData;
   currentTheme?: "";
   eventBegan?: boolean;
   eventBeginTimeStamp?: number;

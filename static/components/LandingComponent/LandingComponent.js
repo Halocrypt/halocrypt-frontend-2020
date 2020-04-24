@@ -1,7 +1,14 @@
-import { Component, A } from "@hydrophobefireman/ui-lib";
+import { Component, A, redirect } from "@hydrophobefireman/ui-lib";
 import LogoLink from "../shared/LogoLink";
 import Timer from "./Timer";
+import { appEvents } from "../../globalStore";
+
 export default class LandingComponent extends Component {
+  componentDidMount() {
+    if (appEvents.getStore().isLoggedIn) {
+      return redirect("/play");
+    }
+  }
   render(props) {
     return (
       <div>

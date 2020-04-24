@@ -5,8 +5,9 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: #ced7dc6e;
+  background-color: #303030;
   z-index: 10;
+  opacity: 0.8;
 }
 
 .swipeable-menu-container {
