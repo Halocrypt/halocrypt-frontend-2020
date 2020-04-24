@@ -12,6 +12,7 @@ export default class Timer extends Component {
   _updateTime = () =>
     this.setState((ps) => {
       const tl = ps.timeLeft - 1000;
+
       let isTiming = true;
       if (tl <= 0) {
         isTiming = false;
@@ -40,15 +41,16 @@ export default class Timer extends Component {
     if (sec > 3 && hours === 0 && mins === 0) {
       return `${tFix(hours)}:${tFix(mins)}:${tFix(sec)}`;
     }
+    const r = "Ready?";
     switch (sec) {
       case 3:
         return "Are";
       case 2:
         return "You";
       case 1:
-        return "Ready?";
+        return r;
       default:
-        break;
+        return r;
     }
   }
   render(props, state) {
