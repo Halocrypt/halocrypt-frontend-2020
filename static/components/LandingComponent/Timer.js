@@ -28,7 +28,11 @@ export default class Timer extends Component {
     clearInterval(this.__interval);
   }
   componentDidUpdate() {
-    if (!this.state.isTiming) clearInterval(this.__interval);
+    if (!this.state.isTiming && !this.state.eventEmitted) {
+      appEvents.set("eventBegan", true);
+      this.setState({ eventEmitted: true });
+      clearInterval(this.__interval);
+    }
   }
   parseTime(timeLeft) {
     let _left;

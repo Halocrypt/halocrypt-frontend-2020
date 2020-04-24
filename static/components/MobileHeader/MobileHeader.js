@@ -2,6 +2,7 @@ import LogoLink from "../shared/LogoLink";
 import { getAppRoutes, getSocialLinks } from "../shared/appLinks";
 import PathSensitiveComponent from "../_PathSensitiveComponent";
 import { A } from "@hydrophobefireman/ui-lib";
+import { appEvents } from "../../globalStore";
 const social_links = getSocialLinks({ margin: "auto" });
 const sLen = social_links.length;
 export default class MobileHeader extends PathSensitiveComponent {
@@ -12,7 +13,15 @@ export default class MobileHeader extends PathSensitiveComponent {
 
     m && (m.style.transform = this.state.enabledMenu ? "scale(0.9)" : "unset");
   }
-
+  __update = () => this.setState({});
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    appEvents.unsubscribe(this.__update);
+  }
+  componentDidMount() {
+    super.componentDidMount();
+    appEvents.subscribe(this.__update);
+  }
   render(_, state) {
     return (
       <>

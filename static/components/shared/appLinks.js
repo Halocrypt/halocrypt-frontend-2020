@@ -11,7 +11,7 @@ const routeData = [
 
 export const getAppRoutes = (routePath, style) =>
   routeData.map(({ text, path }) =>
-    path !== routePath && (path !== "/logout" || store.isLoggedIn) ? (
+    path !== routePath && ("/logout" !== path || store.isLoggedIn) ? (
       <A
         style={style}
         href={`${path}`}

@@ -3,7 +3,7 @@ import { A } from "@hydrophobefireman/ui-lib";
 export default function LogoLink(props) {
   return (
     <A
-      href="/"
+      href={"/"}
       class={["hoverable"].concat(props.class || [])}
       style={{
         backgroundImage: `url("${logoImg}")`,

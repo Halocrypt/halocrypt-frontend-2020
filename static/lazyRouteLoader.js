@@ -10,6 +10,7 @@ const getDefault = (module_) => module_.default;
 const componentMap = {
   "/": () =>
     import("./components/LandingComponent/LandingComponent").then(getDefault),
+  "/register": () => import("./components/Register/Register").then(getDefault),
 };
 
 export default function (props) {
@@ -18,7 +19,6 @@ export default function (props) {
       <Router>
         {entries(componentMap).map(([path, promise]) => (
           <section data-application-state={path} path={absolutePath(path)}>
-            
             <AsyncComponent
               componentPromise={promise}
               compactLayout={props.compactLayout}

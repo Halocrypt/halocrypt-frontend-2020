@@ -1,14 +1,15 @@
-import { Component, A, redirect } from "@hydrophobefireman/ui-lib";
+import { A, redirect } from "@hydrophobefireman/ui-lib";
 import LogoLink from "../shared/LogoLink";
 import Timer from "./Timer";
 import { appEvents } from "../../globalStore";
+import AuthStateSensitiveComponent from "../_AuthStateSensitiveComponent";
+const store = appEvents.getStore();
 
-export default class LandingComponent extends Component {
-  componentDidMount() {
-    if (appEvents.getStore().isLoggedIn) {
-      return redirect("/play");
-    }
-  }
+export default class LandingComponent extends AuthStateSensitiveComponent {
+  /**
+   * @param {keyof import('../../globalStore/store').Store} e
+   * @param {import('../../api').UserData} data
+   */
   render(props) {
     return (
       <div>
@@ -20,15 +21,29 @@ export default class LandingComponent extends Component {
         </div>
         <Timer />
         <div class="reg-btn-box">
-          <A
-            href="/register"
-            class="landing-action-button heading-text hoverable"
-          >
-            Register
-          </A>
-          <A href="/login" class="heading-text hoverable landing-action-button">
-            Login
-          </A>
+          {!(store.isLoggedIn && store.eventBegan) ? (
+            <>
+              <A
+                href="/register"
+                class="landing-action-button heading-text hoverable"
+              >
+                Register
+              </A>
+              <A
+                href="/login"
+                class="heading-text hoverable landing-action-button"
+              >
+                Login
+              </A>
+            </>
+          ) : (
+            <A
+              href="/play"
+              class="heading-text hoverable landing-action-button"
+            >
+              Play
+            </A>
+          )}
         </div>
         <div class="powered-by-box">
           <div class="powered-by" data-x="?">

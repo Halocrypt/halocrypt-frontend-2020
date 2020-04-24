@@ -15,6 +15,7 @@ export const user = {
   verifyEmail: apiURL("/api/user/verify-email"),
   checkEmailToken: apiURL("/api/user/check-email-token"),
   checkAuth: apiURL("/api/user/check-auth"),
+  logout: apiURL("/api/logout"),
 };
 export const play = {
   getLeaderboard: apiURL("/api/play/get-leaderboard"),

@@ -31,7 +31,7 @@ export namespace UserRoutes {
       user: string;
       password: string;
     }
-    export type response = GenericResponse<UserData>;
+    export type response = GenericResponse<{ user_data: UserData }>;
   }
   export namespace create {
     export interface request {
@@ -73,7 +73,10 @@ export namespace UserRoutes {
     export type response = GenericResponse;
   }
   export namespace checkAuth {
-    export type response = GenericResponse<{ isLoggedIn: boolean }>;
+    export type response = GenericResponse<{
+      isLoggedIn: boolean;
+      user_data: UserData;
+    }>;
   }
 }
 

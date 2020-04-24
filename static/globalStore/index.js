@@ -3,11 +3,15 @@ import FakeSet from "@hydrophobefireman/j-utils/@build-modern/src/modules/es6/lo
 const STORE = {
   currentTheme: null,
   userData: null,
-  eventBeginTimeStamp: +new Date() + 10000, // todo
+  eventBeginTimeStamp: +new Date() + 5000, // todo
 };
 
 Object.defineProperty(STORE, "isLoggedIn", {
   get: () => !!(STORE.userData && STORE.userData.secure_data),
+});
+Object.defineProperty(STORE, "eventBegan", {
+  get: () => STORE.eventBeginTimeStamp - +new Date() < 0,
+  set: (e) => e,
 });
 const subscriptions = new FakeSet();
 export const appEvents = {
@@ -21,6 +25,7 @@ export const appEvents = {
    * @param {*} data
    */
   set(type, data) {
+    console.log("new state ->", type, data);
     STORE[type] = data;
     subscriptions.forEach((x) => x(type, data, STORE));
   },

@@ -4,16 +4,19 @@ html {
   --background-color: #000;
   --font-color: #fff;
   font-family: "Manrope", sans-serif;
-  --spec-color: #f79931;
+  --spec-color: #ff9900;
   -webkit-tap-highlight-color: transparent;
   --time-delta-font: "Orbitron";
+  --border-shadow-color: #e3e3e3;
+  --translate-normal-pos: translate(1%, 150%);
+  --translate-up: translate(1%, 1%);
 }
 
 .router-app {
   margin: auto;
   text-align: center;
   transition: 0.3s ease-in;
-  margin-top: 3%;
+  margin-top: calc(3% + 10px);
 }
 @media only screen and (max-width: 900px) {
   .router-app {
@@ -88,4 +91,8 @@ header {
   background-size: contain;
   border-radius: 100%;
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTAgMHYyNGgyNFYwSDB6bTE0LjUzNCAxOS42Yy0uNDA2LjA3OC0uNTM0LS4xNy0uNTM0LS4zODRWMTcuMDFjMC0uNzQ3LS4yNjItMS4yMzMtLjU1LTEuNDggMS43ODItLjE5OCAzLjY1NC0uODc1IDMuNjU0LTMuOTQ3IDAtLjg3NC0uMzEtMS41ODgtLjgyNC0yLjE0Ny4wODMtLjIwMi4zNTctMS4wMTYtLjA4LTIuMTE3IDAgMC0uNjctLjIxNS0yLjE5OC44Mi0uNjQtLjE4LTEuMzIzLS4yNjctMi4wMDMtLjI3LS42OC4wMDMtMS4zNjQuMDktMi4wMDMuMjctMS41MjgtMS4wMzUtMi4yLS44Mi0yLjItLjgyLS40MzQgMS4xMDItLjE2IDEuOTE1LS4wNzcgMi4xMThhMy4wOSAzLjA5IDAgMCAwLS44MjQgMi4xNDdjMCAzLjA2NCAxLjg2NyAzLjc1IDMuNjQ1IDMuOTU0LS4yMy4yLS40MzYuNTUyLS41MDggMS4wNy0uNDU3LjIwNC0xLjYxNC41NTctMi4zMjgtLjY2NiAwIDAtLjQyMy0uNzY4LTEuMjI3LS44MjUgMCAwLS43OC0uMDEtLjA1NS40ODcgMCAwIC41MjUuMjQ2Ljg5IDEuMTcgMCAwIC40NjMgMS40MjggMi42ODguOTQ0djEuNDljMCAuMjEtLjEzLjQ2LS41MjguMzg1QTggOCAwIDAgMSAxMiA0YTggOCAwIDAgMSA4IDhjMCAzLjUzMy0yLjI5IDYuNTMtNS40NjYgNy42eiIvPjwvc3ZnPg==");
+}
+
+.clr {
+  color: var(--spec-color);
 }

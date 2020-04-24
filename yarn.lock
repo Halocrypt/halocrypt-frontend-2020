@@ -848,10 +848,10 @@
   resolved "https://registry.yarnpkg.com/@hydrophobefireman/qwc/-/qwc-0.0.6.tgz#e1028ffa3ad0c9f05afb368b03cb10082c84d68e"
   integrity sha512-ofxA3P5Ztx2y+fvJ6nFrWnuimUSjOphmE+7klrgqpDWgfB1t9wPGo51jmGb/eSMzIhPM1TV98//+/WkkSGE0FQ==
 
-"@hydrophobefireman/ui-lib@^0.3.7":
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/@hydrophobefireman/ui-lib/-/ui-lib-0.3.7.tgz#047c3fb2e5c8d7985176ee3721ffc27d102dc246"
-  integrity sha512-lUBz0vvkJQysZeDmlinb9Ha7rH5MbjnMWBESI8WKcizh+jKX5mGXzhgUPSECUpqyTv79vIDd7f/eDUjpKAk9DQ==
+"@hydrophobefireman/ui-lib@^0.3.9":
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/@hydrophobefireman/ui-lib/-/ui-lib-0.3.9.tgz#630b8411d954312729c187c375e33ab2a96e1120"
+  integrity sha512-mL6w6JgjvK7fVZa8cNNmbb8UFuQRdGbYdE3EJv/A/dABvTrqJMpps5yeIdSy1xu7uneEES+S3djmebVO4FclUg==
 
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
@@ -5724,10 +5724,10 @@ terser@^4.4.3, terser@^4.6.3:
     source-map "~0.6.1"
     source-map-support "~0.5.12"
 
-terser@^4.6.11:
-  version "4.6.11"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-4.6.11.tgz#12ff99fdd62a26de2a82f508515407eb6ccd8a9f"
-  integrity sha512-76Ynm7OXUG5xhOpblhytE7X58oeNSmC8xnNhjWVo8CksHit0U0kO4hfNbPrrYwowLWFgM2n9L176VNx2QaHmtA==
+terser@^4.6.12:
+  version "4.6.12"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-4.6.12.tgz#44b98aef8703fdb09a3491bf79b43faffc5b4fee"
+  integrity sha512-fnIwuaKjFPANG6MAixC/k1TDtnl1YlPLUlLVIxxGZUn1gfUx2+l3/zGNB72wya+lgsb50QBi2tUV75RiODwnww==
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"

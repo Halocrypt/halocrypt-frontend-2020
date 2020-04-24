@@ -37,5 +37,5 @@ export function postJSONRequest(url, data, headers) {
   const options = { body: js };
   const hdr = assign({}, headers);
   hdr["content-type"] = "application/json";
-  return fetchRequest(url, headers, options, "post");
+  return fetchRequest(url, hdr, options, "post");
 }
