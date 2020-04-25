@@ -1,13 +1,19 @@
 .form-doc {
-  margin-top: 15px;
+  transform: translateY(25px);
 }
 
 .form-title {
   font-size: 4rem;
+  font-weight: lighter;
 }
 .form-stx {
   width: 50%;
   margin: auto;
+}
+@media only screen and (min-width: 900px) {
+  .form-stx {
+    width: 30%;
+  }
 }
 .form-ext-text {
   margin-top: 10px;
@@ -78,8 +84,9 @@
 .paper-input {
   display: block;
   width: 100%;
+  font-size: 1.2rem;
   background-color: var(--spec-color);
-  box-shadow: 2px 2px 2px var(--spec-color);
+
   border: 2px solid var(--spec-color);
   padding: 5px;
   outline: 0;
@@ -88,15 +95,6 @@
   transition: 0.1s cubic-bezier(0.46, 1, 0.74, 1.07);
   color: var(--font-color);
   font-weight: bold;
-}
-.paper-input:active,
-.paper-input:focus,
-.paper-input:hover {
-  /* box-shadow: 2px 2px 2px #999; */
-}
-.paper-input:active,
-.paper-input:focus {
-  border: 2px solid var(--primary-color);
 }
 
 .inst {

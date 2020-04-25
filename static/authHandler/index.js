@@ -11,7 +11,7 @@ class Authy {
     /** @type {import('../api').UserRoutes.authenticate.response['error']} */
     const resp = await postJSONRequest(user.authenticate, props);
     if (resp.error != null) {
-      return resp.error;
+      return resp;
     }
     /**@type {import('../api').UserRoutes.authenticate.response['success']['data']} */
     const data = resp.data;
@@ -36,6 +36,17 @@ class Authy {
   logout() {
     appEvents.set("userData", null);
     return postJSONRequest(user.logout, {});
+  }
+  /** @param {import("../api").UserRoutes.create.request} props */
+  async createAccount(props) {
+    /** @type {import('../api').UserRoutes.authenticate.response['error']} */
+    const resp = await postJSONRequest(user.createAccount, props);
+    if (resp.error != null) {
+      return resp;
+    }
+    /**@type {import('../api').UserRoutes.create.response['success']['data']} */
+    const data = resp.data;
+    return data;
   }
 }
 

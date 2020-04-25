@@ -55,13 +55,16 @@ a {
 }
 
 header {
-  position: fixed;
+  position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
   padding: 10px;
   display: flex;
   width: 95%;
   align-items: center;
   margin: auto;
+  background-color: var(--background-color);
 }
 
 .social-logo {
