@@ -36,7 +36,7 @@ export default class Register extends Component {
     if (!email.includes("@")) {
       reasons.push(errors.invalidEmail);
     }
-    if (password === conf_pass) {
+    if (password !== conf_pass) {
       reasons.push("Passwords do not match");
     }
     return reasons.length
