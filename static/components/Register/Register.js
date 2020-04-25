@@ -1,8 +1,9 @@
 import { Component, redirect } from "@hydrophobefireman/ui-lib";
 import { AnimatedInput } from "../shared/AnimatedInput";
-import UserForm from "../shared/UserForm";
+import UserForm, { ErrorPopup } from "../shared/UserForm";
 import { handler } from "../../authHandler";
-const sanitizeRegexp = /([^\w]|_)/g;
+const sanitizeRegExp = /([^\w]|_)/g;
+const nameRegExp = /([^\w^\s]|_)/g;
 const errors = {
   userLength: "Username should be between 3 and 30 characters",
   invalidCharacters: "Username and name can not contain special characters",
@@ -15,9 +16,11 @@ export default class Register extends Component {
     email: "",
     name: "",
     password: "",
+    conf_pass: "",
     school: "",
     ig_user_id: "",
   };
+  resetError = () => this.setState({ hasError: false, error: null });
   _onInput(item) {
     return (e) => this.setState({ [item]: (e.target.value || "").trim() });
   }
@@ -27,8 +30,8 @@ export default class Register extends Component {
       reasons.push(errors.userLength);
     }
     if (
-      user.replace(sanitizeRegexp, "") !== user ||
-      name.replace(sanitizeRegexp, "") !== name
+      user.replace(sanitizeRegExp, "") !== user ||
+      name.replace(nameRegExp, "") !== name
     ) {
       reasons.push(errors.invalidCharacters);
     }
@@ -39,14 +42,17 @@ export default class Register extends Component {
     if (password !== conf_pass) {
       reasons.push("Passwords do not match");
     }
+    if ([name, email, user, password, school].some((x) => !x)) {
+      reasons.push("Please fill the required fields");
+    }
     return reasons.length
       ? {
-          err: (
-            <div style="">
-              {reasons.map((x) => (
-                <div> - {x}</div>
-              ))}
-            </div>
+          error: (
+            <ErrorPopup
+              errorHead="We could not register your account because:"
+              reasons={reasons}
+              close={this.resetError}
+            />
           ),
         }
       : { isValid: true };
@@ -88,7 +94,7 @@ export default class Register extends Component {
         redirect("/");
       }
     }
-    return this.setState({ hasError: true, error: isValid.err });
+    return this.setState({ hasError: true, error: isValid.error });
   };
   render() {
     return (
@@ -101,9 +107,13 @@ export default class Register extends Component {
         hasError={this.state.hasError}
         error={this.state.error}
       >
-        <AnimatedInput labelText="USERNAME" onInput={this._onInput("user")} />
         <AnimatedInput labelText="Name" onInput={this._onInput("name")} />
-        <AnimatedInput labelText="Email" onInput={this._onInput("email")} />
+        <AnimatedInput labelText="USERNAME" onInput={this._onInput("user")} />
+        <AnimatedInput
+          labelText="Email"
+          type="email"
+          onInput={this._onInput("email")}
+        />
         <AnimatedInput labelText="School" onInput={this._onInput("school")} />
         <AnimatedInput
           labelText="Instagram (Optional)"

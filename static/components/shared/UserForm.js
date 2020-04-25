@@ -1,5 +1,4 @@
 import { Component, A } from "@hydrophobefireman/ui-lib";
-import { AnimatedInput } from "../shared/AnimatedInput";
 
 export default class UserForm extends Component {
   _onInput(item) {
@@ -27,4 +26,23 @@ export default class UserForm extends Component {
       </div>
     );
   }
+}
+
+export function ErrorPopup(props) {
+  return (
+    <div class="app-popup">
+      <div class="heading-text clr app-popup-title">Something Ain't Right</div>
+      <div class="err-reasons">
+        <div>{props.errorHead}</div>
+        <div>
+          {props.reasons.map((x) => (
+            <div> - {x}</div>
+          ))}
+        </div>
+      </div>
+      <button class="app-popup-close" onClick={props.close}>
+        OK
+      </button>
+    </div>
+  );
 }

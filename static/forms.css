@@ -27,6 +27,7 @@
   text-align: left;
 }
 ._animate {
+  font-weight: bold;
   text-transform: uppercase;
   width: fit-content;
   padding-left: 4px;
@@ -113,8 +114,7 @@
   cursor: pointer;
 }
 
-.error-form {
-  color: #ff0707;
-  font-weight: bold;
-  margin-top: 10px;
+.err-reasons {
+  text-align: left;
+  padding: 4px;
 }

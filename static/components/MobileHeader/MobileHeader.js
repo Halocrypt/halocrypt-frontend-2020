@@ -5,12 +5,12 @@ import { A } from "@hydrophobefireman/ui-lib";
 import { appEvents } from "../../globalStore";
 const social_links = getSocialLinks({ margin: "auto" });
 const sLen = social_links.length;
+let m = document.querySelector("main");
 export default class MobileHeader extends PathSensitiveComponent {
   _toggleMenu = () => this.setState((ps) => ({ enabledMenu: !ps.enabledMenu }));
 
   componentWillUpdate() {
-    const m = document.querySelector("main");
-
+    m = m || document.querySelector("main");
     m && (m.style.transform = this.state.enabledMenu ? "scale(0.9)" : "unset");
   }
   __update = () => this.setState({});

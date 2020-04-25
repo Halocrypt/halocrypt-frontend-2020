@@ -24,6 +24,10 @@ html {
   }
 }
 @media only screen and (max-width: 600px) {
+  .app-popup {
+    height: 30%;
+    width: 95%;
+  }
   .router-app {
     margin-top: 15%;
   }
@@ -98,4 +102,52 @@ header {
 
 .clr {
   color: var(--spec-color);
+}
+
+.app-popup {
+  position: fixed;
+  width: 40%;
+  height: 40%;
+  border: 2px solid var(--spec-color);
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 16px;
+  text-align: center;
+  overflow: auto;
+  z-index: 25;
+  background: var(--background-color);
+}
+
+.app-popup-title {
+  margin-top: 10px;
+  border-bottom: 2px solid var(--spec-color);
+  padding: 8px;
+  font-size: 1.2rem;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.app-popup-close {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  z-index: 100;
+  margin: auto;
+  text-align: center;
+  left: 0;
+  padding: 3px;
+  right: 0;
+  border: 1px solid var(--spec-color);
+  background: var(--spec-color);
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 50%;
+  color: var(--font-color);
+  padding: 5px;
 }

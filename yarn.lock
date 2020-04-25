@@ -6068,10 +6068,10 @@ webpack-log@^2.0.0:
     ansi-colors "^3.0.0"
     uuid "^3.3.2"
 
-webpack-module-nomodule-plugin@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/webpack-module-nomodule-plugin/-/webpack-module-nomodule-plugin-0.3.1.tgz#70ce73dcc980af8e78817e4bc6b526a554a52672"
-  integrity sha512-4/Mv8meA7eyOvJjXYM/U1XOcNqKf7jAjBbRIyDVKIH4zH7toKIibYZf07lbxfMLEA6fncordfqQ9WIiekqMH/g==
+webpack-module-nomodule-plugin@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/webpack-module-nomodule-plugin/-/webpack-module-nomodule-plugin-0.4.0.tgz#6cb5c69b02595f017228e8612ac449697249bea3"
+  integrity sha512-BvE7M6b/5fneG7Abg4i2RzLKF5ooLaDb0AjG/Rn3qjvCUopKP8hrc8XY8Bk/W4omihmpkNBj+mVJ1wVNMLjsRw==
   dependencies:
     fs-extra "7.0.1"
 
