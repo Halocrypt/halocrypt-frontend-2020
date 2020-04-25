@@ -3,10 +3,12 @@ html {
   /* --background-color: #1e1e1e; */
   --background-color: #000;
   --font-color: #fff;
-  font-family: "Manrope", sans-serif;
-  --spec-color: #ff9900;
+  --default-font: "Quicksand", sans-serif;
+  font-family: var(--default-font);
+
+  --spec-color: #ff5e00;
   -webkit-tap-highlight-color: transparent;
-  --time-delta-font: "Orbitron";
+  --haloc: "Orbitron";
   --border-shadow-color: #e3e3e3;
   --translate-normal-pos: translate(1%, 150%);
   --translate-up: translate(1%, 1%);
@@ -25,8 +27,8 @@ html {
 }
 @media only screen and (max-width: 600px) {
   .app-popup {
-    height: 30%;
-    width: 95%;
+    height: 30vh;
+    width: 95vw;
   }
   .router-app {
     margin-top: 15%;
@@ -106,8 +108,9 @@ header {
 
 .app-popup {
   position: fixed;
-  width: 40%;
-  height: 40%;
+  width: 40vw;
+  height: 40vh;
+  height: fit-content;
   border: 2px solid var(--spec-color);
   margin: auto;
   left: 0;
@@ -134,7 +137,7 @@ header {
 
 .app-popup-close {
   display: block;
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
   z-index: 100;
   margin: auto;
@@ -150,4 +153,16 @@ header {
   width: 50%;
   color: var(--font-color);
   padding: 5px;
+}
+@keyframes opacity_anim {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+section {
+  transform: translateY(25px);
 }

@@ -17,7 +17,7 @@
 }
 .main-title {
   font-size: 65px;
-  font-family: var(--time-delta-font);
+  font-family: var(--haloc);
   text-transform: uppercase;
   text-decoration-color: var(--spec-color);
   margin-left: -30px;
@@ -29,7 +29,7 @@
 .going-live-time-delta {
   font-size: 8rem;
   color: var(--spec-color);
-  font-family: var(--time-delta-font), sans-serif;
+  font-family: var(--default-font);
 }
 
 @media only screen and (max-width: 675px) {

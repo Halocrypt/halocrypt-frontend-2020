@@ -32,8 +32,8 @@ export function ErrorPopup(props) {
   return (
     <div class="app-popup">
       <div class="heading-text clr app-popup-title">Something Ain't Right</div>
+      <div>{props.errorHead}</div>
       <div class="err-reasons">
-        <div>{props.errorHead}</div>
         <div>
           {props.reasons.map((x) => (
             <div> - {x}</div>
