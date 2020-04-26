@@ -1,7 +1,8 @@
-import { Component, redirect, A } from "@hydrophobefireman/ui-lib";
+import { redirect, A } from "@hydrophobefireman/ui-lib";
 import { AnimatedInput } from "../shared/AnimatedInput";
 import { ErrorPopup } from "../shared/UserForm";
 import { handler } from "../../authHandler";
+import AuthStateSensitiveComponent from "../_AuthStateSensitiveComponent";
 const IS_VALID = { valid: true };
 const sanitizeRegExp = /([^\w]|_)/g;
 
@@ -18,12 +19,17 @@ const errors = {
   pwNomatch: "Passwords do not match",
 };
 const BODY_STYLE = document.body.style;
-export default class Register extends Component {
+export default class Register extends AuthStateSensitiveComponent {
   componentDidMount() {
     BODY_STYLE.overflow = "hidden";
   }
   componentWillUnmount() {
     BODY_STYLE.overflow = "unset";
+  }
+  componentDidUpdate() {
+    if (store.isLoggedIn) {
+      return redirect("/profile");
+    }
   }
   state = {
     user: "",
@@ -47,6 +53,7 @@ export default class Register extends Component {
   labelTexts = {
     ig_user_id: "Instagram (Optional)",
     conf_pass: "Confirm password",
+    user: "Username",
   };
 
   resetError = () => this.setState({ hasError: false, error: null });
@@ -118,8 +125,7 @@ export default class Register extends Component {
       this.setState({ hasError: true, error: isValid.error });
     }
   };
-  _decrementState = (e) => {
-    e.preventDefault();
+  _decrementState = () => {
     this.setState((ps) => ({ currentInputIndex: ps.currentInputIndex - 1 }));
   };
   onInput(item) {
@@ -166,17 +172,22 @@ function FormActionControls(props) {
   return (
     <div class="form-action-controls">
       {state.currentInputIndex !== 0 && (
-        <button class="form-act back" onClick={decrement}></button>
+        <span
+          class="form-act back"
+          onClick={decrement}
+          aria-label="previous step"
+        ></span>
       )}
       {isLastInput ? (
         <button
+          aria-label="Register"
           style={{ marginLeft: "auto" }}
           class="heading-text submit-button"
         >
           Register
         </button>
       ) : (
-        <button class="form-act fwd"></button>
+        <button class="form-act fwd" aria-label="next step"></button>
       )}
     </div>
   );
@@ -192,7 +203,7 @@ function InputFields(props) {
 
   return that.fieldsOrder.map(
     (x, i) =>
-      i == that.state.currentInputIndex && (
+      i === that.state.currentInputIndex && (
         <AnimatedInput
           inputClass="form-anim"
           value={that.state[x]}
@@ -207,7 +218,7 @@ function InputFields(props) {
 function RegistrationError(props) {
   return (
     <>
-      <div class="mask child"></div>
+      <div class="mask"></div>
       <ErrorPopup
         errorHead="Can't register"
         close={props.close}

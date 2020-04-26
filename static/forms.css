@@ -98,7 +98,7 @@
 
 .inst {
   text-align: left;
-  display: block;
+  display: flex;
   margin-top: 10px;
 }
 
@@ -147,11 +147,4 @@
 .form-action-controls {
   display: flex;
   margin-top: 10px;
-}
-
-.submit-proxy {
-  display: inline;
-  background: transparent;
-  border: none;
-  margin-left: auto;
 }

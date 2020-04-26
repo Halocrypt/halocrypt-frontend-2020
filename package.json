@@ -44,7 +44,7 @@
     "postcss-loader": "^3.0.0",
     "style-ext-html-webpack-plugin": "^4.1.2",
     "terser": "^4.6.12",
-    "terser-webpack-plugin": "^2.3.5",
+    "terser-webpack-plugin": "^2.3.6",
     "url-loader": "^4.1.0",
     "webpack": "^5.0.0-beta.13",
     "webpack-cli": "^3.3.11",

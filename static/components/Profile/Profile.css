@@ -1,0 +1,16 @@
+.bfont {
+  font-size: 4rem;
+}
+.prof-data-box {
+  text-align: left;
+  /* margin-top: 10px; */
+}
+
+.prof-container {
+  margin: 30px;
+  border-bottom: 2px solid var(--spec-color);
+}
+
+.prof-field {
+  font-size: 1.5rem;
+}

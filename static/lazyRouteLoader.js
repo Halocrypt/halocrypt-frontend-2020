@@ -11,22 +11,26 @@ const componentMap = {
   "/": () =>
     import("./components/LandingComponent/LandingComponent").then(getDefault),
   "/register": () => import("./components/Register/Register").then(getDefault),
+  "/login": () => import("./components/Login/Login").then(getDefault),
+  "/profile": () => import("./components/Profile/Profile").then(getDefault),
 };
 
 export default function (props) {
   return (
     <main class={["router-app", props.compactLayout ? "compact" : "free-form"]}>
-      <Router>
-        {entries(componentMap).map(([path, promise]) => (
-          <section data-application-state={path} path={absolutePath(path)}>
-            <AsyncComponent
-              componentPromise={promise}
-              compactLayout={props.compactLayout}
-              fallbackComponent={RouteLoadingFallback}
-            />
-          </section>
-        ))}
-      </Router>
+      <div class="router-parent">
+        <Router>
+          {entries(componentMap).map(([path, promise]) => (
+            <section data-application-state={path} path={absolutePath(path)}>
+              <AsyncComponent
+                componentPromise={promise}
+                compactLayout={props.compactLayout}
+                fallbackComponent={RouteLoadingFallback}
+              />
+            </section>
+          ))}
+        </Router>
+      </div>
     </main>
   );
 }

@@ -62,12 +62,3 @@
   left: 10px;
   top: 10px;
 }
-
-.powered-by {
-  font-family: Aquire;
-  color: var(--spec-color);
-  font-size: 22px;
-}
-.powered-by-box {
-  margin-top: 10px;
-}

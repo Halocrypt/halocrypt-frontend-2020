@@ -163,6 +163,6 @@ header {
   }
 }
 
-section {
+.router-parent {
   transform: translateY(25px);
 }

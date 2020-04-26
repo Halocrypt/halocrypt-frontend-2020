@@ -1,11 +1,23 @@
-import { A, redirect } from "@hydrophobefireman/ui-lib";
+import { A, AsyncComponent } from "@hydrophobefireman/ui-lib";
 import LogoLink from "../shared/LogoLink";
 import Timer from "./Timer";
-import { appEvents } from "../../globalStore";
+import { handler } from "../../authHandler";
 import AuthStateSensitiveComponent from "../_AuthStateSensitiveComponent";
+import { CredLoadingFallBack } from "../../fallbackComponents";
+import { appEvents } from "../../globalStore";
+
 const store = appEvents.getStore();
 
-export default class LandingComponent extends AuthStateSensitiveComponent {
+async function fetchUserData() {
+  const ret = LandingComponentDataLoaded;
+  if (store.isLoggedIn) return ret;
+
+  await handler.checkAuth();
+
+  return ret;
+}
+
+class LandingComponentDataLoaded extends AuthStateSensitiveComponent {
   /**
    * @param {keyof import('../../globalStore/store').Store} e
    * @param {import('../../api').UserData} data
@@ -21,7 +33,7 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
         </div>
         <Timer />
         <div class="reg-btn-box">
-          {!(store.isLoggedIn && store.eventBegan) ? (
+          {!store.isLoggedIn ? (
             <>
               <A
                 href="/register"
@@ -38,10 +50,10 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
             </>
           ) : (
             <A
-              href="/play"
+              href={store.eventBegan ? "/play" : "Profile"}
               class="heading-text hoverable landing-action-button"
             >
-              Play
+              {store.eventBegan ? "Play" : "Profile"}
             </A>
           )}
         </div>
@@ -49,3 +61,9 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
     );
   }
 }
+export default () => (
+  <AsyncComponent
+    componentPromise={fetchUserData}
+    fallbackComponent={CredLoadingFallBack}
+  />
+);

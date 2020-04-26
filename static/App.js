@@ -5,6 +5,7 @@ import "./device.css";
 import "./components/Header/Header.css";
 import "./components/MobileHeader/MobileHeader.css";
 import "./components/LandingComponent/LandingComponent.css";
+import "./components/Profile/Profile.css";
 import "./aquireB64.css";
 import "./forms.css";
 // Importing components

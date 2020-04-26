@@ -20,8 +20,10 @@ class Authy {
     return data;
   }
   async checkAuth() {
-    if (this.state.checkedAuth) {
-      return appEvents.getStore().isLoggedIn;
+    let isLoggedIn = appEvents.getStore().isLoggedIn;
+    if (this.state.checkedAuth || isLoggedIn) {
+      this.state.checkedAuth = true;
+      return isLoggedIn;
     }
     /** @type {import('../api').UserRoutes.checkAuth.response['success']} */
     const f = await getRequest(user.checkAuth);
@@ -35,7 +37,7 @@ class Authy {
   }
   logout() {
     appEvents.set("userData", null);
-    return postJSONRequest(user.logout, {});
+    return getRequest(user.logout);
   }
   /** @param {import("../api").UserRoutes.create.request} props */
   async createAccount(props) {

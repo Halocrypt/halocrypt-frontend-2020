@@ -1,20 +1,22 @@
 import { A } from "@hydrophobefireman/ui-lib"; // optimiziation, do not map on re renders
 import { appEvents } from "../../globalStore";
 const store = appEvents.getStore();
+
 const routeData = [
   { text: "Leaderboard", path: "/leaderboard" },
   { text: "Rules", path: "/rules" },
   { text: "Play", path: "/play" },
   { text: "FAQ", path: "/faq" },
-  { text: "Logout", path: "/logout" },
+  { text: "Profile", path: "/profile" },
 ];
 
 export const getAppRoutes = (routePath, style) =>
   routeData.map(({ text, path }) =>
-    path !== routePath && ("/logout" !== path || store.isLoggedIn) ? (
+    path !== routePath.split("?")[0] &&
+    ("/profile" !== path || store.isLoggedIn) ? (
       <A
         style={style}
-        href={`${path}`}
+        href={path}
         class={["heading-text", "heading-link", "hoverable"]}
       >
         <span>{text}</span>
