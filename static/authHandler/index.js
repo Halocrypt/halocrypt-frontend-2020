@@ -26,9 +26,9 @@ class Authy {
       return isLoggedIn;
     }
     /** @type {import('../api').UserRoutes.checkAuth.response['success']} */
+    this.state.checkedAuth = true;
     const f = await getRequest(user.checkAuth);
     const data = f.data;
-    this.state.checkedAuth = true;
     if (!data.error) {
       appEvents.set("userData", data.user_data);
       return data;

@@ -3,9 +3,10 @@ import { AnimatedInput } from "../shared/AnimatedInput";
 import { ErrorPopup } from "../shared/UserForm";
 import { handler } from "../../authHandler";
 import AuthStateSensitiveComponent from "../_AuthStateSensitiveComponent";
+import { appEvents } from "../../globalStore";
 const IS_VALID = { valid: true };
 const sanitizeRegExp = /([^\w]|_)/g;
-
+const store = appEvents.getStore();
 function REQUIRED_VALUE(v) {
   if (!v) return { error: "Value required" };
   return IS_VALID;
