@@ -20,6 +20,7 @@ const componentMap = {
       handler.logout().then(redirect("/"));
       return "Logging you out";
     }),
+  "/rules": () => import("./components/Rules/Rules").then(getDefault)
 };
 
 export default function (props) {

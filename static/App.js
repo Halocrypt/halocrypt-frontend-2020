@@ -8,6 +8,8 @@ import "./components/LandingComponent/LandingComponent.css";
 import "./components/Profile/Profile.css";
 import "./aquireB64.css";
 import "./forms.css";
+import "./components/Rules/Rules.css"
+
 // Importing components
 import LazyRouteLoader from "./lazyRouteLoader";
 

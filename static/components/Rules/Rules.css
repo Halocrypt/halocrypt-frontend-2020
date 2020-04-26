@@ -1,0 +1,17 @@
+.orange-box {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    outline-style: solid;
+    outline-color: #FF5E00;
+    font-size: 50vw;
+}
+
+.list-element-rule{
+    text-align: left;
+    font-size: 20px;
+}
+
+.rules-heading {
+    font-size: 5vw;
+}
+
