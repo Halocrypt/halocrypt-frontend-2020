@@ -37,7 +37,7 @@ class Authy {
   }
   logout() {
     appEvents.set("userData", null);
-    return getRequest(user.logout);
+    return postJSONRequest(user.logout, {});
   }
   /** @param {import("../api").UserRoutes.create.request} props */
   async createAccount(props) {

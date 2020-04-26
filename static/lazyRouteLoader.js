@@ -2,9 +2,11 @@ import {
   Router,
   AsyncComponent,
   absolutePath,
+  redirect,
 } from "@hydrophobefireman/ui-lib";
 import entries from "@hydrophobefireman/j-utils/@build-modern/src/modules/Object/entries";
 import { RouteLoadingFallback } from "./fallbackComponents";
+import { handler } from "./authHandler";
 
 const getDefault = (module_) => module_.default;
 const componentMap = {
@@ -13,6 +15,11 @@ const componentMap = {
   "/register": () => import("./components/Register/Register").then(getDefault),
   "/login": () => import("./components/Login/Login").then(getDefault),
   "/profile": () => import("./components/Profile/Profile").then(getDefault),
+  "/logout": () =>
+    Promise.resolve(() => {
+      handler.logout().then(redirect("/"));
+      return "Logging you out";
+    }),
 };
 
 export default function (props) {

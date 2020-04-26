@@ -50,7 +50,7 @@ class LandingComponentDataLoaded extends AuthStateSensitiveComponent {
             </>
           ) : (
             <A
-              href={store.eventBegan ? "/play" : "Profile"}
+              href={store.eventBegan ? "/play" : "profile"}
               class="heading-text hoverable landing-action-button"
             >
               {store.eventBegan ? "Play" : "Profile"}
