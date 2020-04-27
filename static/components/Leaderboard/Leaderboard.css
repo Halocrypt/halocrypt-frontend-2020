@@ -32,6 +32,9 @@
   .ld-table {
     font-size: 1rem;
   }
+  .ld-title {
+    font-size: 2rem;
+  }
 }
 
 .ld-table-row {
