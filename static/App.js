@@ -1,26 +1,31 @@
-import Component, { render, Router, redirect } from "@hydrophobefireman/ui-lib";
+import {
+  render,
+  Component,
+  Router,
+  redirect,
+  AsyncComponent,
+} from "@hydrophobefireman/ui-lib";
 import { handler } from "./authHandler";
+import { CredLoadingFallBack, UnexpectedError } from "./fallbackComponents";
+import DynamicHeader from "./components/_DynamicHeader";
+import { appEvents } from "./globalStore";
+import LazyRouteLoader from "./lazyRouteLoader";
 // Importing all CSS
 import "./device.css";
 import "./components/Header/Header.css";
 import "./components/MobileHeader/MobileHeader.css";
 import "./components/LandingComponent/LandingComponent.css";
 import "./components/Profile/Profile.css";
+import "./components/Leaderboard/Leaderboard.css";
 import "./aquireB64.css";
 import "./forms.css";
-// Importing components
-import LazyRouteLoader from "./lazyRouteLoader";
 
-import DynamicHeader from "./components/_DynamicHeader";
-
+const store = appEvents.getStore();
 class App extends Component {
-  async __beginFetch() {
-    await handler.checkAuth();
-  }
   componentDidMount() {
     const qs = Router.getQs;
     let c;
-    this.__beginFetch();
+
     if ((c = new URLSearchParams(qs).get("__loader"))) {
       redirect(c);
       return;
@@ -36,4 +41,20 @@ class App extends Component {
   }
 }
 
-render(<App />, document.getElementById("app-mount"));
+async function fetchUserData() {
+  const ret = App;
+  if (store.isLoggedIn) return ret;
+  try {
+    await handler.checkAuth();
+  } catch (e) {
+    return UnexpectedError;
+  }
+  return ret;
+}
+const LoadApp = () => (
+  <AsyncComponent
+    componentPromise={fetchUserData}
+    fallbackComponent={CredLoadingFallBack}
+  />
+);
+render(<LoadApp />, document.getElementById("app-mount"));

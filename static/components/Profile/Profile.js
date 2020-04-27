@@ -6,44 +6,45 @@ import { getRequest } from "../../http/requests";
 import { ErrorPopup } from "../shared/UserForm";
 import keys from "@hydrophobefireman/j-utils/@build-modern/src/modules/Object/keys";
 const store = appEvents.getStore();
-export default () => {
-  const q = new URLSearchParams(Router.getQs);
-  const id = q.get("id");
-  if (!id) {
-    if (store.isLoggedIn) {
-      return redirect(`/profile?id=${store.userData.id}`);
-    }
-    return redirect("/login");
-  }
-  return (
-    <AsyncComponent
-      componentPromise={loadProfile}
-      fallbackComponent={ProfileLoadingFallback}
-    />
-  );
-};
+const EMPTY = {};
+
 const mapNames = {
   id: "Username",
   current_level: "Level",
   ig_user_id: "Insta",
+  is_admin: "Player Type",
 };
 function Profile(props) {
   /**@type {import('../../api').UserData} */
   const data = props.data;
-  const sec = data.secure_data;
+  const sec = data.secure_data || EMPTY;
   const currID = store.isLoggedIn && store.userData.id;
   return (
     <div>
       <div class="heading-text bfont">Profile</div>
       <div class="prof-data-box">
-        {["name", "id", "current_level"].concat(keys(sec, {})).map((x) => (
-          <div class="prof-container">
-            <div class="heading-text prof-field">{mapNames[x] || x}</div>
-            <div class="prof-field">{getValue(data, sec, x)}</div>
-          </div>
-        ))}
+        {["name", "id", "current_level", "is_admin"]
+          .concat(keys(sec))
+          .map((x) => (
+            <div class="prof-container">
+              <div class="heading-text prof-field">{mapNames[x] || x}</div>
+              <div class="prof-field">{getValue(data, sec, x)}</div>
+            </div>
+          ))}
       </div>
-      {data.id === currID && <A href="/logout">Logout</A>}
+      {shouldShowAdminPanel(data) && (
+        <A
+          href="/__admin__"
+          class="heading-text hoverable landing-action-button"
+        >
+          Admin Panel
+        </A>
+      )}
+      {data.id === currID && (
+        <A href="/logout" class="heading-text hoverable landing-action-button">
+          Logout
+        </A>
+      )}
     </div>
   );
 }
@@ -72,7 +73,44 @@ async function loadProfile() {
 }
 
 function getValue(data, sec, x) {
-  const val = x in data ? data[x] : sec[x];
-  if (val == null) return "N/A";
+  let val = x in data ? data[x] : sec[x];
+  if (val == null) val = "N/A";
+  if (x === "is_admin") {
+    if (val) {
+      val = "Team Halocrypt";
+    } else {
+      val = "Player";
+    }
+  }
   return val;
 }
+
+function shouldShowAdminPanel(data) {
+  return store.isLoggedIn && data.is_admin && data.id === store.id;
+}
+
+/**@type {import('../../api').UserData} */
+const skeletonData = {
+  id: "Loading..",
+  current_level: "Infinity",
+  has_verified_email: null,
+  name: "??",
+};
+
+export default () => {
+  const q = new URLSearchParams(Router.getQs);
+  const id = q.get("id");
+  if (!id) {
+    if (store.isLoggedIn) {
+      return redirect(`/profile?id=${store.userData.id}`);
+    }
+    return redirect("/login");
+  }
+
+  return (
+    <AsyncComponent
+      componentPromise={loadProfile}
+      fallbackComponent={() => <Profile data={skeletonData} />}
+    />
+  );
+};

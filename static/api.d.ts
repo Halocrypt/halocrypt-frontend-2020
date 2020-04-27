@@ -17,6 +17,7 @@ export type Question = {
   question: string;
   hints: Hint[];
   special: any[];
+  game_over?: boolean;
 };
 type Error = { error: string; reason?: string };
 type APIResponse<R> = { data: R };

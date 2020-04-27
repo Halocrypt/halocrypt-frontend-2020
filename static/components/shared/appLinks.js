@@ -6,7 +6,6 @@ const routeData = [
   { text: "Leaderboard", path: "/leaderboard" },
   { text: "Rules", path: "/rules" },
   { text: "Play", path: "/play" },
-  { text: "FAQ", path: "/faq" },
   { text: "Profile", path: "/profile" },
 ];
 
@@ -38,6 +37,7 @@ export const getSocialLinks = (style) =>
     const target = isInternalNavigation ? null : "_blank";
     return (
       <El
+        rel="noreferrer"
         style={style}
         target={target}
         class={`${x} social-logo`}

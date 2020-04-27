@@ -22,7 +22,6 @@
   text-transform: uppercase;
   text-decoration-color: var(--spec-color);
   margin-left: -30px;
-  border-bottom: 2px solid var(--spec-color);
   padding-left: 5px;
   padding-right: 5px;
   animation-fill-mode: forwards;

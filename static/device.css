@@ -164,5 +164,9 @@ header {
 }
 
 .router-parent {
-  transform: translateY(25px);
+  margin-top: 100px;
+}
+
+.c_u {
+  border-bottom: 2px solid var(--spec-color);
 }

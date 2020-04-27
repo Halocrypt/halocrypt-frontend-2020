@@ -20,6 +20,9 @@ const componentMap = {
       handler.logout().then(redirect("/"));
       return "Logging you out";
     }),
+  "/leaderboard": () =>
+    import("./components/Leaderboard/Leaderboard").then(getDefault),
+  "/play": () => import("./components/Play/Play").then(getDefault),
 };
 
 export default function (props) {

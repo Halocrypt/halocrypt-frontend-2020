@@ -1,4 +1,4 @@
-import { redirect, A } from "@hydrophobefireman/ui-lib";
+import { redirect, A, Router } from "@hydrophobefireman/ui-lib";
 import { ErrorPopup } from "../shared/UserForm";
 import { AnimatedInput } from "../shared/AnimatedInput";
 import { handler } from "../../authHandler";
@@ -13,11 +13,20 @@ export default class Login extends AuthStateSensitiveComponent {
 
   loginCheck() {
     if (store.isLoggedIn) {
+      const n = this.state.next;
+      if (n && !isAbsolute(n)) {
+        return redirect(n);
+      }
       return redirect("/profile");
     }
   }
   componentDidUpdate = this.loginCheck;
   componentDidMount() {
+    const p = new URLSearchParams(Router.getQs);
+    const next = p.get("next");
+    if (next) {
+      this.setState({ next });
+    }
     super.componentDidMount();
     this.loginCheck();
   }
@@ -43,6 +52,10 @@ export default class Login extends AuthStateSensitiveComponent {
         error: dat.error,
         loading: false,
       });
+    }
+    const n = this.state.next;
+    if (n && !isAbsolute(n)) {
+      return redirect(n);
     }
     return redirect("/profile");
   };
@@ -105,3 +118,5 @@ function RegistrationError(props) {
     </>
   );
 }
+
+const isAbsolute = (url) => url.indexOf("://") > 0 || url.indexOf("//") === 0;

@@ -16,3 +16,5 @@ export function ErrorPopup(props) {
     </div>
   );
 }
+
+export const sanitizeRegExp = /([^\w]|_)/g;

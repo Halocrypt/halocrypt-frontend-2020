@@ -1,23 +1,13 @@
-import { A, AsyncComponent } from "@hydrophobefireman/ui-lib";
+import { A } from "@hydrophobefireman/ui-lib";
 import LogoLink from "../shared/LogoLink";
 import Timer from "./Timer";
-import { handler } from "../../authHandler";
+
 import AuthStateSensitiveComponent from "../_AuthStateSensitiveComponent";
-import { CredLoadingFallBack } from "../../fallbackComponents";
 import { appEvents } from "../../globalStore";
 
 const store = appEvents.getStore();
 
-async function fetchUserData() {
-  const ret = LandingComponentDataLoaded;
-  if (store.isLoggedIn) return ret;
-
-  await handler.checkAuth();
-
-  return ret;
-}
-
-class LandingComponentDataLoaded extends AuthStateSensitiveComponent {
+export default class LandingComponent extends AuthStateSensitiveComponent {
   /**
    * @param {keyof import('../../globalStore/store').Store} e
    * @param {import('../../api').UserData} data
@@ -29,7 +19,7 @@ class LandingComponentDataLoaded extends AuthStateSensitiveComponent {
           <div class="front-logo">
             <LogoLink size="200" />
           </div>
-          <div class="heading-text main-title">HALOCRYPT</div>
+          <div class="heading-text main-title c_u">HALOCRYPT</div>
         </div>
         <Timer />
         <div class="reg-btn-box">
@@ -61,9 +51,3 @@ class LandingComponentDataLoaded extends AuthStateSensitiveComponent {
     );
   }
 }
-export default () => (
-  <AsyncComponent
-    componentPromise={fetchUserData}
-    fallbackComponent={CredLoadingFallBack}
-  />
-);

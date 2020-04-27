@@ -13,6 +13,7 @@ export default function LogoLink(props) {
         backgroundRepeat: "no-repeat",
         display: "inline-block",
         margin: "auto",
+        "aria-label": "home page",
       }}
     ></A>
   );
