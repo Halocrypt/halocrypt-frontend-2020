@@ -19,18 +19,16 @@ const errors = {
   pwLength: "Password should be longer than 5 characters",
   pwNomatch: "Passwords do not match",
 };
-const BODY_STYLE = document.body.style;
+
 export default class Register extends AuthStateSensitiveComponent {
-  componentDidMount() {
-    BODY_STYLE.overflow = "hidden";
-  }
-  componentWillUnmount() {
-    BODY_STYLE.overflow = "unset";
-  }
   componentDidUpdate() {
     if (store.isLoggedIn) {
       return redirect("/profile");
     }
+    const inp = document.getElementById(
+      "input___" + this.state.currentInputIndex
+    );
+    inp && inp.focus();
   }
   state = {
     user: "",
@@ -206,6 +204,7 @@ function InputFields(props) {
     (x, i) =>
       i === that.state.currentInputIndex && (
         <AnimatedInput
+          id={"input___" + i}
           inputClass="form-anim"
           value={that.state[x]}
           type={inputTypes[x] || "text"}

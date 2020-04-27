@@ -32,7 +32,7 @@ function Profile(props) {
             </div>
           ))}
       </div>
-      {shouldShowAdminPanel(data) && (
+      {shouldShowAdminPanel(data, currID) && (
         <A
           href="/__admin__"
           class="heading-text hoverable landing-action-button"
@@ -85,8 +85,8 @@ function getValue(data, sec, x) {
   return val;
 }
 
-function shouldShowAdminPanel(data) {
-  return store.isLoggedIn && data.is_admin && data.id === store.id;
+function shouldShowAdminPanel(data, currID) {
+  return data.is_admin && data.id === currID;
 }
 
 /**@type {import('../../api').UserData} */

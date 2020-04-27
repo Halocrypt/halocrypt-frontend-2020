@@ -24,15 +24,21 @@ export const getAppRoutes = (routePath, style) =>
   );
 
 const SOCIAL_LINKS_MAP = {
-  instagram: "https://www.instagram.com/halocrypt/",
-  discord: "https://discord.gg/",
-  twitter: "https://twitter.com/halocrypt1",
-  github: "/github-info",
+  instagram: {
+    href: "https://www.instagram.com/halocrypt/",
+    label: "Halocrpt Instagram",
+  },
+  discord: { href: "https://discord.gg/", label: "Halocrypt Discord" },
+  twitter: {
+    href: "https://twitter.com/halocrypt1",
+    label: "Halocrypt Twitter",
+  },
+  github: { href: "/github-info", label: "Halocrypt Github" },
 };
 export const getSocialLinks = (style) =>
   ["instagram", "twitter", "discord", "github"].map((x) => {
-    const href = SOCIAL_LINKS_MAP[x];
-    const isInternalNavigation = href[0] === "/";
+    const data = SOCIAL_LINKS_MAP[x];
+    const isInternalNavigation = data[0] === "/";
     const El = isInternalNavigation ? A : "a";
     const target = isInternalNavigation ? null : "_blank";
     return (
@@ -41,7 +47,8 @@ export const getSocialLinks = (style) =>
         style={style}
         target={target}
         class={`${x} social-logo`}
-        href={href}
+        href={data.href}
+        aria-label={data.label}
       />
     );
   });
