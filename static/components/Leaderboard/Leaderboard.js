@@ -51,7 +51,7 @@ function Leaderboard(props) {
   const usernames = [];
   const levels = [];
   props.data.forEach((player, i) => {
-    ranks.push(<div class="ld-header left value">{getRankORSVG(i)}</div>);
+    ranks.push(<div class="ld-header left value">{getRankORSVG(i + 1)}</div>);
     usernames.push(<Username x={player} i={i} />);
     levels.push(
       <div class="ld-header right value">{player.current_level}</div>
