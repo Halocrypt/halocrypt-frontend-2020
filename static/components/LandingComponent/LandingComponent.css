@@ -60,8 +60,10 @@
   color: var(--font-color);
   font-size: 35px;
 }
+.action-button,
 .landing-action-button {
   margin: 10px;
+  user-select: none;
   padding: 8px;
   width: 150px;
   background: transparent;
@@ -76,6 +78,9 @@
   align-items: center;
   justify-content: center;
 }
+.action-button:hover,
+.action-button:active,
+.action-button:focus,
 .landing-action-button:hover,
 .landing-action-button:active,
 .landing-action-button:focus {

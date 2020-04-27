@@ -25,20 +25,30 @@ const componentMap = {
   "/play": () => import("./components/Play/Play").then(getDefault),
 };
 
+const getRouteChild = (path, promise) => {
+  const RouteChild = function (props) {
+    return (
+      <section data-application-state={path}>
+        <AsyncComponent
+          componentPromise={promise}
+          compactLayout={props.compactLayout}
+          fallbackComponent={RouteLoadingFallback}
+        />
+      </section>
+    );
+  };
+  return <RouteChild path={absolutePath(path)} />;
+};
+
 export default function (props) {
   return (
     <main class={["router-app", props.compactLayout ? "compact" : "free-form"]}>
       <div class="router-parent">
         <Router>
-          {entries(componentMap).map(([path, promise]) => (
-            <section data-application-state={path} path={absolutePath(path)}>
-              <AsyncComponent
-                componentPromise={promise}
-                compactLayout={props.compactLayout}
-                fallbackComponent={RouteLoadingFallback}
-              />
-            </section>
-          ))}
+          {entries(componentMap).map(([path, promise]) =>
+            getRouteChild(path, promise)
+          )}
+          }
         </Router>
       </div>
     </main>

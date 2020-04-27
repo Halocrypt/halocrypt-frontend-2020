@@ -4,8 +4,15 @@ const fn = function () {
   var links = Array.from(
     document.querySelectorAll("link[rel='preload'][as='style']")
   );
+  const once = { once: true };
   links.forEach(function (link) {
-    link.rel = "stylesheet";
+    link.addEventListener(
+      "load",
+      function () {
+        link.rel = "stylesheet";
+      },
+      once
+    );
   });
 };
 

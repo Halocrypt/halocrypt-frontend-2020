@@ -110,6 +110,8 @@
   margin-top: 5px;
   display: block;
   cursor: pointer;
+  background-color: var(--background-color);
+  color: var(--font-color);
 }
 
 .err-reasons {

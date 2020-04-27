@@ -111,7 +111,7 @@ function RegistrationError(props) {
     <>
       <div class="mask child"></div>
       <ErrorPopup
-        errorHead="Can't register"
+        errorHead="Can't Login"
         close={props.close}
         reasons={[props.reason]}
       />

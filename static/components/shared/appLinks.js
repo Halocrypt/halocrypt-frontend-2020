@@ -38,7 +38,7 @@ const SOCIAL_LINKS_MAP = {
 export const getSocialLinks = (style) =>
   ["instagram", "twitter", "discord", "github"].map((x) => {
     const data = SOCIAL_LINKS_MAP[x];
-    const isInternalNavigation = data[0] === "/";
+    const isInternalNavigation = data.href[0] === "/";
     const El = isInternalNavigation ? A : "a";
     const target = isInternalNavigation ? null : "_blank";
     return (

@@ -1,6 +1,5 @@
 import { AsyncComponent, Router, redirect, A } from "@hydrophobefireman/ui-lib";
 import { appEvents } from "../../globalStore";
-import { ProfileLoadingFallback } from "../../fallbackComponents";
 import { user } from "../../apiRoutes";
 import { getRequest } from "../../http/requests";
 import { ErrorPopup } from "../shared/UserForm";
@@ -76,7 +75,8 @@ function getValue(data, sec, x) {
   let val = x in data ? data[x] : sec[x];
   if (val == null) val = "N/A";
   if (x === "is_admin") {
-    if (val) {
+    if (val === true) {
+      //could be N/A
       val = "Team Halocrypt";
     } else {
       val = "Player";

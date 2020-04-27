@@ -6,23 +6,28 @@ import goldTrophy from "../../images/gold-trophy.svg";
 import silverTrophy from "../../images/silver-trophy.svg";
 import bronzeTrophy from "../../images/bronze-trophy.svg";
 import halocryptLogo from "../../images/logo.svg";
+import { appEvents } from "../../globalStore";
+const store = appEvents.getStore();
 const fetchLeaderboard = async () => {
   const url = play.getLeaderboard;
   const data = await getRequest(url);
   if (data.error) {
     return UnexpectedError;
   }
-  return () => <Leaderboard data={data.data} />;
+  const players = data.data;
+  skeletonData = players;
+  return () => <Leaderboard data={players} />;
 };
-
+const PLACEHOLDER_USER = "???";
 function Username(props) {
   const player = props.x;
   const i = props.i;
+  const id = player.id;
   return (
     <div class="ld-header center value">
-      {player.id !== "???" ? (
+      {id !== PLACEHOLDER_USER ? (
         <A
-          href={"/profile?id=" + player.id}
+          href={"/profile?id=" + id}
           class={"hoverable" + (i <= 2 ? " clr" : "")}
         >
           {player.is_admin && (
@@ -33,7 +38,7 @@ function Username(props) {
               title="halocrypt admin"
             />
           )}
-          {player.id}
+          {id} {store.isLoggedIn && store.userData.id === id && " (You)"}
         </A>
       ) : (
         player.id
@@ -104,16 +109,14 @@ function getRankORSVG(x) {
   return ranksToTrophies[x] || x;
 }
 ranksToImg = null;
-const skeletonData = {
-  id: "???",
+let skeletonData = Array(10).fill({
+  id: PLACEHOLDER_USER,
   current_level: "Infinity",
   is_admin: true,
-};
+});
 export default () => (
   <AsyncComponent
     componentPromise={fetchLeaderboard}
-    fallbackComponent={() => (
-      <Leaderboard data={Array(10).fill(skeletonData)} />
-    )}
+    fallbackComponent={() => <Leaderboard data={skeletonData} />}
   />
 );

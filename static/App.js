@@ -17,6 +17,7 @@ import "./components/MobileHeader/MobileHeader.css";
 import "./components/LandingComponent/LandingComponent.css";
 import "./components/Profile/Profile.css";
 import "./components/Leaderboard/Leaderboard.css";
+import "./components/Play/Play.css";
 import "./aquireB64.css";
 import "./forms.css";
 

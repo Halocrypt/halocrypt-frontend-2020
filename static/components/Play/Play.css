@@ -1,0 +1,30 @@
+.question-num {
+  font-size: 3rem;
+}
+
+.question-card {
+  border: 2px solid var(--spec-color);
+  width: 60%;
+  margin: auto;
+  height: fit-content;
+  margin-top: 15px;
+  padding: 20px;
+  font-size: 1.5rem;
+}
+@media only screen and (max-width: 600px) {
+  .question-card {
+    width: 75%;
+  }
+}
+
+.question-hint {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.sbm-button {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}

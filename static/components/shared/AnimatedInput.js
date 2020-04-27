@@ -1,6 +1,11 @@
+// no
 import { Component, h } from "@hydrophobefireman/ui-lib";
 export class AnimatedInput extends Component {
-  state = { isFocused: false, value: this.props.value || "" };
+  state = {
+    id: Math.random(),
+    isFocused: false,
+    value: this.props.value || "",
+  };
   onFocus = () =>
     !this.state.value && this.setState({ isFocused: true, moveDown: false });
   onBlur = () =>
@@ -12,10 +17,11 @@ export class AnimatedInput extends Component {
     onInput != null ? onInput(e) : void 0;
   };
   render(
-    { id = Math.random(), labelText = "", type = "text", inputClass },
+    { idx, labelText = "", type = "text", inputClass, extraProps },
     { isFocused, moveDown }
   ) {
-    const value = this.state.value;
+    const id = idx || this.state.id;
+    const value = this.props.value || this.state.value;
     const cls = [
       "_animate",
       isFocused || value ? "moveup" : "",
@@ -30,6 +36,7 @@ export class AnimatedInput extends Component {
         onBlur: this.onBlur,
         type,
         value,
+        extraProps,
         id,
         onInput: this.__onInput,
       })
@@ -37,7 +44,15 @@ export class AnimatedInput extends Component {
   }
 }
 
-function InputComponent({ onFocus, onBlur, onInput, id, type, value }) {
+function InputComponent({
+  onFocus,
+  onBlur,
+  onInput,
+  id,
+  type,
+  value,
+  extraProps,
+}) {
   return h("input", {
     onFocus,
     onBlur,
@@ -45,6 +60,7 @@ function InputComponent({ onFocus, onBlur, onInput, id, type, value }) {
     id,
     value,
     type,
+    ...extraProps,
     class: "paper-input",
   });
 }

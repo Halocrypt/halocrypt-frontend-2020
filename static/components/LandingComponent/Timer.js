@@ -38,13 +38,18 @@ export default class Timer extends Component {
     let _left;
     const inSeconds = timeLeft / 1000;
     const secInAnHour = 3600;
+    const minInHour = 60;
     const secInAMin = 60;
+
     const hours = Math.floor(inSeconds / secInAnHour);
     _left = inSeconds % secInAnHour;
-    const mins = Math.floor(inSeconds / secInAnHour);
+
+    const mins = Math.floor(_left / minInHour);
+
     _left = Math.round(_left % secInAMin);
+
     const sec = _left;
-    if (sec > 3 && hours === 0 && mins === 0) {
+    if (inSeconds > 3) {
       return `${tFix(hours)}:${tFix(mins)}:${tFix(sec)}`;
     }
     const r = "Ready?";

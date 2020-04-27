@@ -3,7 +3,7 @@ import FakeSet from "@hydrophobefireman/j-utils/@build-modern/src/modules/es6/lo
 const STORE = {
   currentTheme: null,
   userData: null,
-  eventBeginTimeStamp: +new Date() + 5000, // todo
+  eventBeginTimeStamp: 1588271400000,
 };
 
 Object.defineProperty(STORE, "isLoggedIn", {
