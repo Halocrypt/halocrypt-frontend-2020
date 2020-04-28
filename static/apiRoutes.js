@@ -1,7 +1,7 @@
-const devHost = "http://localhost:5000";
-const prodHost = "https://halocrypt-20.herokuapp.com";
-const devMode = location.hostname.includes("localhost");
-const host = devMode ? devHost : prodHost;
+export const devHost = "http://localhost:5000";
+export const prodHost = "https://halocrypt-20.herokuapp.com";
+export const devMode = location.hostname.includes("localhost");
+export const host = devMode ? devHost : prodHost;
 function apiURL(url) {
   const u = new URL(url, host);
   return u.href;
@@ -35,5 +35,6 @@ export const admin = {
   requalify: apiURL("/api/admin/requalify"),
 };
 export const logging = {
-  addLog: null,
+  addLog: apiURL("/api/ginggol/1"),
+  getLogs: apiURL("/api/ginggol/get"),
 };

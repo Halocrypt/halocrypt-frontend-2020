@@ -19,7 +19,7 @@ export default class Header extends PathSensitiveComponent {
         {s.currentPath === "/" ? (
           <div class="social-links">{SOCIAL_LINKS}</div>
         ) : (
-          <LogoLink size="60" />
+          <LogoLink size="5rem" />
         )}
         <div class="header-links">{getAppRoutes(s.currentPath)}</div>
       </header>

@@ -29,14 +29,14 @@ const SOCIAL_LINKS_MAP = {
     label: "Halocrpt Instagram",
   },
   discord: { href: "https://discord.gg/", label: "Halocrypt Discord" },
+  github: { href: "/github-info", label: "Halocrypt Github" },
   twitter: {
     href: "https://twitter.com/halocrypt1",
     label: "Halocrypt Twitter",
   },
-  github: { href: "/github-info", label: "Halocrypt Github" },
 };
 export const getSocialLinks = (style) =>
-  ["instagram", "twitter", "discord", "github"].map((x) => {
+  Object.keys(SOCIAL_LINKS_MAP).map((x) => {
     const data = SOCIAL_LINKS_MAP[x];
     const isInternalNavigation = data.href[0] === "/";
     const El = isInternalNavigation ? A : "a";

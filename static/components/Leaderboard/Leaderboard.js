@@ -8,6 +8,7 @@ import bronzeTrophy from "../../images/bronze-trophy.svg";
 import halocryptLogo from "../../images/logo.svg";
 import { appEvents } from "../../globalStore";
 const store = appEvents.getStore();
+
 const fetchLeaderboard = async () => {
   const url = play.getLeaderboard;
   const data = await getRequest(url);
@@ -31,11 +32,11 @@ function Username(props) {
           class={"hoverable" + (i <= 2 ? " clr" : "")}
         >
           {player.is_admin && (
-            <div
+            <img
               class="icon-i"
+              src={halocryptLogo}
               style={{
                 marginRight: "10px",
-                backgroundImage: 'url("' + halocryptLogo + '")',
               }}
               title="halocrypt admin"
             />

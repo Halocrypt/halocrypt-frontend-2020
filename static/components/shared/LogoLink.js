@@ -1,6 +1,7 @@
 import logoImg from "../../images/logo.svg";
 import { A } from "@hydrophobefireman/ui-lib";
 export default function LogoLink(props) {
+  const size = getSize(props.size);
   return (
     <A
       href={"/"}
@@ -8,8 +9,8 @@ export default function LogoLink(props) {
       aria-label="home page"
       style={{
         backgroundImage: `url("${logoImg}")`,
-        height: `${props.size}px`,
-        width: `${props.size}px`,
+        height: size,
+        width: size,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         display: "inline-block",
@@ -18,3 +19,8 @@ export default function LogoLink(props) {
     ></A>
   );
 }
+
+const getSize = (x) => {
+  if (/\d$/.test(x)) return `${x}px`;
+  return x;
+};

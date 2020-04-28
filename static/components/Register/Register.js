@@ -4,6 +4,8 @@ import { ErrorPopup, sanitizeRegExp } from "../shared/UserForm";
 import { handler } from "../../authHandler";
 import AuthStateSensitiveComponent from "../_AuthStateSensitiveComponent";
 import { appEvents } from "../../globalStore";
+import { logger } from "../../Logger";
+
 const IS_VALID = { valid: true };
 
 const store = appEvents.getStore();
@@ -21,6 +23,10 @@ const errors = {
 };
 
 export default class Register extends AuthStateSensitiveComponent {
+  componentDidMount() {
+    super.componentDidMount();
+    logger.sendUserLog(logger.pageViewRegistered);
+  }
   componentDidUpdate() {
     if (store.isLoggedIn) {
       return redirect("/profile");
@@ -119,7 +125,10 @@ export default class Register extends AuthStateSensitiveComponent {
           loading: false,
         });
       }
-      if (acc.id) return redirect("/login");
+      if (acc.id) {
+        logger.sendUserLog(logger.registerActionComplete);
+        return redirect("/login");
+      }
     } else {
       this.setState({ hasError: true, error: isValid.error });
     }

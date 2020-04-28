@@ -36,11 +36,16 @@
   }
 }
 .going-live-time-delta {
-  font-size: 8rem;
+  font-size: 11rem;
   color: var(--spec-color);
-  font-family: var(--default-font);
+  font-family: var(--haloc);
 }
 
+@media only screen and (max-width: 1000px) {
+  .going-live-time-delta {
+    font-size: 8rem;
+  }
+}
 @media only screen and (max-width: 675px) {
   .main-title {
     font-size: 48px;
@@ -65,7 +70,7 @@
   margin: 10px;
   user-select: none;
   padding: 8px;
-  width: 150px;
+  width: 10rem;
   background: transparent;
   color: var(--font-color);
   border-radius: 7px;
