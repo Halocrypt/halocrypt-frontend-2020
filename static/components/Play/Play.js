@@ -91,8 +91,8 @@ export default class Play extends Component {
   };
   resetError = () => this.setState({ incorrect: false });
   render(_, state) {
-    // if (!store.eventBegan)
-    //   return <div style={{ fontSize: "4rem" }}>Not yet</div>;
+    if (!store.eventBegan)
+      return <div style={{ fontSize: "4rem" }}>Not yet</div>;
     return (
       <>
         {state.incorrect && (
