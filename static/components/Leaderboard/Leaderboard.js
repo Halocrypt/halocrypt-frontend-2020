@@ -31,10 +31,12 @@ function Username(props) {
           class={"hoverable" + (i <= 2 ? " clr" : "")}
         >
           {player.is_admin && (
-            <img
-              src={halocryptLogo}
+            <div
               class="icon-i"
-              style={{ marginRight: "10px" }}
+              style={{
+                marginRight: "10px",
+                backgroundImage: 'url("' + halocryptLogo + '")',
+              }}
               title="halocrypt admin"
             />
           )}
