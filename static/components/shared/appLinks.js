@@ -14,7 +14,7 @@ export const getAppRoutes = (routePath, style) =>
     path !== routePath.split("?")[0] &&
     ("/profile" !== path || store.isLoggedIn) ? (
       <A
-        style={style}
+        style={{ fontWeight: "normal", ...style }}
         href={path}
         class={["heading-text", "heading-link", "hoverable"]}
       >

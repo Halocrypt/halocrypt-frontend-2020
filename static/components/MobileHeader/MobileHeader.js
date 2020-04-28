@@ -30,7 +30,7 @@ export default class MobileHeader extends PathSensitiveComponent {
           {state.currentPath === "/" ? (
             <LogoLink size="60" />
           ) : (
-            <A href="/" class="heading-text halocrypt-text">
+            <A href="/" class="heading-text halocrypt-text c_u">
               Halocrypt
             </A>
           )}
