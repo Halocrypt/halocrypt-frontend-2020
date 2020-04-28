@@ -18,20 +18,12 @@ html {
   margin: auto;
   text-align: center;
   transition: 0.3s ease-in;
-  margin-top: calc(3% + 10px);
 }
-@media only screen and (max-width: 900px) {
-  .router-app {
-    margin-top: calc(7% + 10px);
-  }
-}
+
 @media only screen and (max-width: 600px) {
   .app-popup {
     height: 30vh;
     width: 95vw;
-  }
-  .router-app {
-    margin-top: 15%;
   }
 }
 body {
@@ -61,7 +53,7 @@ a {
 }
 
 header {
-  position: absolute;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -71,6 +63,7 @@ header {
   align-items: center;
   margin: auto;
   background-color: var(--background-color);
+  z-index: 5;
 }
 
 .social-logo {
@@ -161,10 +154,6 @@ header {
   to {
     opacity: 1;
   }
-}
-
-.router-parent {
-  margin-top: 6rem;
 }
 
 .c_u {
