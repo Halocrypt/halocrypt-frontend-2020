@@ -8,7 +8,6 @@
   border-top: 0.5px solid var(--font-color);
   border-bottom: 0.5px solid var(--font-color);
   padding: 8px;
-  display: flex;
   align-items: center;
   justify-content: center;
 }
