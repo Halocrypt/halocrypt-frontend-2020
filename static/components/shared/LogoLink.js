@@ -5,6 +5,7 @@ export default function LogoLink(props) {
     <A
       href={"/"}
       class={["hoverable"].concat(props.class || [])}
+      aria-label="home page"
       style={{
         backgroundImage: `url("${logoImg}")`,
         height: `${props.size}px`,
@@ -13,7 +14,6 @@ export default function LogoLink(props) {
         backgroundRepeat: "no-repeat",
         display: "inline-block",
         margin: "auto",
-        "aria-label": "home page",
       }}
     ></A>
   );

@@ -28,7 +28,7 @@ function Username(props) {
       {id !== PLACEHOLDER_USER ? (
         <A
           href={"/profile?id=" + id}
-          class={"hoverable" + (i <= 2 ? " clr" : "")}
+          class={"hoverable flex" + (i <= 2 ? " clr" : "")}
         >
           {player.is_admin && (
             <img

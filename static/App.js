@@ -18,6 +18,8 @@ import "./components/LandingComponent/LandingComponent.css";
 import "./components/Profile/Profile.css";
 import "./components/Leaderboard/Leaderboard.css";
 import "./components/Play/Play.css";
+import "./components/_/Admin/Admin.css";
+import "./components/Rules/Rules.css";
 import "./aquireB64.css";
 import "./forms.css";
 

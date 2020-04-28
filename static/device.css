@@ -170,3 +170,7 @@ header {
 .c_u {
   border-bottom: 2px solid var(--spec-color);
 }
+
+.flex {
+  display: flex;
+}

@@ -26,6 +26,8 @@
   font-size: 2rem;
   display: grid;
   grid-template-columns: 0.25fr auto 0.25fr;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 @media only screen and (max-width: 600px) {

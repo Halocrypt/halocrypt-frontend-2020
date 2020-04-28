@@ -23,6 +23,8 @@ const componentMap = {
   "/leaderboard": () =>
     import("./components/Leaderboard/Leaderboard").then(getDefault),
   "/play": () => import("./components/Play/Play").then(getDefault),
+  "/rules": () => import("./components/Rules/Rules").then(getDefault),
+  "/__admin__": () => import("./components/_/Admin/Admin").then(getDefault),
 };
 
 const getRouteChild = (path, promise) => {
