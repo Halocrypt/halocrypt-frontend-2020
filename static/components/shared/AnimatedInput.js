@@ -21,7 +21,7 @@ export class AnimatedInput extends Component {
     { isFocused, moveDown }
   ) {
     const id = idx || this.state.id;
-    const value = this.props.value || this.state.value;
+    const value =  this.state.value;
     const cls = [
       "_animate",
       isFocused || value ? "moveup" : "",
