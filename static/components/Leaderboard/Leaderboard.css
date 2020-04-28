@@ -8,7 +8,9 @@
   border-top: 0.5px solid var(--font-color);
   border-bottom: 0.5px solid var(--font-color);
   padding: 8px;
-  text-align:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .ld-header.value {
   margin-top: 10px;
@@ -30,7 +32,7 @@
 
 @media only screen and (max-width: 600px) {
   .ld-table {
-    font-size: 0.95rem;
+    font-size: .95rem;
   }
   .ld-title {
     font-size: 2rem;
