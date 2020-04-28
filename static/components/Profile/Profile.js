@@ -63,8 +63,8 @@ async function loadProfile() {
   } else {
     data = await getRequest(`${user.getUserDetails}?id=${id}`);
 
-    logger.sendUserLog({ type: logger.profileView, user: data.id });
     data = data.data;
+    logger.sendUserLog({ type: logger.profileView, userViewed: data.id });
   }
   if (data) {
     return () => <Profile data={data} />;

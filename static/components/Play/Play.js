@@ -85,7 +85,10 @@ export default class Play extends Component {
   proceedToNextLevel = () => {
     logger.sendUserLog({
       type: logger.accessQuestion,
-      question_level: (this.state.fetchedQuestion || 0) + 1,
+      question_level:
+        ((this.state.fetchedQuestion &&
+          this.state.fetchedQuestion.question_level) ||
+          0) + 1,
     });
     this.setState({ fetchedQuestion: null });
   };
