@@ -91,8 +91,8 @@ export default class Play extends Component {
   };
   resetError = () => this.setState({ incorrect: false });
   render(_, state) {
-    if (!store.eventBegan)
-      return <div style={{ fontSize: "4rem" }}>Not yet</div>;
+    // if (!store.eventBegan)
+    //   return <div style={{ fontSize: "4rem" }}>Not yet</div>;
     return (
       <>
         {state.incorrect && (
@@ -125,6 +125,7 @@ const extra = {
   autocorrect: "off",
   autocapitalize: "off",
   spellcheck: false,
+  style: { width: "90%" },
 };
 /**
  *
@@ -145,11 +146,12 @@ function Question(props) {
             <div>{`Hint ${i + 1}: ${x}`}</div>
           ))}
         </div>
-        <AnimatedInput
-          extraProps={extra}
+        <input
+          class="paper-input"
+          placeholder="Answer"
           onInput={onInput}
           value={value}
-          labelText="Answer"
+          {...extra}
         />
       </div>
       <button class="action-button heading-text sbm-button hoverable">

@@ -16,7 +16,7 @@ export default function Admin() {
   );
 }
 class DataPanel extends Component {
-  /**@type {{currentTab:"questions"|"users"}} */
+  /**@type {{currentTab:"logs"|"questions"|"users"}} */
   state = { currentTab: "questions" };
 
   setTab = (e) => this.setState({ currentTab: e.target.dataset.tab });
@@ -24,7 +24,7 @@ class DataPanel extends Component {
   render(_, state) {
     const isQuestionsWorkSpace = state.currentTab === "questions";
     const isUsersWorkSpace = state.currentTab === "users";
-
+    const isLogsWorkSpace = state.currentTab === "logs";
     return (
       <>
         <div class="btn-box">
@@ -42,6 +42,14 @@ class DataPanel extends Component {
             class={"admin-button-tab" + (isUsersWorkSpace ? " active" : "")}
           >
             Users
+          </button>
+
+          <button
+            onClick={this.setTab}
+            data-tab="logs"
+            class={"admin-button-tab" + (isLogsWorkSpace ? " active" : "")}
+          >
+            Logs
           </button>
         </div>
 

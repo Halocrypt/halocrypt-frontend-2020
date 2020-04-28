@@ -4,6 +4,7 @@ import { user } from "../../apiRoutes";
 import { getRequest } from "../../http/requests";
 import { ErrorPopup } from "../shared/UserForm";
 import keys from "@hydrophobefireman/j-utils/@build-modern/src/modules/Object/keys";
+import { logger } from "../../Logger";
 const store = appEvents.getStore();
 const EMPTY = {};
 
@@ -18,6 +19,7 @@ function Profile(props) {
   const data = props.data;
   const sec = data.secure_data || EMPTY;
   const currID = store.isLoggedIn && store.userData.id;
+  const clsName = "heading-text hoverable landing-action-button";
   return (
     <div>
       <div class="heading-text bfont">Profile</div>
@@ -31,31 +33,37 @@ function Profile(props) {
             </div>
           ))}
       </div>
-      {shouldShowAdminPanel(data, currID) && (
-        <A
-          href="/__admin__"
-          class="heading-text hoverable landing-action-button"
-        >
-          Admin Panel
-        </A>
-      )}
-      {data.id === currID && (
-        <A href="/logout" class="heading-text hoverable landing-action-button">
-          Logout
-        </A>
-      )}
+      <div class="action-buttons-profile">
+        {shouldShowAdminPanel(data, currID) && (
+          <A href="/__admin__" class={clsName}>
+            Admin Panel
+          </A>
+        )}
+        {data.id === currID && [
+          !data.has_verified_email && (
+            <A href="/verify-email" class={clsName}>
+              Verify Email
+            </A>
+          ),
+          <A href="/logout" class={clsName}>
+            Logout
+          </A>,
+        ]}
+      </div>
     </div>
   );
 }
 async function loadProfile() {
   const q = new URLSearchParams(Router.getQs);
   const id = q.get("id");
+  /**@type {import("../../api").UserData} */
   let data;
   if (store.isLoggedIn && id === store.userData.id) {
     data = store.userData;
   } else {
-    /**@type {import("../../api").UserRoutes.getUserDetails.response['success']} */
     data = await getRequest(`${user.getUserDetails}?id=${id}`);
+
+    logger.sendUserLog({ type: logger.profileView, user: data.id });
     data = data.data;
   }
   if (data) {

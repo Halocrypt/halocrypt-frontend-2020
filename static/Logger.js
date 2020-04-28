@@ -22,7 +22,7 @@ class Logger {
     this.accessQuestion = "question";
     this.answeredQuestion = "answered";
     this.leaderboardView = "leaderboard";
-    // this.profileView = "profile";
+    this.profileView = "profile";
   }
   __shouldPostLog() {
     return !devMode;

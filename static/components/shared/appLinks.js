@@ -28,7 +28,7 @@ const SOCIAL_LINKS_MAP = {
     href: "https://www.instagram.com/halocrypt/",
     label: "Halocrpt Instagram",
   },
-  discord: { href: "https://discord.gg/", label: "Halocrypt Discord" },
+  discord: { href: "https://discord.gg/fz8e6Df", label: "Halocrypt Discord" },
   github: { href: "/github-info", label: "Halocrypt Github" },
   twitter: {
     href: "https://twitter.com/halocrypt1",
