@@ -24,6 +24,7 @@ class Logger {
     this.answeredQuestion = "answered";
     this.leaderboardView = "leaderboard";
     this.profileView = "profile";
+    this.passwordResetRequested = "password-reset";
   }
   __shouldPostLog() {
     return !devMode;

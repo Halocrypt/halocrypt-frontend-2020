@@ -5,7 +5,7 @@ export default function Rules(Props) {
       <div class="orange-box">
         <ul style={{ margin: "10px" }}>
           <li class="list-element-rule">
-            The hunt shall commence from 12:00 AM 1st May
+            The hunt shall commence from 12:00 AM 4<sup>th</sup> May
           </li>
           <li class="list-element-rule">
             The event encompasses an Online Cryptic Treasure Hunt in which
