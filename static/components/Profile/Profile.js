@@ -24,7 +24,7 @@ function Profile(props) {
     <div>
       <div class="heading-text bfont">Profile</div>
       <div class="prof-data-box">
-        {["name", "id", "current_level", "is_admin"]
+        {["name", "id", "current_level", "is_admin", "school"]
           .concat(keys(sec))
           .map((x) => (
             <div class="prof-container">

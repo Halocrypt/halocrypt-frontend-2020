@@ -8,18 +8,21 @@ import entries from "@hydrophobefireman/j-utils/@build-modern/src/modules/Object
 import { RouteLoadingFallback } from "./fallbackComponents";
 import { handler } from "./authHandler";
 
+const Logout = () =>
+  Promise.resolve(() => {
+    handler.logout().then(redirect("/"));
+    return "Logging you out";
+  });
+
 const getDefault = (module_) => module_.default;
+
 const componentMap = {
   "/": () =>
     import("./components/LandingComponent/LandingComponent").then(getDefault),
   "/register": () => import("./components/Register/Register").then(getDefault),
   "/login": () => import("./components/Login/Login").then(getDefault),
   "/profile": () => import("./components/Profile/Profile").then(getDefault),
-  "/logout": () =>
-    Promise.resolve(() => {
-      handler.logout().then(redirect("/"));
-      return "Logging you out";
-    }),
+  "/logout": Logout,
   "/leaderboard": () =>
     import("./components/Leaderboard/Leaderboard").then(getDefault),
   "/play": () => import("./components/Play/Play").then(getDefault),

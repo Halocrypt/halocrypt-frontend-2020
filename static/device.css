@@ -164,3 +164,6 @@ header {
 .flex {
   display: flex;
 }
+.bfont {
+  font-size: 4rem;
+}
