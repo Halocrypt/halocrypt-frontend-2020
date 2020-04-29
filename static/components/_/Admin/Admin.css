@@ -50,3 +50,47 @@
   font-size: 1.2rem;
   margin-top: 20px;
 }
+
+.input-parent {
+  width: 50%;
+  margin: auto auto 20px;
+}
+
+.back {
+  height: 40px;
+  transform: rotate(180deg);
+  user-select: none;
+}
+.plus {
+  border: 2px solid var(--spec-color);
+  height: 40px;
+  user-select: none;
+  border-radius: 50%;
+}
+
+.hints-parent-admin {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+hr {
+  border-color: var(--spec-color);
+}
+
+.task-desc {
+  font-size: 2rem;
+}
+
+.question-parent {
+  padding-bottom: 20px;
+}
+
+.edit-q {
+  width: fit-content;
+  padding: 20px;
+}
+
+.search-box {
+  width: 60%;
+  margin: auto;
+}

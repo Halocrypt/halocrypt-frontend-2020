@@ -65,7 +65,7 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
               The top competitors who reach the highest levels in the shortest
               amount of time shall receive the prizes. The participant is free
               to use the internet to search for the answers. The hunt will
-              commence on the 1st of May at 12 AM IST.
+              commence on the 4<sup>th</sup> of May at 12 AM IST.
             </div>
             <div>
               Halocrypt provides participating students with an international
@@ -86,18 +86,25 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
           <div class="t-container">
             <div style={{ fontSize: "2rem" }}>Prizes:-</div>
             <div>
-              <span class="bold">1st:</span> NETFLIX PREMIUM or amazon gift card
-              for the same amount, spotify premium family and discord nitro.
+              <span class="bold">
+                1<sup>st</sup>:
+              </span>
+              NETFLIX PREMIUM or amazon gift card for the same amount, spotify
+              premium family and discord nitro.
             </div>
             <div>
-              <span class="bold">2nd:</span> NETFLIX STANDARD or amazon gift
-              card for the same amount, spotify premium family and discord
-              nitro.
+              <span class="bold">
+                2<sup>nd</sup>:
+              </span>
+              NETFLIX STANDARD or amazon gift card for the same amount, spotify
+              premium family and discord nitro.
             </div>
             <div>
-              <span class="bold">3rd:</span> NETFLIX STANDARD or amazon gift
-              card for the same amount, spotify premium family and discord
-              nitro.
+              <span class="bold">
+                3<sup>rd</sup>:
+              </span>
+              NETFLIX STANDARD or amazon gift card for the same amount, spotify
+              premium family and discord nitro.
             </div>
             <div>10X spotify premium.</div>
             <div>10Xdiscord nitro classic</div>

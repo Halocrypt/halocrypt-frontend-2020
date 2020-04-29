@@ -9,7 +9,7 @@ const defaultHeaders = {
     `${location.protocol}//${location.host}`,
 };
 const initDict = { credentials: "include" };
-
+const func = retry(fetch, 3, 100);
 async function fetchRequest(url, headers, options = {}, method) {
   const sendHeaders = assign({}, headers || {}, defaultHeaders);
   const sendOptions = assign({}, initDict, options);
@@ -18,9 +18,8 @@ async function fetchRequest(url, headers, options = {}, method) {
     headers: sendHeaders,
     ...sendOptions,
   });
-  const func = retry(fetch, 3, 100);
-  const resp = await func(req);
   try {
+    const resp = await func(req);
     return await resp.json();
   } catch (e) {
     return { error: "Unknown error" };

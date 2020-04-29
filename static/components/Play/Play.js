@@ -148,7 +148,7 @@ export function Question(props) {
         <div class="question-hint">
           {data.hint &&
             !!data.hint.length &&
-            data.hint.map((x, i) => <div>{`Hint ${i + 1}: ${x}`}</div>)}
+            data.hint.map((x, i) => <Hint data={x} i={i} />)}
         </div>
         {!disableInput && (
           <input
@@ -166,5 +166,36 @@ export function Question(props) {
         </button>
       )}
     </form>
+  );
+}
+
+function getHintElement(x) {
+  if (typeof x === "string") return x;
+  const type = x.type;
+  const value = x.value;
+  if (type === "text") return value;
+  if (type === "link")
+    return (
+      <a
+        target="_blank"
+        href={value}
+        style={{ textDecoration: "underline", color: "var(--spec-color)" }}
+      >
+        {value}
+      </a>
+    );
+}
+
+function Hint(props) {
+  const x = props.data;
+  const i = props.i;
+  return (
+    x &&
+    !!x.value && (
+      <div>
+        {`Hint ${i + 1}: `}
+        {getHintElement(x)}
+      </div>
+    )
   );
 }

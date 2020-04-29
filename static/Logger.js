@@ -7,7 +7,7 @@ const initUserConfig = assign({ session: randString() }, window.__initConfig);
 window.__initConfig = null;
 
 const store = appEvents.getStore();
-const callback =
+export const callback =
   window.requestIdleCallback ||
   window.requestAnimationFrame ||
   (window.Promise && Promise.prototype.then.bind(Promise.resolve())) ||

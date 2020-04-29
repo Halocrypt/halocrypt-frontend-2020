@@ -28,6 +28,7 @@ export const admin = {
   getAllUsers: apiURL("/api/admin/get-users"),
   addQuestion: apiURL("/api/admin/add-question"),
   getLatestQuestionNumber: apiURL("/api/admin/get-latest-question-number"),
+  getAllQuestions: apiURL("/api/admin/get-questions"),
   editQuestion: apiURL("/api/admin/edit-question"),
   setLevel: apiURL("/api/admin/set-level"),
   deleteUser: apiURL("/api/admin/delete-user"),

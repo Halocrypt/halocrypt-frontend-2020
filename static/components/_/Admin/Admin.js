@@ -1,10 +1,7 @@
-import { Component, AsyncComponent } from "@hydrophobefireman/ui-lib";
+import { Component } from "@hydrophobefireman/ui-lib";
 import { appEvents } from "../../../globalStore";
-import { admin } from "../../../apiRoutes";
-import { postJSONRequest, getRequest } from "../../../http/requests";
-import { getLatestQuestionNumber } from "./util";
-import { Question } from "../../Play/Play";
-import { QuestionEditor } from "./QuestionEditor";
+import { AddQuestion, EditQuestion } from "./Questions";
+import back from "./back.svg";
 const store = appEvents.getStore();
 
 export default function Admin() {
@@ -22,7 +19,8 @@ class DataPanel extends Component {
   /**@type {{currentTab:"logs"|"questions"|"users"}} */
   state = { currentTab: "questions" };
 
-  setTab = (e) => this.setState({ currentTab: e.target.dataset.tab });
+  setTab = (e) =>
+    this.setState({ currentTab: e ? e.target.dataset.tab : null });
 
   render(_, state) {
     const isQuestionsWorkSpace = state.currentTab === "questions";
@@ -31,32 +29,34 @@ class DataPanel extends Component {
     return (
       <>
         <div class="btn-box">
-          <button
-            onClick={this.setTab}
-            data-tab="questions"
-            class={"admin-button-tab" + (isQuestionsWorkSpace ? " active" : "")}
-          >
-            Questions
-          </button>
-
-          <button
-            onClick={this.setTab}
-            data-tab="users"
-            class={"admin-button-tab" + (isUsersWorkSpace ? " active" : "")}
-          >
-            Users
-          </button>
-
-          <button
-            onClick={this.setTab}
-            data-tab="logs"
-            class={"admin-button-tab" + (isLogsWorkSpace ? " active" : "")}
-          >
-            Logs
-          </button>
+          {["questions", "users", "logs"].map(
+            (x) =>
+              state.currentTab !== x && (
+                <button
+                  onClick={this.setTab}
+                  data-tab={x}
+                  class="admin-button-tab"
+                >
+                  {x}
+                </button>
+              )
+          )}
         </div>
 
-        <div style={{ fontSize: "2rem" }}>Workspace: {state.currentTab}</div>
+        <div style={{ fontSize: "2rem" }}>
+          Workspace: {state.currentTab || "Not selected"}
+        </div>
+
+        {this.state.currentTab && (
+          <div style={{ textAlign: "left" }}>
+            <img
+              src={back}
+              class="back hoverable"
+              title="go back"
+              onClick={() => this.setTab()}
+            />
+          </div>
+        )}
 
         {isQuestionsWorkSpace && <QuestionsPanel />}
 
@@ -92,56 +92,8 @@ class QuestionsPanel extends Component {
       );
     }
     const Task = this.state.currentTask;
-    return <Task />;
+    return <Task close={this.closeWorkspaceTask} />;
   }
 }
-
-class AddQuestion extends Component {
-  state = { questionData: { question: "", hint: [], special_hint: [] } };
-
-  async getLastQuestionData() {
-    this.setState({ isLoading: true, data: null, showLastQuestion: false });
-
-    const data = await getLatestQuestionNumber();
-    const _qData = this.state.questionData;
-    _qData.question_level = data.question_number + 1;
-    this.setState({ data: true, isLoading: false, questionData: _qData });
-  }
-  componentDidMount() {
-    this.getLastQuestionData();
-  }
-
-  _sendQuestion = () => {};
-
-  _propUpdater = (prop, value) =>
-    this.setState((ps) => {
-      const d = ps.questionData;
-      d[prop] = value;
-      return d;
-    });
-
-  render(_, state) {
-    if (this.state.isLoading) return <Loader />;
-    if (!this.state.data) return;
-
-    return (
-      <div>
-        <div class="heading-text last-q">Game View :</div>
-        <QuestionEditor
-          propUpdater={this._propUpdater}
-          onSubmit={this._sendQuestion}
-          questionData={this.state.questionData}
-        />
-        <div class="last-question-card">
-          <Question data={state.questionData} disableInput={true} />
-        </div>
-      </div>
-    );
-  }
-}
-
-class EditQuestion extends Component {}
 
 function UsersPanel() {}
-
-const Loader = () => "Loading data...";
