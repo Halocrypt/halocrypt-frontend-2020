@@ -44,7 +44,7 @@ export default class TokenFetchingComponent extends Component {
     if (!confNewPassword) reasons.push("confirm password");
     if (newPassword !== confNewPassword) reasons.push("Passwords must match");
     if (reasons.length) {
-      this.state({ error: reasons });
+      this.setState({ error: reasons });
     }
     this.setState({ isLoading: true });
 
