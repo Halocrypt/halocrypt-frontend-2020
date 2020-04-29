@@ -3,7 +3,8 @@ import { postJSONRequest, getRequest } from "./http/requests";
 import { appEvents } from "./globalStore";
 import assign from "@hydrophobefireman/j-utils/@build-modern/src/modules/Object/assign";
 
-const initUserConfig = assign({ session: randString() }, window.__initConfig);
+const initUserConfig = assign({}, window.__initConfig);
+
 window.__initConfig = null;
 
 const store = appEvents.getStore();
@@ -72,12 +73,3 @@ window.onerror = (message, source, _lineno, _colno, err) => {
     source,
   });
 };
-
-function randString() {
-  const hasCrypto = "crypto" in self;
-  let rv;
-  if (hasCrypto) {
-    return crypto.getRandomValues(new Uint8Array(10)).join("-");
-  }
-  return String(Math.random());
-}

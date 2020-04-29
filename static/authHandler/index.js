@@ -53,5 +53,3 @@ class Authy {
 }
 
 export const handler = new Authy();
-
-console.log(handler);

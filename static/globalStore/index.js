@@ -26,7 +26,6 @@ export const appEvents = {
    */
   set(type, data) {
     STORE[type] = data;
-    console.log("new state ->", type, data);
     subscriptions.forEach((x) => x(type, data, STORE));
   },
   unsubscribe(fn) {
