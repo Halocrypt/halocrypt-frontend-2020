@@ -56,6 +56,7 @@ export default class Register extends AuthStateSensitiveComponent {
     "conf_pass",
   ];
   labelTexts = {
+    school: "School (Optional)",
     ig_user_id: "Instagram (Optional)",
     conf_pass: "Confirm password",
     user: "Username",
