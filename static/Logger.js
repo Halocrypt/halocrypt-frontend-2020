@@ -41,15 +41,12 @@ class Logger {
       console.log("prod log post ->", nextData);
     }
   }
-  sendErrorLog(error) {
-    callback(() => this.sendUserLog(error));
-  }
 }
 
 export const logger = new Logger();
 
-window.onerror = (message, source, _lineno, _colno, error) => {
-  const errorInfo = error || {};
+window.onerror = (message, source, _lineno, _colno, err) => {
+  const errorInfo = err || {};
   message = message || errorInfo.message || "";
 
   const line = err.line || errorInfo.message || 0;
@@ -63,7 +60,7 @@ window.onerror = (message, source, _lineno, _colno, error) => {
   const timestamp = Date.now();
 
   const url = location.href;
-  logger.sendErrorLog({
+  logger.sendUserLog({
     type: "js-error",
     timestamp,
     message,

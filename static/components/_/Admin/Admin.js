@@ -2,6 +2,9 @@ import { Component, AsyncComponent } from "@hydrophobefireman/ui-lib";
 import { appEvents } from "../../../globalStore";
 import { admin } from "../../../apiRoutes";
 import { postJSONRequest, getRequest } from "../../../http/requests";
+import { getLatestQuestionNumber } from "./util";
+import { Question } from "../../Play/Play";
+import { QuestionEditor } from "./QuestionEditor";
 const store = appEvents.getStore();
 
 export default function Admin() {
@@ -94,15 +97,45 @@ class QuestionsPanel extends Component {
 }
 
 class AddQuestion extends Component {
-  getLastQuestionData = async () => {
-    // fixme
-  };
-  render() {
+  state = { questionData: { question: "", hint: [], special_hint: [] } };
+
+  async getLastQuestionData() {
+    this.setState({ isLoading: true, data: null, showLastQuestion: false });
+
+    const data = await getLatestQuestionNumber();
+    const _qData = this.state.questionData;
+    _qData.question_level = data.question_number + 1;
+    this.setState({ data: true, isLoading: false, questionData: _qData });
+  }
+  componentDidMount() {
+    this.getLastQuestionData();
+  }
+
+  _sendQuestion = () => {};
+
+  _propUpdater = (prop, value) =>
+    this.setState((ps) => {
+      const d = ps.questionData;
+      d[prop] = value;
+      return d;
+    });
+
+  render(_, state) {
+    if (this.state.isLoading) return <Loader />;
+    if (!this.state.data) return;
+
     return (
-      <AsyncComponent
-        componentPromise={this.getLastQuestionData}
-        fallbackComponent={Loader}
-      />
+      <div>
+        <div class="heading-text last-q">Game View :</div>
+        <QuestionEditor
+          propUpdater={this._propUpdater}
+          onSubmit={this._sendQuestion}
+          questionData={this.state.questionData}
+        />
+        <div class="last-question-card">
+          <Question data={state.questionData} disableInput={true} />
+        </div>
+      </div>
     );
   }
 }

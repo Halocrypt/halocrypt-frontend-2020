@@ -37,3 +37,16 @@
   font-size: 1.2rem;
   cursor: pointer;
 }
+
+.last-question-card {
+  border: 1px solid var(--font-color);
+  width: 80%;
+  margin: auto;
+  padding: 23px;
+  border-radius: 10px;
+}
+
+.last-q {
+  font-size: 1.2rem;
+  margin-top: 20px;
+}

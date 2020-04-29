@@ -43,6 +43,7 @@ export default class Login extends AuthStateSensitiveComponent {
     };
   }
   onSubmit = async () => {
+    if (this.state.loading) return;
     this.setState({ loading: true });
     const dat = await handler.auth({
       user: this.state.user,

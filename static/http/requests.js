@@ -20,7 +20,11 @@ async function fetchRequest(url, headers, options = {}, method) {
   });
   const func = retry(fetch, 3, 100);
   const resp = await func(req);
-  return await resp.json();
+  try {
+    return await resp.json();
+  } catch (e) {
+    return { error: "Unknown error" };
+  }
 }
 
 /**

@@ -19,3 +19,6 @@ if __name__ == "__main__":
     print("copying 404.html")
     shutil.copyfile("404.html", os.path.join(build_dir, "404.html"))
     os.remove("webpack.config.prod.js")
+
+
+

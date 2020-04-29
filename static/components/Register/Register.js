@@ -96,6 +96,7 @@ export default class Register extends AuthStateSensitiveComponent {
   _validate_school = REQUIRED_VALUE;
   _validate_ig_user_id = () => IS_VALID;
   onSubmit = async (e) => {
+    if (this.state.loading) return;
     e.preventDefault();
     const currIndex = this.state.currentInputIndex;
     const currentProp = this.fieldsOrder[currIndex];

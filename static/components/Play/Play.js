@@ -38,6 +38,8 @@ export default class Play extends Component {
     }
   }
   _submit = async () => {
+    if (this.state.isAwaitingAnswer) return;
+    this.setState({ isAwaitingAnswer: true });
     const answer = this.state.answer;
 
     const qLevel =
@@ -49,7 +51,6 @@ export default class Play extends Component {
     /**@type {import('../../api').PlayRoutes.answerQuestion.request} */
 
     const postData = { answer };
-    this.setState({ isAwaitingAnswer: true });
 
     /** @type {import('../../api').PlayRoutes.answerQuestion.response['success']} */
     const resp = await postJSONRequest(play.answerQuestion, postData);
@@ -134,8 +135,8 @@ const extra = {
  *
  * @param {{data:import('../../api').PlayRoutes.getQuestion.response['success']['data']}} props
  */
-function Question(props) {
-  const { data, value, onInput, onSubmit } = props;
+export function Question(props) {
+  const { data, value, onInput, onSubmit, disableInput } = props;
   if (data.game_over) {
     return "You win (?)";
   }
@@ -145,21 +146,25 @@ function Question(props) {
       <div class="question-card">
         <div>{data.question}</div>
         <div class="question-hint">
-          {data.hint.map((x, i) => (
-            <div>{`Hint ${i + 1}: ${x}`}</div>
-          ))}
+          {data.hint &&
+            !!data.hint.length &&
+            data.hint.map((x, i) => <div>{`Hint ${i + 1}: ${x}`}</div>)}
         </div>
-        <input
-          class="paper-input"
-          placeholder="Answer"
-          onInput={onInput}
-          value={value}
-          {...extra}
-        />
+        {!disableInput && (
+          <input
+            class="paper-input"
+            placeholder="Answer"
+            onInput={onInput}
+            value={value}
+            {...extra}
+          />
+        )}
       </div>
-      <button class="action-button heading-text sbm-button hoverable">
-        Submit
-      </button>
+      {!disableInput && (
+        <button class="action-button heading-text sbm-button hoverable">
+          Submit
+        </button>
+      )}
     </form>
   );
 }

@@ -15,7 +15,7 @@ export type Hint = {
 export type Question = {
   question_level: number;
   question: string;
-  hints: Hint[];
+  hint: Hint[];
   special: any[];
   game_over?: boolean;
 };
@@ -130,7 +130,10 @@ export namespace AdminRoutes {
     export type response = addQuestion.response;
   }
   export namespace getLatestQuestion {
-    export type response = GenericResponse<{ question_number: number }>;
+    export type response = GenericResponse<{
+      question_number: number;
+      question_data: Question;
+    }>;
   }
   export namespace setLevel {
     export interface request {

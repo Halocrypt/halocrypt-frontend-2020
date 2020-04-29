@@ -1,5 +1,5 @@
 import { AsyncComponent, A } from "@hydrophobefireman/ui-lib";
-import { play } from "../../apiRoutes";
+import { play, admin } from "../../apiRoutes";
 import { getRequest } from "../../http/requests";
 import { UnexpectedError } from "../../fallbackComponents";
 import goldTrophy from "../../images/gold-trophy.svg";
@@ -19,7 +19,7 @@ const fetchLeaderboard = async () => {
   skeletonData = players;
   return () => <Leaderboard data={players} />;
 };
-const PLACEHOLDER_USER = "???";
+const PLACEHOLDER_USER = "-";
 function Username(props) {
   const player = props.x;
   const i = props.i;
@@ -58,16 +58,23 @@ function Leaderboard(props) {
   const ranks = [];
   const usernames = [];
   const levels = [];
+
   props.data.forEach((player, i) => {
     ranks.push(<div class="ld-header left value">{getRankORSVG(i + 1)}</div>);
     usernames.push(<Username x={player} i={i} />);
     levels.push(
       <div class="ld-header right value">{player.current_level}</div>
     );
+    i++;
   });
+
   return (
     <>
       <div class="heading-text c_u ld-title">Leaderboard</div>
+      <div style={{ fontSize: "0.96rem" }}>
+        (Click on the user to view their profile)
+      </div>
+
       <div class="pseudo ld-table heading-text">
         <div class="ld-table-row">
           <div class="ld-header left">Rank</div>
@@ -114,8 +121,8 @@ function getRankORSVG(x) {
 ranksToImg = null;
 let skeletonData = Array(10).fill({
   id: PLACEHOLDER_USER,
-  current_level: "Infinity",
-  is_admin: true,
+  current_level: "∞",
+  is_admin: null,
 });
 export default () => (
   <AsyncComponent
