@@ -20,8 +20,9 @@ import "./components/Leaderboard/Leaderboard.css";
 import "./components/Play/Play.css";
 import "./components/_/Admin/Admin.css";
 import "./components/Rules/Rules.css";
-import "./aquireB64.css";
+import "./components/Verify/Verify.css";
 import "./forms.css";
+import "./aquireB64.css";
 
 const store = appEvents.getStore();
 class App extends Component {
@@ -34,7 +35,7 @@ class App extends Component {
       return;
     }
   }
-  render(props, state) {
+  render() {
     return (
       <>
         <DynamicHeader />

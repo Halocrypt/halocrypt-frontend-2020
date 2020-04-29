@@ -68,7 +68,7 @@ export default class Play extends Component {
     this.setState({ isAwaitingAnswer: false, incorrect: true });
   };
   async fetchQuestion() {
-    if (this.state.isFetching) return;
+    if (this.state.isFetching || !store.eventBegan) return;
     this.setState({ isFetching: true });
     /**@type {import('../../api').PlayRoutes.getQuestion.response['success']} */
     const req = await getRequest(play.getQuestion);

@@ -28,6 +28,8 @@ const componentMap = {
   "/play": () => import("./components/Play/Play").then(getDefault),
   "/rules": () => import("./components/Rules/Rules").then(getDefault),
   "/__admin__": () => import("./components/_/Admin/Admin").then(getDefault),
+  "/forgot-password": () =>
+    import("./components/Verify/forgot-password").then(getDefault),
 };
 
 const getRouteChild = (path, promise) => {
