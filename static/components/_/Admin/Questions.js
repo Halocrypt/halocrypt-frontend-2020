@@ -243,7 +243,7 @@ class QuestionEditorTempl extends Component {
           onClick={this._toggle}
           class="heading-text last-q hoverable action-button"
         >
-          Click to {showGameLivePreview ? "hide" : "show"} Live Preview
+          {showGameLivePreview ? "hide" : "show"} Live Preview
         </button>
         {showGameLivePreview && (
           <div class="last-question-card">
