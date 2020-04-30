@@ -39,6 +39,7 @@ export default class PasswordReset extends Component {
   onInputConfNewPassword = (e) => this.setState({ confNewPassword: getVal(e) });
 
   onSubmitPasswordToken = () => {
+    if (this.state.isLoading) return;
     const token = (this.state.passwordToken || "").trim();
     const newPassword = this.state.newPassword;
     const confNewPassword = this.state.confNewPassword;
