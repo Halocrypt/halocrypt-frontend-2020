@@ -30,6 +30,8 @@ const componentMap = {
   "/__admin__": () => import("./components/_/Admin/Admin").then(getDefault),
   "/forgot-password": () =>
     import("./components/Verify/forgot-password").then(getDefault),
+  "/verify-email": () =>
+    import("./components/Verify/verify-email").then(getDefault),
 };
 
 const getRouteChild = (path, promise) => {

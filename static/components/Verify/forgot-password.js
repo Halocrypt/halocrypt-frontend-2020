@@ -1,3 +1,4 @@
+// use a password manager guys..
 import { Component, redirect } from "@hydrophobefireman/ui-lib";
 import { AnimatedInput } from "../shared/AnimatedInput";
 import { sanitizeRegExp, ErrorPopup } from "../shared/UserForm";
@@ -11,7 +12,7 @@ const clean = (x) => x.replace(sanitizeRegExp, "");
 
 const getVal = (e) => (e.target.value || "").trim();
 
-export default class TokenFetchingComponent extends Component {
+export default class PasswordReset extends Component {
   state = { user: "", isLoading: false };
 
   onSubmit = () => {
@@ -32,8 +33,11 @@ export default class TokenFetchingComponent extends Component {
   onInputUserName = async (e) => this.setState({ user: getVal(e) });
 
   onInputPasswordToken = (e) => this.setState({ passwordToken: getVal(e) });
+
   onInputNewPassword = (e) => this.setState({ newPassword: getVal(e) });
+
   onInputConfNewPassword = (e) => this.setState({ confNewPassword: getVal(e) });
+
   onSubmitPasswordToken = () => {
     const token = (this.state.passwordToken || "").trim();
     const newPassword = this.state.newPassword;
