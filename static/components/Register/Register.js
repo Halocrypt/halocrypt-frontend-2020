@@ -170,6 +170,14 @@ export default class Register extends AuthStateSensitiveComponent {
             <A href="/login" class="heading-text clr ">
               Want to Login Instead?
             </A>
+            <br />
+            <A href="https://discord.gg/fz8e6Df" class="heading-text clr hoverable">
+              Join Discord
+            </A>
+            <br />
+            <A href="https://twitter.com/halocrypt1" class="heading-text clr hoverable">
+              Join Twitter
+            </A>
           </div>
         </div>
       </div>
