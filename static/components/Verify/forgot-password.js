@@ -23,7 +23,7 @@ export default class PasswordReset extends Component {
 
     postJSONRequest(url, { user: username }).then((x) => {
       const err = x.error || x.data.error;
-      if (err) this.setState({ error });
+      if (err) return this.setState({ error });
       this.setState({ success: true, isLoading: false });
     });
 
@@ -49,7 +49,7 @@ export default class PasswordReset extends Component {
     if (!confNewPassword) reasons.push("confirm password");
     if (newPassword !== confNewPassword) reasons.push("Passwords must match");
     if (reasons.length) {
-      this.setState({ error: reasons });
+		  return this.setState({ error: reasons });
     }
     this.setState({ isLoading: true });
 
@@ -92,10 +92,12 @@ export default class PasswordReset extends Component {
                 <AnimatedInput
                   onInput={this.onInputNewPassword}
                   labelText="New Password"
+                  type="password"
                 />
                 <AnimatedInput
                   onInput={this.onInputConfNewPassword}
                   labelText="Confirm"
+                  type="password"
                 />
               </div>
             ) : (

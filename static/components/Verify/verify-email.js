@@ -23,12 +23,12 @@ export default class VerifyEmail extends Component {
       this.setState({ isLoading: false, emailSent: true });
     });
   }
-  _resetError = () => this.setState({ error: null });
+  _resetError = () => !store.isLoggedIn ? redirect("/login") : this.setState({ error: null });
   onInput = (e) => this.setState({ token: e.target.value || "" });
   onSubmit = () => {
     if (this.state.isLoading) return;
     const token = (this.state.token || "").trim();
-    if (!token) this.setState({ error: "Blank Token" });
+    if (!token) return  this.setState({ error: "Blank Token" });
     this.setState({ isLoading: true });
 
     postJSONRequest(user.checkEmailToken, { token }).then((x) => {
