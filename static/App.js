@@ -12,6 +12,7 @@ import { appEvents } from "./globalStore";
 import LazyRouteLoader from "./lazyRouteLoader";
 // Importing all CSS
 import "./device.css";
+import "./components/Register/Register.css";
 import "./components/Header/Header.css";
 import "./components/MobileHeader/MobileHeader.css";
 import "./components/LandingComponent/LandingComponent.css";

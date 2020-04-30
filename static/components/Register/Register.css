@@ -1,0 +1,8 @@
+.social-link-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 20px;
+  border: 1px solid var(--spec-color);
+  padding: 10px;
+  border-radius: 10px;
+}
