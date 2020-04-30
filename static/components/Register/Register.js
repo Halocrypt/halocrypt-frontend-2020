@@ -1,26 +1,15 @@
 import { redirect, A } from "@hydrophobefireman/ui-lib";
 import { AnimatedInput } from "../shared/AnimatedInput";
-import { ErrorPopup, sanitizeRegExp } from "../shared/UserForm";
+import { ErrorPopup } from "../shared/UserForm";
 import { handler } from "../../authHandler";
 import AuthStateSensitiveComponent from "../_AuthStateSensitiveComponent";
 import { appEvents } from "../../globalStore";
 import { logger } from "../../Logger";
-
-const IS_VALID = { valid: true };
+import * as validators from "../../validators";
 
 const store = appEvents.getStore();
-function REQUIRED_VALUE(v) {
-  if (!v) return { error: "Value required" };
-  return IS_VALID;
-}
-const errors = {
-  userLength: "Username should be between 3 and 30 characters",
-  invalidCharacters: "Username and name can not contain special characters",
-  invalidEmail: "Invalid email",
-  nameLength: "Name should be less than 30 characters and cannot be blank",
-  pwLength: "Password should be longer than 5 characters",
-  pwNomatch: "Passwords do not match",
-};
+
+const errors = validators.errors;
 
 export default class Register extends AuthStateSensitiveComponent {
   componentDidMount() {
@@ -63,39 +52,20 @@ export default class Register extends AuthStateSensitiveComponent {
   };
 
   resetError = () => this.setState({ hasError: false, error: null });
-  _validate_password(pw) {
-    const pLen = pw.length;
-    if (pLen < 5) {
-      return { error: errors.pwLength };
-    }
-    return IS_VALID;
-  }
+  _validate_password = validators.password;
 
-  _validate_user(user) {
-    const uLen = user.length;
-    if (uLen < 3 || uLen > 30) {
-      return { error: errors.userLength };
-    }
-    if (user !== user.replace(sanitizeRegExp, "")) {
-      return { error: errors.invalidCharacters };
-    }
+  _validate_user = validators.userName;
 
-    return IS_VALID;
-  }
-  _validate_name(name) {
-    const nameLength = name.length;
-    if (!nameLength || nameLength > 30) {
-      return { error: errors.nameLength };
-    }
-    return IS_VALID;
-  }
+  _validate_name = validators.name;
+
   _validate_conf_pass(pw) {
     if (pw !== this.state.password) return { error: errors.pwNomatch };
-    return IS_VALID;
+    return validators.IS_VALID;
   }
-  _validate_email = REQUIRED_VALUE;
-  _validate_school = REQUIRED_VALUE;
-  _validate_ig_user_id = () => IS_VALID;
+  _validate_email = validators.REQUIRED_VALUE;
+  _validate_school = validators.OPTIONAL_VALUE;
+  _validate_ig_user_id = validators.OPTIONAL_VALUE;
+
   onSubmit = async (e) => {
     if (this.state.loading) return;
     e.preventDefault();

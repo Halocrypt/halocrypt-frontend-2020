@@ -10,7 +10,7 @@ export const sanitizeRegExp = /([^\w]|_)/g;
 function Popup(props) {
   return (
     <div class="app-popup">
-      <div class="heading-text clr app-popup-title">props.title</div>
+      <div class="heading-text clr app-popup-title">{props.title}</div>
       <div>{props.errorHead}</div>
       <div class="err-reasons">
         <div>

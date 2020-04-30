@@ -17,3 +17,16 @@
   align-items: center;
   justify-content: center;
 }
+
+.profile-info-updater {
+  height: fit-content;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+}
+.update-action {
+  padding: 2px;
+}

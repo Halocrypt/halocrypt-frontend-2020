@@ -17,11 +17,11 @@ export class AnimatedInput extends Component {
     onInput != null ? onInput(e) : void 0;
   };
   render(
-    { idx, labelText = "", type = "text", inputClass, extraProps },
+    { id: idx, labelText = "", type = "text", inputClass, extraProps },
     { isFocused, moveDown }
   ) {
     const id = idx || this.state.id;
-    const value =  this.state.value;
+    const value = this.state.value;
     const cls = [
       "_animate",
       isFocused || value ? "moveup" : "",

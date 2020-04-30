@@ -19,6 +19,7 @@ class Authy {
     this.state.checkedAuth = true;
     return data;
   }
+
   async checkAuth() {
     let isLoggedIn = appEvents.getStore().isLoggedIn;
     if (this.state.checkedAuth || isLoggedIn) {
