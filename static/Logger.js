@@ -6,7 +6,7 @@ import assign from "@hydrophobefireman/j-utils/@build-modern/src/modules/Object/
 const initUserConfig = assign({}, window.__initConfig);
 
 window.__initConfig = null;
-
+const IS_LOGGING_READY = false;
 const store = appEvents.getStore();
 export const callback =
   window.requestIdleCallback ||
@@ -27,7 +27,7 @@ class Logger {
     this.passwordResetRequested = "password-reset";
   }
   __shouldPostLog() {
-    return !devMode;
+    return IS_LOGGING_READY && !devMode;
   }
   _admin_getLogs() {
     if (!store.isLoggedIn || !store.userData.is_admin) return;

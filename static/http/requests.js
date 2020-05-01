@@ -40,8 +40,9 @@ export function getRequest(url, headers, options) {
   return fetchRequest(u.toString(), headers, options, "get");
 }
 export function postJSONRequest(url, data, headers) {
-  assign(data, defaultHeaders);
-  const js = urlencode(data);
+  const payload = { __payload: JSON.stringify(data) };
+  assign(payload, defaultHeaders);
+  const js = urlencode(payload);
   const options = { body: js };
   const hdr = assign({}, headers);
   hdr["content-type"] = "application/x-www-form-urlencoded";

@@ -50,7 +50,9 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
         </div>
         <div style={{ marginTop: "85px" }}>
           <div class="t-container">
-            <div style={{ fontSize: "2rem" }}>About</div>
+            <div class="clr" style={{ fontSize: "2rem" }}>
+              About
+            </div>
             <div>
               Halocrypt is an international online cryptic hunt organized by the
               students of DPS, Indore.
@@ -84,7 +86,9 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
             </div>
           </div>
           <div class="t-container">
-            <div style={{ fontSize: "2rem" }}>Prizes:-</div>
+            <div class="clr" style={{ fontSize: "2rem" }}>
+              Prizes:-
+            </div>
             <div>
               <span class="bold">
                 1<sup>st</sup>:
