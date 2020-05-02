@@ -9,7 +9,7 @@ export const mapNames = {
 export class ProfileInfoEditor extends Component {
   __sendSuccess = () =>
     (this.state.value || "").trim() && this.props.onUpdate(this.state.value);
-  state = { value: "" };
+  state = { value: this.props.value || "" };
   onInput = (e) => this.setState({ value: e.target.value });
   render(props, state) {
     const name = props.detailName;

@@ -91,6 +91,9 @@ hr {
   padding: 20px;
 }
 
+.act {
+  width: fit-content;
+}
 .search-box {
   width: 60%;
   margin: auto;

@@ -1,10 +1,14 @@
 import { Component } from "@hydrophobefireman/ui-lib";
-import plus from "./plus.svg";
+
+import {
+  AnswerFormField,
+  QuestionFormField,
+  HintInputFormField,
+} from "./QuestionFormFields";
 
 export const DEFAULT_INPUT = { type: "text", value: "" };
 
 const alternate = { text: "link", link: "text" };
-
 export class QuestionEditor extends Component {
   state = {
     hasQuestionData: null,
@@ -20,7 +24,7 @@ export class QuestionEditor extends Component {
   _handleQuestion = (e) => {
     const question = {
       value: e.target.value || "",
-      type: e.target.dataset.type,
+      type: this.state.question.type,
     };
     this.syncProp("question", question);
   };

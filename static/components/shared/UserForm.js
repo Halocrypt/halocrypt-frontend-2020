@@ -7,14 +7,14 @@ export function SuccessPopup(props) {
 }
 export const sanitizeRegExp = /([^\w]|_)/g;
 
-function Popup(props) {
+export function Popup(props) {
   return (
     <div class="app-popup">
       <div class="heading-text clr app-popup-title">{props.title}</div>
       <div>{props.errorHead}</div>
       <div class="err-reasons">
         <div>
-          {props.reasons.map((x) => (
+          {(props.reasons || []).map((x) => (
             <div> - {x}</div>
           ))}
         </div>

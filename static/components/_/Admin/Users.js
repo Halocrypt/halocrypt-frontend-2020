@@ -3,7 +3,7 @@ import { callback } from "../../../Logger";
 import { admin } from "../../../apiRoutes";
 import { getRequest } from "../../../http/requests";
 import { contains, clean, pluralize } from "./Questions";
-
+import { UserProfileEditor } from "./UserProfileEditor";
 export class UsersPanel extends Component {
   state = {
     isFetching: false,
@@ -56,8 +56,21 @@ export class UsersPanel extends Component {
     const currentEditIndex = +e.target.dataset.eindex;
     this.setState({
       isEditingUserDetails: true,
-      currentUserDetails: this.filteredUsers[currentEditIndex],
+      currentUserDetails: this.state.filteredUsers[currentEditIndex],
       currentEditIndex,
+    });
+  };
+  _closeEditor = (deletedUser) => {
+    let fetchedUsers = this.state.fetchedUsers;
+    if (deletedUser) {
+      fetchedUsers = (this.state.fetchedUsers || []).filter(
+        (x) => x !== deletedUser
+      );
+    }
+    this.setState({
+      isEditingUserDetails: false,
+      fetchedUsers:fetchedUsers,
+      filteredUsers: fetchedUsers,
     });
   };
   render(props, state) {
@@ -73,10 +86,19 @@ export class UsersPanel extends Component {
     }
     if (state.isEditingUserDetails)
       return (
-        <UserProfileEditor
-          userDetails={state.currentUserDetails}
-          propUpdateCallback={this._syncProps}
-        />
+        <>
+          <button
+            class="hoverable action-button act"
+            onClick={this._closeEditor}
+          >
+            Go Back to Users List
+          </button>
+          <UserProfileEditor
+            closeProfileEditor={this._closeEditor}
+            data={state.currentUserDetails}
+            propUpdateCallback={this._syncProps}
+          />
+        </>
       );
     const dataLen = this.state.filteredUsers && this.state.filteredUsers.length;
     return (

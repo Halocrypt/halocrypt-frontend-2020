@@ -2,7 +2,6 @@ import { Component, redirect } from "@hydrophobefireman/ui-lib";
 import { appEvents } from "../../globalStore";
 import { play } from "../../apiRoutes";
 import { getRequest, postJSONRequest } from "../../http/requests";
-import { AnimatedInput } from "../shared/AnimatedInput";
 import { ErrorPopup } from "../shared/UserForm";
 import { logger } from "../../Logger";
 const store = appEvents.getStore();
@@ -39,7 +38,6 @@ export default class Play extends Component {
   }
   _submit = async () => {
     if (this.state.isAwaitingAnswer) return;
-    this.setState({ isAwaitingAnswer: true });
     const answer = this.state.answer;
 
     const qLevel =
@@ -48,6 +46,7 @@ export default class Play extends Component {
       1;
 
     if (!answer) return;
+    this.setState({ isAwaitingAnswer: true });
     /**@type {import('../../api').PlayRoutes.answerQuestion.request} */
 
     const postData = { answer };
@@ -68,7 +67,11 @@ export default class Play extends Component {
     this.setState({ isAwaitingAnswer: false, incorrect: true });
   };
   async fetchQuestion() {
-    if (this.state.isFetching || !store.eventBegan) return;
+    if (
+      this.state.isFetching ||
+      (!store.eventBegan && !store.userData.is_admin)
+    )
+      return;
     this.setState({ isFetching: true });
     /**@type {import('../../api').PlayRoutes.getQuestion.response['success']} */
     const req = await getRequest(play.getQuestion);
@@ -91,13 +94,18 @@ export default class Play extends Component {
           this.state.fetchedQuestion.question_level) ||
           0) + 1,
     });
-    this.setState({ fetchedQuestion: null });
+    this.setState({
+      fetchedQuestion: null,
+      isAwaitingAnswer: false,
+      incorrect: false,
+      value: "",
+    });
   };
   resetError = () => this.setState({ incorrect: false });
   render(_, state) {
     if (store.isLoggedIn && store.userData.is_disqualified)
       return <div class={{ fontSize: "4rem" }}>Disqualified!</div>;
-    if (!store.eventBegan)
+    if (!store.eventBegan && (!store.isLoggedIn || !store.userData.is_admin))
       return <div style={{ fontSize: "4rem" }}>Not yet</div>;
     return (
       <>
@@ -181,7 +189,11 @@ export function getLinkOrTextNode(x) {
       <a
         target="_blank"
         href={value}
-        style={{ textDecoration: "underline", color: "var(--spec-color)" }}
+        style={{
+          textDecoration: "underline",
+          color: "var(--spec-color)",
+          wordBreak: "break-all",
+        }}
       >
         {value}
       </a>

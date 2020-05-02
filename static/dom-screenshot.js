@@ -60,7 +60,7 @@
 //   >
 //     <foreignObject width="100%" height="100%" x="0" y="0">${xml}</foreignObject>
 //   </svg>
-//   `;
+//  `;  
 //     const img = new Image();
 //     img.src = `data:image/svg+xml;base64,${btoa(svg)}`;
 //     const canvas = document.createElement("canvas");

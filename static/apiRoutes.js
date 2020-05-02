@@ -31,7 +31,7 @@ export const admin = {
   getLatestQuestionNumber: apiURL("/api/admin/get-latest-question-number"),
   getAllQuestions: apiURL("/api/admin/get-questions"),
   editQuestion: apiURL("/api/admin/edit-question"),
-  setLevel: apiURL("/api/admin/set-level"),
+  adminEditUserData: apiURL("/api/admin/__edit__"),
   deleteUser: apiURL("/api/admin/delete-user"),
   disqualify: apiURL("/api/admin/disqualify"),
   requalify: apiURL("/api/admin/requalify"),

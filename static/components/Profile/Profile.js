@@ -16,58 +16,83 @@ import * as validators from "../../validators";
 const store = appEvents.getStore();
 const EMPTY = {};
 
-const editableFieldsValidatorFunctions = {
-  ig_user_id: validators.OPTIONAL_VALUE,
-  email: validators.REQUIRED_VALUE,
-  school: validators.OPTIONAL_VALUE,
-};
-
 const clsName = "heading-text hoverable landing-action-button";
 
-class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEditing: false,
-      fieldEdited: null,
-      __receivedData: props.data,
-    };
+export class Profile extends Component {
+  state = {
+    isEditing: false,
+    fieldEdited: null,
+    __receivedData: this.props.data,
+  };
+  headerText = "Profile";
+  helpText =
+    "You can edit your email, instagram and school fields by clicking them";
+  editableFieldsValidatorFunctions = {
+    ig_user_id: validators.OPTIONAL_VALUE,
+    email: validators.REQUIRED_VALUE,
+    school: validators.OPTIONAL_VALUE,
+  };
+  // _hiddenFields = {
+  //   last_question_answered_at: 1,
+  //   is_disqualified: 1,
+  //   has_verified_email: 1,
+  //   secure_data: 1,
+  // };
+  _getKeys(data) {
+    // keys(data)
+    //         .filter((x) => !this._hiddenFields[x])
+    return ["name", "id", "current_level", "is_admin", "school"].concat(
+      keys((data && data.secure_data) || EMPTY)
+    );
   }
-
+  _getActionPanel() {
+    const data = this.state.__receivedData;
+    const currID = store.isLoggedIn && store.userData.id;
+    return (
+      <div class="action-buttons-profile">
+        <ActionButtons data={data} currID={currID} />
+      </div>
+    );
+  }
   requestEditUserDetail = (e) => {
-    if (this.state.isEditing || !store.isLoggedIn) return;
+    if (this.state.isEditing || !this._isAllowedToEditProfile()) return;
 
     this.setState({ isEditing: true, fieldEdited: e });
   };
+  _isAllowedToEditProfile() {
+    const selfId = store.userData ? store.userData.id : null;
+    return this.state.__receivedData.id === selfId;
+  }
   syncProfileInfoWithServer = (value) => {
     if (this.state.workProgress) return;
 
     const field = this.state.fieldEdited;
-    const valid = editableFieldsValidatorFunctions[field](value);
+    const valid = this.editableFieldsValidatorFunctions[field](value);
 
     if (valid.valid) {
       this.setState({ workProgress: "Syncing new data with the server..." });
       postJSONRequest(user.edit, {
-        user: store.userData.id,
+        user: this.state.__receivedData.id,
         field,
         new_value: (value || "").trim(),
-      }).then((x) => {
-        const error = x.error || x.data.error;
-        if (error) return this.setState({ error, workProgress: null });
-        this.setState({
-          workProgress: null,
-          isEditing: null,
-          fieldEdited: null,
-        });
-        const userData = x.data.user_data;
-        appEvents.set("userData", userData);
-        this.setState({ __receivedData: userData });
-      });
+      }).then(this.__onResponse);
     } else {
       this.setState({ error: valid.error, workProgress: null });
     }
   };
-
+  __onResponse = (x) => {
+    if (!store.isLoggedIn) return;
+    const error = x.error || x.data.error;
+    if (error) return this.setState({ error, workProgress: null });
+    const userData = x.data.user_data;
+    this.setState({
+      workProgress: null,
+      isEditing: null,
+      fieldEdited: null,
+      __receivedData: userData,
+    });
+    if (userData.id === store.userData.id) appEvents.set("userData", userData);
+  };
   _getRequestEditUserDetail = (propName) => () =>
     this.requestEditUserDetail(propName);
 
@@ -77,7 +102,6 @@ class Profile extends Component {
     /**@type {import('../../api').UserData} */
     const data = state.__receivedData;
     const sec = data.secure_data || EMPTY;
-    const currID = store.isLoggedIn && store.userData.id;
 
     return (
       <div>
@@ -95,23 +119,31 @@ class Profile extends Component {
               close={this.closePrompt}
               detailName={state.fieldEdited}
               onUpdate={this.syncProfileInfoWithServer}
+              value={
+                state.__receivedData[state.fieldEdited] ||
+                state.__receivedData.secure_data[state.fieldEdited]
+              }
             />
           </>
         )}
-        <div class="heading-text bfont">Profile</div>
+        <div class="heading-text bfont">{this.headerText}</div>
         <div style={{ fontSize: "0.96rem" }}>
-          You can edit your email, instagram and school fields by clicking them
+          {this._isAllowedToEditProfile() && this.helpText}
         </div>
         <div class="prof-data-box">
-          {["name", "id", "current_level", "is_admin", "school"]
-            .concat(keys(sec))
-            .map((x) =>
-              getProfileInfoField(x, this._getRequestEditUserDetail, data, sec)
-            )}
+          {this._getKeys(data).map((x) => (
+            <ProfileInfoField
+              editableFieldsValidatorFunctions={
+                this.editableFieldsValidatorFunctions
+              }
+              x={x}
+              getRequestEditUserDetail={this._getRequestEditUserDetail}
+              data={data}
+              sec={sec}
+            />
+          ))}
         </div>
-        <div class="action-buttons-profile">
-          <ActionButtons data={data} currID={currID} />
-        </div>
+        {this._getActionPanel()}
       </div>
     );
   }
@@ -141,7 +173,14 @@ function ActionButtons(props) {
   );
 }
 
-function getProfileInfoField(x, getRequestEditUserDetail, data, sec) {
+function ProfileInfoField(props) {
+  const {
+    x,
+    getRequestEditUserDetail,
+    data,
+    sec,
+    editableFieldsValidatorFunctions,
+  } = props;
   return (
     <div
       onClick={
@@ -188,7 +227,6 @@ async function loadProfile() {
 
 function getValue(data, sec, x) {
   let val = x in data ? data[x] : sec[x];
-  if (val == null) val = "N/A";
   if (x === "is_admin") {
     if (val === true) {
       //could be N/A
@@ -197,6 +235,7 @@ function getValue(data, sec, x) {
       val = "Player";
     }
   }
+  if (val == null || val === "") val = "N/A";
   return val;
 }
 

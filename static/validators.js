@@ -1,13 +1,22 @@
 import { sanitizeRegExp } from "./components/shared/UserForm";
 
 export const IS_VALID = { valid: true };
-
+export const INVALID = { valid: false };
 export function REQUIRED_VALUE(v) {
   if (!v) return { error: "Value required" };
   return IS_VALID;
 }
 
 export const OPTIONAL_VALUE = () => IS_VALID;
+
+const pureIsNaN = (x) => {
+  x = +x;
+  return x != x;
+};
+
+export function INTEGER_VALUE(v) {
+  return !pureIsNaN(v) ? IS_VALID : INVALID;
+}
 
 export function password(pw) {
   const pLen = pw.length;
@@ -26,6 +35,10 @@ export function userName(user) {
     return { error: errors.invalidCharacters };
   }
   return IS_VALID;
+}
+export function BOOLEAN_VALUE(val) {
+  val = `${val}`.toLowerCase();
+  return val !== "true" && val !== "false" ? IS_VALID : INVALID;
 }
 
 export function name(val) {
