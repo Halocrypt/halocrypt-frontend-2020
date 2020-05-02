@@ -79,11 +79,6 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
               of the leaderboard when the event ends, shall be declared as the
               winner of Halocrypt 2020.
             </div>
-            <div>
-              IF a competitor completes all the 50 levels before the competition
-              ends, the competitor shall get all the prizes and no other
-              competitor will receive any prize.
-            </div>
           </div>
           <div class="t-container">
             <div class="clr" style={{ fontSize: "2rem" }}>
