@@ -95,6 +95,8 @@ export default class Play extends Component {
   };
   resetError = () => this.setState({ incorrect: false });
   render(_, state) {
+    if (store.isLoggedIn && store.userData.is_disqualified)
+      return <div class={{ fontSize: "4rem" }}>Disqualified!</div>;
     if (!store.eventBegan)
       return <div style={{ fontSize: "4rem" }}>Not yet</div>;
     return (
@@ -144,7 +146,7 @@ export function Question(props) {
     <form action="javascript:" onSubmit={onSubmit}>
       <div class="question-num">Question - {data.question_level}</div>
       <div class="question-card">
-        <div>{data.question}</div>
+        <div>{getLinkOrTextNode(data.question)}</div>
         <div class="question-hint">
           {data.hint &&
             !!data.hint.length &&
@@ -169,7 +171,7 @@ export function Question(props) {
   );
 }
 
-function getHintElement(x) {
+export function getLinkOrTextNode(x) {
   if (typeof x === "string") return x;
   const type = x.type;
   const value = x.value;
@@ -194,7 +196,7 @@ function Hint(props) {
     !!x.value && (
       <div>
         {`Hint ${i + 1}: `}
-        {getHintElement(x)}
+        {getLinkOrTextNode(x)}
       </div>
     )
   );

@@ -4,13 +4,17 @@ import { postJSONRequest } from "../../../http/requests";
 import { getLatestQuestionNumber, getAllQuestions, Loader } from "./util";
 import { sanitizeRegExp, ErrorPopup } from "../../shared/UserForm";
 import { Question } from "../../Play/Play";
-import { QuestionEditor } from "./QuestionEditor";
+import { QuestionEditor, DEFAULT_INPUT } from "./QuestionEditor";
 import { callback } from "../../../Logger";
 
-export class AddQuestion extends Component {
+class AddQuestion extends Component {
   url = admin.addQuestion;
   state = {
-    questionData: { question: "", hint: [], special_hint: [] },
+    questionData: {
+      question: { ...DEFAULT_INPUT },
+      hint: [],
+      special_hint: [],
+    },
   };
 
   async getLastQuestionData() {
@@ -54,7 +58,7 @@ export class AddQuestion extends Component {
       return ps;
     });
 
-  _reset = () => this.setState({ error: true });
+  _reset = () => this.setState({ error: false });
 
   render(_, state) {
     if (state.isLoading) return <Loader />;
@@ -80,28 +84,29 @@ export class AddQuestion extends Component {
     );
   }
 }
+export const clean = (x) => (x + "").replace(sanitizeRegExp, "").toLowerCase();
 
-const AinB = (a, b) => (a + "").replace(sanitizeRegExp).includes(b);
+export const contains = (b, a) => clean(b).includes(a);
 
 /** @param {import('../../../api').Question} x */
 function filterQuestions(x, q) {
-  const sanitized = q.replace(sanitizeRegExp, "");
+  const sanitized = clean(q);
   const { question, question_level, hint, answer } = x;
   if (
-    AinB(question, sanitized) ||
-    AinB(question_level, sanitized) ||
-    AinB(answer, sanitized)
+    contains(question, sanitized) ||
+    contains(question_level, sanitized) ||
+    contains(answer, sanitized)
   )
     return true;
   if (hint && hint.length) {
     for (const h of hint) {
-      if (AinB(h.value || h, sanitized)) return true;
+      if (contains(h.value || h, sanitized)) return true;
     }
   }
   return false;
 }
 
-export class EditQuestion extends AddQuestion {
+class EditQuestion extends AddQuestion {
   state = {
     questionData: { question: "", hint: [], special_hint: [] },
     questionData: null,
@@ -175,7 +180,7 @@ export class EditQuestion extends AddQuestion {
 
       return (
         <div>
-          <div>
+          <div style={{ fontSize: "2rem" }}>
             Result: {dataLen} {pluralize("Question", dataLen)}
           </div>
 
@@ -260,6 +265,36 @@ class QuestionEditorTempl extends Component {
   }
 }
 
-function pluralize(str, val) {
+export function pluralize(str, val) {
   return val === 1 ? str : `${str}s`;
+}
+
+export class QuestionsPanel extends Component {
+  state = { currentTask: null };
+
+  closeWorkspaceTask = () => this.setState({ currentTask: null });
+
+  setTask_addQuestion = () => this.setState({ currentTask: AddQuestion });
+
+  setTask_editQuestion = () => this.setState({ currentTask: EditQuestion });
+
+  render(_, state) {
+    if (state.currentTask == null) {
+      return (
+        <div>
+          <span>Available Actions:</span>
+
+          <button class="btn-act hoverable" onClick={this.setTask_addQuestion}>
+            Add Question
+          </button>
+
+          <button class="btn-act hoverable" onClick={this.setTask_editQuestion}>
+            Edit Question
+          </button>
+        </div>
+      );
+    }
+    const Task = this.state.currentTask;
+    return <Task close={this.closeWorkspaceTask} />;
+  }
 }

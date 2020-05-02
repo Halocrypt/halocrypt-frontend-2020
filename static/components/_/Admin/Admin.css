@@ -95,3 +95,14 @@ hr {
   width: 60%;
   margin: auto;
 }
+
+.search-result-element {
+  display: inline-block;
+  border: 2px solid var(--spec-color);
+  width: 60%;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

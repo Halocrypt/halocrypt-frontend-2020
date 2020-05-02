@@ -1,26 +1,43 @@
 import { Component } from "@hydrophobefireman/ui-lib";
 import plus from "./plus.svg";
 
-const DEFAULT_HINT = { type: "text", value: "" };
+export const DEFAULT_INPUT = { type: "text", value: "" };
+
+const alternate = { text: "link", link: "text" };
 
 export class QuestionEditor extends Component {
   state = {
     hasQuestionData: null,
-    question: "",
+    question: { ...DEFAULT_INPUT },
     hint: [],
     special: [],
     answer: "",
   };
+  syncProp(propName, propVal) {
+    this.setState({ [propName]: propVal });
+    this.props.propUpdater(propName, propVal);
+  }
   _handleQuestion = (e) => {
-    const question = e.target.value || "";
-    this.setState({ question });
-    this.props.propUpdater("question", question);
+    const question = {
+      value: e.target.value || "",
+      type: e.target.dataset.type,
+    };
+    this.syncProp("question", question);
   };
   _handleAnswer = (e) => {
     const answer = e.target.value || "";
-    this.setState({ answer });
-    this.props.propUpdater("answer", answer);
+    this.syncProp("answer", answer);
   };
+  setDefaultValues(clonedProps) {
+    const toDefault = ["hint", "special"];
+    toDefault.forEach((x) => {
+      if (!clonedProps[x] || !clonedProps[x].length) {
+        clonedProps[x] = [DEFAULT_INPUT];
+        this.props.propUpdater(x, clonedProps[x]);
+      }
+    });
+  }
+
   componentDidMount() {
     if (
       this.state.hasQuestionData &&
@@ -28,10 +45,7 @@ export class QuestionEditor extends Component {
     )
       return;
     const clonedProps = { ...this.props.questionData };
-    if (!clonedProps.hint || !clonedProps.hint.length) {
-      clonedProps.hint = [DEFAULT_HINT];
-      this.props.propUpdater("hint", clonedProps.hint);
-    }
+    this.setDefaultValues(clonedProps);
     this.setState({
       hasQuestionData: true,
       ...clonedProps,
@@ -39,13 +53,13 @@ export class QuestionEditor extends Component {
   }
 
   componentDidUpdate = this.componentDidMount;
-  _handleHintLike(stateVar) {
+  _handleHintLike = (stateVar) => {
     return (e) => {
       const idx = +e.target.dataset.value;
       const value = e.target.value || "";
       const type = e.target.dataset.type;
       this.setState((ps) => {
-        const obj = [].slice.call(ps[stateVar]);
+        const obj = [].slice.call(ps[stateVar] || []);
 
         obj[idx] = { value, type };
         ps[stateVar] = obj;
@@ -58,19 +72,18 @@ export class QuestionEditor extends Component {
         return ps;
       });
     };
-  }
-  _add(stateVar) {
+  };
+  _add = (stateVar) => {
     return () =>
       this.setState((ps) => {
-        const obj = [].slice.call(ps[stateVar] || getHintLike(ps, stateVar));
-        obj.push(DEFAULT_HINT);
+        const obj = [].slice.call(ps[stateVar]);
+        obj.push(DEFAULT_INPUT);
         ps[stateVar] = obj;
         return ps;
       });
-  }
+  };
 
-  toggleType = (e) => {
-    const alternate = { text: "link", link: "text" };
+  toggleHintType = (e) => {
     const idx = +e.target.dataset.value;
     const type = e.target.dataset.type;
     const stateVar = e.target.dataset.name;
@@ -83,94 +96,39 @@ export class QuestionEditor extends Component {
       return ps;
     });
   };
-
+  toggleQuestionType = (e) => {
+    const type = e.target.dataset.type;
+    const next = alternate[type];
+    const updatedQuestion = { ...this.state.question };
+    updatedQuestion.type = next;
+    this.syncProp("question", updatedQuestion);
+  };
   render(props, state) {
     if (!state.hasQuestionData) return;
     return (
       <form action="javascript:" onSubmit={props.onSubmit}>
-        <div class="input-parent">
-          <div class="task-desc">Question:</div>
-          <input
-            class="paper-input"
-            value={state.question}
-            placeholder="Question"
-            onInput={this._handleQuestion}
-          />
-        </div>
+        <QuestionFormField
+          question={state.question}
+          handleQuestion={this._handleQuestion}
+          toggleQuestionType={this.toggleQuestionType}
+        />
         <hr />
-        <div class="input-parent">
-          <div class="task-desc">Answer:</div>
-          <input
-            class="paper-input"
-            value={state.answer}
-            placeholder="Answer"
-            onInput={this._handleAnswer}
-          />
-        </div>
+        <AnswerFormField
+          answer={state.answer}
+          handleAnswer={this._handleAnswer}
+        />
         <hr />
-        <div class="input-parent">
-          <div class="task-desc">Hints:</div>
-          <HintInput
-            name="hint"
-            hint={state.hint}
-            handleHint={this._handleHintLike("hint")}
-            setType={this.toggleType}
+        {["hint", "special"].map((x) => (
+          <HintInputFormField
+            propName={x}
+            propVal={state[x]}
+            handleHint={this._handleHintLike}
+            toggleType={this.toggleHintType}
+            add={this._add}
           />
-          <AddMore add={this._add("hint")} name="hint" />
-        </div>
-        <hr />
-        <div class="input-parent">
-          <div class="task-desc">Special:</div>
-          <HintInput
-            name="special"
-            hint={state.special}
-            handleHint={this._handleHintLike("special")}
-          />
-          <AddMore add={this._add("special")} name="special" />
-        </div>
-        <hr />
+        ))}
         <button class="action-button hoverable">Submit</button>
       </form>
     );
   }
-}
-
-function HintInput(props) {
-  let { hint, handleHint, name } = props;
-  (!hint || hint.length <= 0) && (hint = [DEFAULT_HINT]);
-  return hint.map((x, i) => (
-    <div class="hints-parent-admin">
-      Hint Type: {x.type}
-      <input
-        data-value={i}
-        class="paper-input"
-        data-type={x.type}
-        value={x.value}
-        placeholder={`${name} #${i}`}
-        onInput={handleHint}
-      />
-      <div
-        data-type={x.type}
-        data-value={i}
-        data-name={name}
-        onClick={props.setType}
-        class="hoverable action-button"
-        style={{ padding: 0 }}
-      >
-        Toggle Type
-      </div>
-    </div>
-  ));
-}
-
-function AddMore(props) {
-  return (
-    <img
-      class="hoverable plus back"
-      src={plus}
-      title={`add ${props.name}`}
-      onClick={props.add}
-    />
-  );
-  k;
 }

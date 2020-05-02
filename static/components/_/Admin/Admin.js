@@ -1,6 +1,7 @@
 import { Component } from "@hydrophobefireman/ui-lib";
 import { appEvents } from "../../../globalStore";
-import { AddQuestion, EditQuestion } from "./Questions";
+import { QuestionsPanel } from "./Questions";
+import { UsersPanel } from "./Users";
 import back from "./back.svg";
 const store = appEvents.getStore();
 
@@ -8,7 +9,6 @@ export default function Admin() {
   if (!store.isLoggedIn || !store.userData.is_admin) {
     return <div style={{ fontSize: "8rem" }}>NO</div>;
   }
-
   return (
     <div class="admin-data-panel">
       <DataPanel />
@@ -26,6 +26,7 @@ class DataPanel extends Component {
     const isQuestionsWorkSpace = state.currentTab === "questions";
     const isUsersWorkSpace = state.currentTab === "users";
     const isLogsWorkSpace = state.currentTab === "logs";
+
     return (
       <>
         <div class="btn-box">
@@ -57,7 +58,6 @@ class DataPanel extends Component {
             />
           </div>
         )}
-
         {isQuestionsWorkSpace && <QuestionsPanel />}
 
         {isUsersWorkSpace && <UsersPanel />}
@@ -65,35 +65,3 @@ class DataPanel extends Component {
     );
   }
 }
-
-class QuestionsPanel extends Component {
-  state = { currentTask: null };
-
-  closeWorkspaceTask = () => this.setState({ currentTask: null });
-
-  setTask_addQuestion = () => this.setState({ currentTask: AddQuestion });
-
-  setTask_editQuestion = () => this.setState({ currentTask: EditQuestion });
-
-  render(_, state) {
-    if (state.currentTask == null) {
-      return (
-        <div>
-          <span>Available Actions:</span>
-
-          <button class="btn-act hoverable" onClick={this.setTask_addQuestion}>
-            Add Question
-          </button>
-
-          <button class="btn-act hoverable" onClick={this.setTask_editQuestion}>
-            Edit Question
-          </button>
-        </div>
-      );
-    }
-    const Task = this.state.currentTask;
-    return <Task close={this.closeWorkspaceTask} />;
-  }
-}
-
-function UsersPanel() {}
