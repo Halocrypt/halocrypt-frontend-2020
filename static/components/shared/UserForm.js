@@ -38,16 +38,22 @@ export class Popup extends Component {
 export function SocialLinkContainer() {
   return (
     <div class="social-link-container">
-      <a href="https://discord.gg/fz8e6Df" class="heading-text clr hoverable">
+      <a
+        target="_blank"
+        href="https://discord.gg/fz8e6Df"
+        class="heading-text clr hoverable"
+      >
         Discord
       </a>
       <a
+        target="_blank"
         href="https://instagram.com/halocrypt"
         class="heading-text clr hoverable"
       >
         Instagram
       </a>
       <a
+        target="_blank"
         href="https://twitter.com/halocrypt1"
         class="heading-text clr hoverable"
       >
