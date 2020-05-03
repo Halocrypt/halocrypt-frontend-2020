@@ -34,9 +34,9 @@ export default function Halo_Begin() {
         out here), you’ve got to find our creations and try out putting the
         routes. For example, if we give you a hint ‘/halo_sample’, you’ll have
         to try putting it on different websites made by us like
-        https://madebykaneki.com/halo_sample, and https://madeby
-        deletos.com/halo_sample, and if you find a web page containing the next
-        part of the story, good job! You have proceeded!
+        https://madebykaneki.com/halo_sample, and
+        https://madeby_deletos.com/halo_sample. And if you find a web page
+        containing the next part of the story, good job! You have proceeded!
       </div>
 
       <div class="data-content">And why is the story important? </div>
