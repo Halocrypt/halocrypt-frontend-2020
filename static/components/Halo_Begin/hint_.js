@@ -188,7 +188,7 @@ export default function Halo_Begin() {
       </div>
 
       <div class="data-content">
-        As the room went dark, i catched the sight of the red lasers, reflected
+        As the room went dark, I caught the sight of the red lasers, reflected
         off the walls.
       </div>
       <div class="data-content">“Woah!”</div>
