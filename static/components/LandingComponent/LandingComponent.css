@@ -69,7 +69,7 @@
 .landing-action-button {
   margin: 10px;
   user-select: none;
-  padding: 8px;
+  padding: 10px;
   width: 10rem;
   background: transparent;
   color: var(--font-color);
@@ -78,7 +78,7 @@
   border: 1px solid var(--spec-color);
   font-size: 22px;
   transition: 0.3s linear;
-  height: 30px;
+  height: 1.2rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
