@@ -168,6 +168,20 @@ header {
   }
 }
 .data-content {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   margin: 40px;
+  margin-top: 45px;
+}
+
+.halo-begin {
+  padding: 8px;
+  text-align: left;
+  margin-left: 40px;
+  word-break: break-word;
+}
+
+@media only screen and (max-width: 600px) {
+  .halo-begin {
+    margin-left: 20px;
+  }
 }
