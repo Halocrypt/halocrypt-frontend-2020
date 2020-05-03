@@ -32,6 +32,7 @@ const componentMap = {
     import("./components/Verify/forgot-password").then(getDefault),
   "/verify-email": () =>
     import("./components/Verify/verify-email").then(getDefault),
+  "/halo_begin": () => import("./components/Halo_Begin/hint_").then(getDefault),
 };
 
 const getRouteChild = (path, promise) => {
