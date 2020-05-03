@@ -47,13 +47,6 @@ export function SocialLinkContainer() {
       </a>
       <a
         target="_blank"
-        href="https://instagram.com/halocrypt"
-        class="heading-text clr hoverable"
-      >
-        Instagram
-      </a>
-      <a
-        target="_blank"
         href="https://twitter.com/halocrypt1"
         class="heading-text clr hoverable"
       >

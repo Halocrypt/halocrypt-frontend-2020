@@ -118,7 +118,7 @@ export default class Play extends Component {
           />
         )}
         {state.isAwaitingAnswer && "Checking your answer..."}
-        <div class="hint-help" style={{ margin: "auto", width: "90%" }}>
+        <div class="hint-help" style={{ margin: "auto", width: "70%" }}>
           <div>Find Hints On:</div>
           <SocialLinkContainer />
         </div>
