@@ -69,7 +69,7 @@ export class UsersPanel extends Component {
     }
     this.setState({
       isEditingUserDetails: false,
-      fetchedUsers:fetchedUsers,
+      fetchedUsers: fetchedUsers,
       filteredUsers: fetchedUsers,
     });
   };
@@ -87,12 +87,9 @@ export class UsersPanel extends Component {
     if (state.isEditingUserDetails)
       return (
         <>
-          <button
-            class="hoverable action-button act"
-            onClick={this._closeEditor}
-          >
+          <span class="hoverable action-button act" onClick={this._closeEditor}>
             Go Back to Users List
-          </button>
+          </span>
           <UserProfileEditor
             closeProfileEditor={this._closeEditor}
             data={state.currentUserDetails}

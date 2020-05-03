@@ -33,13 +33,13 @@ class DataPanel extends Component {
           {["questions", "users", "logs"].map(
             (x) =>
               state.currentTab !== x && (
-                <button
+                <span
                   onClick={this.setTab}
                   data-tab={x}
                   class="admin-button-tab"
                 >
                   {x}
-                </button>
+                </span>
               )
           )}
         </div>

@@ -159,21 +159,21 @@ function OffsetButtons(props) {
   //   to: offset + maxCount * 2,
   // };
   const shouldShowNextButton = offset + maxCount < dataLength;
-  const cls = "hoverable action-button";
+  const cls = "hoverable action-button h__uns";
   return (
     <div class="flex">
       {shouldShowPreviousButton && (
         <div class="offset-left">
-          <button onClick={decrement} class={cls}>
+          <span onClick={decrement} class={cls}>
             Previous
-          </button>
+          </span>
         </div>
       )}
       {shouldShowNextButton && (
         <div class="offset-right" style={{ marginLeft: "auto" }}>
-          <button onClick={increment} class={cls}>
+          <span onClick={increment} class={cls}>
             Next
-          </button>
+          </span>
         </div>
       )}
     </div>

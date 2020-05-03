@@ -108,20 +108,20 @@ export class UserProfileEditor extends Profile {
           <div class="heading-text clr" style={{ fontSize: "2rem" }}>
             DANGER SECTION
           </div>
-          <button
+          <span
             data-action="delete"
             class="hoverable action-button act"
             onClick={this.__confirmAction}
           >
             Delete Account
-          </button>
-          <button
+          </span>
+          <span
             data-action="qualification-toggle"
             class="hoverable action-button act"
             onClick={this.__confirmAction}
           >
             {data.is_disqualified ? "Requalify" : "Disqualify"} Account
-          </button>
+          </span>
         </div>
       );
     }

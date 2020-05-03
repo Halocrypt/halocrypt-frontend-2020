@@ -131,7 +131,7 @@ export class QuestionEditor extends Component {
             add={this._add}
           />
         ))}
-        <button class="action-button hoverable">Submit</button>
+        <span class="action-button hoverable">Submit</span>
       </form>
     );
   }

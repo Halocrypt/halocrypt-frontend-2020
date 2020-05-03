@@ -171,9 +171,9 @@ export function Question(props) {
         )}
       </div>
       {!disableInput && (
-        <button class="action-button heading-text sbm-button hoverable">
+        <span class="action-button heading-text sbm-button hoverable">
           Submit
-        </button>
+        </span>
       )}
     </form>
   );
