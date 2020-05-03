@@ -67,7 +67,7 @@ function getCfg(isLegacy) {
     output: {
       ecmaVersion: isLegacy ? 5 : 6,
       path: `${__dirname}/docs`,
-      filename: `[name]/${isLegacy ? "legacy" : "es6"}/[contenthash].js`,
+      filename: `${isLegacy ? "legacy" : "es6"}/[name]-[contenthash].js`,
     },
     mode,
     optimization: {
@@ -75,6 +75,7 @@ function getCfg(isLegacy) {
       splitChunks: {
         chunks: "all",
       },
+      runtimeChunk: "single",
     },
     plugins: [
       new HtmlWebpackPlugin({

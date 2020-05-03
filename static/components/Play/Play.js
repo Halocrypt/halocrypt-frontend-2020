@@ -120,7 +120,7 @@ const extra = {
   autocorrect: "off",
   autocapitalize: "off",
   spellcheck: false,
-  style: { width: "90%" },
+  style: { width: "90%", marginTop: "2rem" },
 };
 /**
  *
