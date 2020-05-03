@@ -1,6 +1,6 @@
 export default function Halo_Begin() {
   return (
-    <div style={{ padding: "8px", textAlign: "left" }}>
+    <div style={{ padding: "8px", textAlign: "left", marginLeft: "3rem" }}>
       <div class="bold clr heading-text" style={{ fontSize: "3rem" }}>
         Introduction
       </div>
