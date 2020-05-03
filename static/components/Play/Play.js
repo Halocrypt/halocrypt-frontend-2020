@@ -37,7 +37,7 @@ export default class Play extends Component {
     }
   }
   _submit = async () => {
-    if (this.state.isAwaitingAnswer) return;
+    if (this.state.isAwaitingAnswer||this.state.incorrect) return;
     const answer = this.state.answer;
 
     const qLevel =
@@ -98,7 +98,7 @@ export default class Play extends Component {
       fetchedQuestion: null,
       isAwaitingAnswer: false,
       incorrect: false,
-      value: "",
+      answer: "",
     });
   };
   resetError = () => this.setState({ incorrect: false });
@@ -171,9 +171,9 @@ export function Question(props) {
         )}
       </div>
       {!disableInput && (
-        <span class="action-button heading-text sbm-button hoverable">
+        <button class="action-button heading-text sbm-button hoverable">
           Submit
-        </span>
+        </button>
       )}
     </form>
   );
