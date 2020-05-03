@@ -82,7 +82,12 @@ export default class Play extends Component {
       answer: "",
     });
   };
-  resetError = () => this.setState({ incorrect: false });
+  __focusAnswer() {
+    const i = document.getElementById("answer-input");
+    i && i.focus();
+  }
+  resetError = () =>
+    this.setState({ incorrect: false }) && this.__focusAnswer();
   render(_, state) {
     if (store.isLoggedIn && store.userData.is_disqualified)
       return <div class={{ fontSize: "4rem" }}>Disqualified!</div>;
@@ -143,6 +148,7 @@ export function Question(props) {
         </div>
         {!disableInput && (
           <input
+            id="answer-input"
             class="paper-input"
             placeholder="Answer"
             onInput={onInput}
