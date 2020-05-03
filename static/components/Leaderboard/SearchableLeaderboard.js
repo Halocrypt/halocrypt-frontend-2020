@@ -1,11 +1,6 @@
 import Component from "@hydrophobefireman/ui-lib";
 import { Leaderboard, LeaderboardHeading } from "./LeaderboardRenderer";
-import { callback } from "../../Logger";
-import { sanitizeRegExp } from "../shared/UserForm";
-const clean = (x) => (x + "").replace(sanitizeRegExp, "").toLowerCase();
-
-const contains = (b, a) => clean(b).includes(a);
-
+import { callback, clean, contains } from "../../shared";
 export class SearchableLeaderboard extends Component {
   componentDidMount() {
     this.props.data && this.props.data.forEach((x, i) => (x.rank = i));

@@ -4,7 +4,6 @@ import { AnimatedInput } from "../shared/AnimatedInput";
 import { handler } from "../../authHandler";
 import AuthStateSensitiveComponent from "../_AuthStateSensitiveComponent";
 import { appEvents } from "../../globalStore";
-import { logger } from "../../Logger";
 const store = appEvents.getStore();
 export default class Login extends AuthStateSensitiveComponent {
   state = {
@@ -23,7 +22,6 @@ export default class Login extends AuthStateSensitiveComponent {
   }
   componentDidUpdate = this.loginCheck;
   componentDidMount() {
-    logger.sendUserLog(logger.pageViewLogin);
     const p = new URLSearchParams(Router.getQs);
     const next = p.get("next");
     if (next) {
@@ -56,7 +54,6 @@ export default class Login extends AuthStateSensitiveComponent {
         loading: false,
       });
     }
-    logger.sendUserLog(logger.loginActionCompleted);
     const n = this.state.next;
     if (n && !isAbsolute(n)) {
       return redirect(n);

@@ -2,7 +2,7 @@ import { Component } from "@hydrophobefireman/ui-lib";
 import { appEvents } from "../../../globalStore";
 import { QuestionsPanel } from "./Questions";
 import { UsersPanel } from "./Users";
-import back from "./back.svg";
+
 const store = appEvents.getStore();
 
 export default function Admin() {
@@ -48,16 +48,6 @@ class DataPanel extends Component {
           Workspace: {state.currentTab || "Not selected"}
         </div>
 
-        {this.state.currentTab && (
-          <div style={{ textAlign: "left" }}>
-            <img
-              src={back}
-              class="back hoverable"
-              title="go back"
-              onClick={() => this.setTab()}
-            />
-          </div>
-        )}
         {isQuestionsWorkSpace && <QuestionsPanel />}
 
         {isUsersWorkSpace && <UsersPanel />}

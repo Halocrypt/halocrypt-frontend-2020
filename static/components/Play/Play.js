@@ -3,7 +3,6 @@ import { appEvents } from "../../globalStore";
 import { play } from "../../apiRoutes";
 import { getRequest, postJSONRequest } from "../../http/requests";
 import { ErrorPopup } from "../shared/UserForm";
-import { logger } from "../../Logger";
 const store = appEvents.getStore();
 
 const sanitize = (e) => (e || "").toLowerCase().replace(/\s/g, "");
@@ -28,7 +27,6 @@ export default class Play extends Component {
     if (!store.isLoggedIn) {
       return redirect("/login?next=/play");
     }
-    logger.sendUserLog(logger.pageViewPlay);
     this.fetchQuestion();
   }
   componentDidUpdate() {
@@ -37,13 +35,8 @@ export default class Play extends Component {
     }
   }
   _submit = async () => {
-    if (this.state.isAwaitingAnswer||this.state.incorrect) return;
+    if (this.state.isAwaitingAnswer || this.state.incorrect) return;
     const answer = this.state.answer;
-
-    const qLevel =
-      (this.state.fetchedQuestion &&
-        this.state.fetchedQuestion.question_level) ||
-      1;
 
     if (!answer) return;
     this.setState({ isAwaitingAnswer: true });
@@ -55,11 +48,6 @@ export default class Play extends Component {
     const resp = await postJSONRequest(play.answerQuestion, postData);
 
     const data = resp.data;
-
-    logger.sendUserLog({
-      type: logger.answeredQuestion,
-      question_level: qLevel,
-    });
 
     if (data.result) {
       return this.proceedToNextLevel();
@@ -87,13 +75,6 @@ export default class Play extends Component {
     this.setState({ fetchedQuestion: data, isFetching: false });
   }
   proceedToNextLevel = () => {
-    logger.sendUserLog({
-      type: logger.accessQuestion,
-      question_level:
-        ((this.state.fetchedQuestion &&
-          this.state.fetchedQuestion.question_level) ||
-          0) + 1,
-    });
     this.setState({
       fetchedQuestion: null,
       isAwaitingAnswer: false,

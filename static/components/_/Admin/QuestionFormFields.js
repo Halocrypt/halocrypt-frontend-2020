@@ -48,7 +48,6 @@ export function QuestionFormField(props) {
       <div
         data-type={props.question.type}
         class="hoverable action-button"
-        style={{ padding: 0 }}
         onClick={props.toggleQuestionType}
       >
         Toggle Type
@@ -78,7 +77,6 @@ export function HintInput(props) {
           data-name={name}
           onClick={props.setType}
           class="hoverable action-button"
-          style={{ padding: 0 }}
         >
           Toggle Type
         </div>

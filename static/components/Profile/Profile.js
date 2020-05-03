@@ -11,7 +11,6 @@ import { user } from "../../apiRoutes";
 import { getRequest, postJSONRequest } from "../../http/requests";
 import { ErrorPopup } from "../shared/UserForm";
 import keys from "@hydrophobefireman/j-utils/@build-modern/src/modules/Object/keys";
-import { logger } from "../../Logger";
 import * as validators from "../../validators";
 const store = appEvents.getStore();
 const EMPTY = {};
@@ -210,7 +209,6 @@ async function loadProfile() {
     data = await getRequest(`${user.getUserDetails}?id=${id}`);
 
     data = data.data;
-    logger.sendUserLog({ type: logger.profileView, userViewed: data.id });
   }
   if (data) {
     return () => <Profile data={data} />;
@@ -235,6 +233,7 @@ function getValue(data, sec, x) {
       val = "Player";
     }
   }
+  if (typeof val === "boolean") val = "" + val;
   if (val == null || val === "") val = "N/A";
   return val;
 }

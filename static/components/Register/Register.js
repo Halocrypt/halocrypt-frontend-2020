@@ -4,7 +4,6 @@ import { ErrorPopup } from "../shared/UserForm";
 import { handler } from "../../authHandler";
 import AuthStateSensitiveComponent from "../_AuthStateSensitiveComponent";
 import { appEvents } from "../../globalStore";
-import { logger } from "../../Logger";
 import * as validators from "../../validators";
 
 const store = appEvents.getStore();
@@ -14,7 +13,6 @@ const errors = validators.errors;
 export default class Register extends AuthStateSensitiveComponent {
   componentDidMount() {
     super.componentDidMount();
-    logger.sendUserLog(logger.pageViewRegistered);
   }
   componentDidUpdate() {
     if (store.isLoggedIn) {
@@ -98,7 +96,6 @@ export default class Register extends AuthStateSensitiveComponent {
         });
       }
       if (acc.id) {
-        logger.sendUserLog(logger.registerActionComplete);
         return redirect("/login");
       }
     } else {

@@ -4,7 +4,6 @@ import { AnimatedInput } from "../shared/AnimatedInput";
 import { sanitizeRegExp, ErrorPopup } from "../shared/UserForm";
 import { user } from "../../apiRoutes";
 import { postJSONRequest } from "../../http/requests";
-import { logger } from "../../Logger";
 
 const url = user.forgotPassword;
 
@@ -26,8 +25,6 @@ export default class PasswordReset extends Component {
       if (err) return this.setState({ error });
       this.setState({ success: true, isLoading: false });
     });
-
-    logger.sendUserLog(logger.passwordResetRequested);
   };
 
   onInputUserName = async (e) => this.setState({ user: getVal(e) });
@@ -49,7 +46,7 @@ export default class PasswordReset extends Component {
     if (!confNewPassword) reasons.push("confirm password");
     if (newPassword !== confNewPassword) reasons.push("Passwords must match");
     if (reasons.length) {
-		  return this.setState({ error: reasons });
+      return this.setState({ error: reasons });
     }
     this.setState({ isLoading: true });
 

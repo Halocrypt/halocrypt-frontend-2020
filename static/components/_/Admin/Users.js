@@ -1,5 +1,5 @@
 import { Component } from "@hydrophobefireman/ui-lib";
-import { callback } from "../../../Logger";
+import { callback } from "../../../shared";
 import { admin } from "../../../apiRoutes";
 import { getRequest } from "../../../http/requests";
 import { contains, clean, pluralize } from "./Questions";

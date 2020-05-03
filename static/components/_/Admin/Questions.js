@@ -1,3 +1,4 @@
+import back from "./back.svg";
 import { Component } from "@hydrophobefireman/ui-lib";
 import { admin } from "../../../apiRoutes";
 import { postJSONRequest } from "../../../http/requests";
@@ -5,7 +6,7 @@ import { getLatestQuestionNumber, getAllQuestions, Loader } from "./util";
 import { sanitizeRegExp, ErrorPopup } from "../../shared/UserForm";
 import { Question } from "../../Play/Play";
 import { QuestionEditor, DEFAULT_INPUT } from "./QuestionEditor";
-import { callback } from "../../../Logger";
+import { callback } from "../../../shared";
 
 class AddQuestion extends Component {
   url = admin.addQuestion;
@@ -93,7 +94,7 @@ function filterQuestions(x, q) {
   const sanitized = clean(q);
   const { question, question_level, hint, answer } = x;
   if (
-    contains(question, sanitized) ||
+    contains(question.value, sanitized) ||
     contains(question_level, sanitized) ||
     contains(answer, sanitized)
   )
@@ -108,7 +109,6 @@ function filterQuestions(x, q) {
 
 class EditQuestion extends AddQuestion {
   state = {
-    questionData: { question: "", hint: [], special_hint: [] },
     questionData: null,
     isLoading: false,
     data: false,
@@ -158,6 +158,7 @@ class EditQuestion extends AddQuestion {
 
     this.setState({ questionData: data });
   };
+  closeEditingQuestion = () => this.setState({ questionData: null });
   render(_, state) {
     if (state.isLoading) return <Loader />;
 
@@ -208,11 +209,21 @@ class EditQuestion extends AddQuestion {
 
     if (state.questionData) {
       return (
-        <QuestionEditorTempl
-          questionData={state.questionData}
-          propUpdater={this._propUpdater}
-          sendQuestion={this._sendQuestion}
-        />
+        <>
+          <div style={{ textAlign: "left" }}>
+            <img
+              src={back}
+              class="back hoverable"
+              title="go back"
+              onClick={this.closeEditingQuestion}
+            />
+          </div>
+          <QuestionEditorTempl
+            questionData={state.questionData}
+            propUpdater={this._propUpdater}
+            sendQuestion={this._sendQuestion}
+          />
+        </>
       );
     }
   }
