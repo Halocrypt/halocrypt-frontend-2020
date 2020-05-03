@@ -2,7 +2,7 @@ import { Component, redirect } from "@hydrophobefireman/ui-lib";
 import { appEvents } from "../../globalStore";
 import { play } from "../../apiRoutes";
 import { getRequest, postJSONRequest } from "../../http/requests";
-import { ErrorPopup } from "../shared/UserForm";
+import { ErrorPopup, SocialLinkContainer } from "../shared/UserForm";
 const store = appEvents.getStore();
 
 const sanitize = (e) => (e || "").toLowerCase().replace(/\s/g, "");
@@ -86,8 +86,10 @@ export default class Play extends Component {
     const i = document.getElementById("answer-input");
     i && i.focus();
   }
-  resetError = () =>
-    this.setState({ incorrect: false }) && this.__focusAnswer();
+  resetError = () => {
+    this.setState({ incorrect: false });
+    this.__focusAnswer();
+  };
   render(_, state) {
     if (store.isLoggedIn && store.userData.is_disqualified)
       return <div class={{ fontSize: "4rem" }}>Disqualified!</div>;
@@ -116,6 +118,10 @@ export default class Play extends Component {
           />
         )}
         {state.isAwaitingAnswer && "Checking your answer..."}
+        <div class="hint-help" style={{ margin: "auto", width: "60%" }}>
+          <div>Find Hints On:</div>
+          <SocialLinkContainer />
+        </div>
       </>
     );
   }

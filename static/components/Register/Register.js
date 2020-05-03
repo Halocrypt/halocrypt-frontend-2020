@@ -1,6 +1,6 @@
 import { redirect, A } from "@hydrophobefireman/ui-lib";
 import { AnimatedInput } from "../shared/AnimatedInput";
-import { ErrorPopup } from "../shared/UserForm";
+import { ErrorPopup, SocialLinkContainer } from "../shared/UserForm";
 import { handler } from "../../authHandler";
 import AuthStateSensitiveComponent from "../_AuthStateSensitiveComponent";
 import { appEvents } from "../../globalStore";
@@ -138,21 +138,7 @@ export default class Register extends AuthStateSensitiveComponent {
               Want to Login Instead?
             </A>
           </div>
-          <div class="social-link-container">
-            <a
-              href="https://discord.gg/fz8e6Df"
-              class="heading-text clr hoverable"
-            >
-              Discord
-            </a>
-
-            <a
-              href="https://twitter.com/halocrypt1"
-              class="heading-text clr hoverable"
-            >
-              Twitter
-            </a>
-          </div>
+          <SocialLinkContainer />
         </div>
       </div>
     );

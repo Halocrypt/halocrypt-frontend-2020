@@ -34,3 +34,25 @@ export class Popup extends Component {
     );
   }
 }
+
+export function SocialLinkContainer() {
+  return (
+    <div class="social-link-container">
+      <a href="https://discord.gg/fz8e6Df" class="heading-text clr hoverable">
+        Discord
+      </a>
+      <a
+        href="https://instagram.com/halocrypt"
+        class="heading-text clr hoverable"
+      >
+        Instagram
+      </a>
+      <a
+        href="https://twitter.com/halocrypt1"
+        class="heading-text clr hoverable"
+      >
+        Twitter
+      </a>
+    </div>
+  );
+}

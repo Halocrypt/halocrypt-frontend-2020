@@ -24,7 +24,7 @@ export class QuestionEditor extends Component {
   _handleQuestion = (e) => {
     const question = {
       value: e.target.value || "",
-      type: this.state.question.type,
+      type: this.state.question.type || "text",
     };
     this.syncProp("question", question);
   };
