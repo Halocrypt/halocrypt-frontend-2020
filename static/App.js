@@ -5,6 +5,7 @@ import {
   redirect,
   AsyncComponent,
 } from "@hydrophobefireman/ui-lib";
+import { init } from "./consoleOverrides";
 import { handler } from "./authHandler";
 import { CredLoadingFallBack, UnexpectedError } from "./fallbackComponents";
 import DynamicHeader from "./components/_DynamicHeader";
@@ -25,6 +26,7 @@ import "./components/Verify/Verify.css";
 import "./forms.css";
 import "./aquireB64.css";
 
+init();
 const store = appEvents.getStore();
 class App extends Component {
   componentDidMount() {

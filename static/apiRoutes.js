@@ -1,5 +1,5 @@
 export const devHost = "http://localhost:5000";
-export const prodHost = "https://halocrypt-20.herokuapp.com";
+export const prodHost = "https://halocrypt.com";
 export const devMode = location.hostname.includes("localhost");
 export const host = devMode ? devHost : prodHost;
 function apiURL(url) {
@@ -35,6 +35,9 @@ export const admin = {
   deleteUser: apiURL("/api/admin/delete-user"),
   disqualify: apiURL("/api/admin/disqualify"),
   requalify: apiURL("/api/admin/requalify"),
+  getLogs: apiURL("/api/admin/get-logs"),
+  clearLogs: apiURL("/api/admin/clear-logs"),
+  mergeLogs: apiURL("/api/admin/merge-logs"),
 };
 export const logging = {
   addLog: apiURL("/api/ginggol/1"),

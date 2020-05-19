@@ -109,3 +109,68 @@ hr {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+.admin-log-renderer {
+  transition: 0.3s linear;
+  opacity: 0;
+}
+
+.admin-log-renderer.has-content {
+  opacity: 1;
+}
+.act-btn-container {
+  display: flex;
+  margin: auto;
+  text-align: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.logtype {
+  padding: 1rem;
+}
+.logtype.active {
+  filter: grayscale(1);
+}
+
+.log-entry {
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: row;
+  transition: 0.3s linear;
+}
+
+.ts {
+  margin-left: 0.8rem;
+}
+
+.break-word {
+  word-break: break-word;
+}
+
+.answer-status {
+  margin-right: 1rem;
+}
+
+.flx-end {
+  display: inline-flex;
+  flex: 1;
+  justify-content: flex-end;
+}
+@media only screen and (max-width: 800px) {
+  .ts {
+    margin-left: unset;
+  }
+  .log-entry {
+    flex-direction: column;
+  }
+}
+.hl-entry {
+  --spec-color: var(--admin-color);
+}

@@ -10,6 +10,7 @@
   margin-top: 15px;
   padding: 20px;
   font-size: 1.5rem;
+  word-break: break-word;
 }
 @media only screen and (max-width: 600px) {
   .question-card {

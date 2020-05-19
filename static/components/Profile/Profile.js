@@ -40,7 +40,7 @@ export class Profile extends Component {
   _getKeys(data) {
     // keys(data)
     //         .filter((x) => !this._hiddenFields[x])
-    return ["name", "id", "current_level", "is_admin", "school"].concat(
+    return ["name", "id", "current_level", "is_admin"].concat(
       keys((data && data.secure_data) || EMPTY)
     );
   }
@@ -203,15 +203,32 @@ async function loadProfile() {
   const id = q.get("id");
   /**@type {import("../../api").UserData} */
   let data;
-  if (store.isLoggedIn && id === store.userData.id) {
+  const isSelf = store.isLoggedIn && id === store.userData.id;
+  const showAdminPanelEditor =
+    store.isLoggedIn && store.userData.is_admin && !isSelf;
+  if (isSelf) {
     data = store.userData;
   } else {
     data = await getRequest(`${user.getUserDetails}?id=${id}`);
 
     data = data.data;
   }
+
   if (data) {
-    return () => <Profile data={data} />;
+    return () =>
+      showAdminPanelEditor ? (
+        <AsyncComponent
+          componentPromise={() =>
+            import("../_/Admin/UserProfileEditor").then((x) => {
+              const UserProfileEditor = x.UserProfileEditor;
+              return () => <UserProfileEditor data={data} />;
+            })
+          }
+          fallbackComponent={() => "Loading admin js chunk"}
+        />
+      ) : (
+        <Profile data={data} />
+      );
   }
 
   return () => (

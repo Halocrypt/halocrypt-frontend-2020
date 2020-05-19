@@ -1,4 +1,4 @@
-import { Component, redirect } from "@hydrophobefireman/ui-lib";
+import { Component, redirect, A } from "@hydrophobefireman/ui-lib";
 import { appEvents } from "../../globalStore";
 import { play } from "../../apiRoutes";
 import { getRequest, postJSONRequest } from "../../http/requests";
@@ -13,119 +13,155 @@ const placeHolderData = {
   hint: [],
 };
 const placeholderQuestion = <Question data={placeHolderData} />;
-export default class Play extends Component {
-  state = {
-    fetchedQuestion: null,
-    isFetching: false,
-    answer: "",
-    isAwaitingAnswer: false,
-    incorrect: false,
-  };
-
-  onInput = (e) => this.setState({ answer: sanitize(e.target.value) });
-  componentDidMount() {
-    if (!store.isLoggedIn) {
-      return redirect("/login?next=/play");
-    }
-    this.fetchQuestion();
-  }
-  componentDidUpdate() {
-    if (this.state.fetchedQuestion == null) {
-      return this.fetchQuestion();
-    }
-  }
-  _submit = async () => {
-    if (this.state.isAwaitingAnswer || this.state.incorrect) return;
-    const answer = this.state.answer;
-
-    if (!answer) return;
-    this.setState({ isAwaitingAnswer: true });
-    /**@type {import('../../api').PlayRoutes.answerQuestion.request} */
-
-    const postData = { answer };
-
-    /** @type {import('../../api').PlayRoutes.answerQuestion.response['success']} */
-    const resp = await postJSONRequest(play.answerQuestion, postData);
-
-    const data = resp.data;
-
-    if (data.result) {
-      return this.proceedToNextLevel();
-    }
-    this.setState({ isAwaitingAnswer: false, incorrect: true });
-  };
-  async fetchQuestion() {
-    if (
-      this.state.isFetching ||
-      (!store.eventBegan && !store.userData.is_admin)
-    )
-      return;
-    this.setState({ isFetching: true });
-    /**@type {import('../../api').PlayRoutes.getQuestion.response['success']} */
-    const req = await getRequest(play.getQuestion);
-    if (req.error) {
-      //??
-      return this.setState({
-        hasError: true,
-        isFetching: false,
-        fetchedQuestion: 1,
-      });
-    }
-    const data = req.data;
-    this.setState({ fetchedQuestion: data, isFetching: false });
-  }
-  proceedToNextLevel = () => {
-    this.setState({
-      fetchedQuestion: null,
-      isAwaitingAnswer: false,
-      incorrect: false,
-      answer: "",
-    });
-  };
-  __focusAnswer() {
-    const i = document.getElementById("answer-input");
-    i && i.focus();
-  }
-  resetError = () => {
-    this.setState({ incorrect: false });
-    this.__focusAnswer();
-  };
-  render(_, state) {
-    if (store.isLoggedIn && store.userData.is_disqualified)
-      return <div class={{ fontSize: "4rem" }}>Disqualified!</div>;
-    if (!store.eventBegan && (!store.isLoggedIn || !store.userData.is_admin))
-      return <div style={{ fontSize: "4rem" }}>Not yet</div>;
-    return (
-      <>
-        {state.incorrect && (
-          <>
-            <div class="mask"></div>
-            <ErrorPopup
-              errorHead="Nope"
-              reasons={["That is not the right answer"]}
-              close={this.resetError}
-            />
-          </>
-        )}
-        {state.isFetching || !state.fetchedQuestion ? (
-          placeholderQuestion
-        ) : (
-          <Question
-            data={state.fetchedQuestion}
-            value={state.answer}
-            onInput={this.onInput}
-            onSubmit={this._submit}
-          />
-        )}
-        {state.isAwaitingAnswer && "Checking your answer..."}
-        <div class="hint-help" style={{ margin: "auto", width: "70%" }}>
-          <div>Find Hints On:</div>
-          <SocialLinkContainer />
-        </div>
-      </>
-    );
-  }
+export default function Play() {
+  return "Halocrypt is over.. Thanks for being a part of this";
 }
+// export default class Play extends Component {
+//   state = {
+//     fetchedQuestion: null,
+//     isFetching: false,
+//     answer: "",
+//     isAwaitingAnswer: false,
+//     incorrect: false,
+//   };
+
+//   onInput = (e) => this.setState({ answer: sanitize(e.target.value) });
+//   componentDidMount() {
+//     if (!store.isLoggedIn) {
+//       return redirect("/login?next=/play");
+//     }
+//     this.fetchQuestion();
+//   }
+//   componentDidUpdate() {
+//     if (this.state.fetchedQuestion == null) {
+//       return this.fetchQuestion();
+//     }
+//   }
+//   _submit = async () => {
+//     if (this.state.isAwaitingAnswer || this.state.incorrect) return;
+//     const answer = this.state.answer;
+
+//     if (!answer) return;
+//     this.setState({ isAwaitingAnswer: true });
+//     /**@type {import('../../api').PlayRoutes.answerQuestion.request} */
+
+//     const postData = { answer };
+
+//     /** @type {import('../../api').PlayRoutes.answerQuestion.response['success']} */
+//     const resp = await postJSONRequest(play.answerQuestion, postData);
+
+//     const data = resp.data;
+//     const error = data.error || resp.error;
+//     if (error)
+//       return this.setState({
+//         hasError: error,
+//         isFetching: false,
+//         isAwaitingAnswer: false,
+//       });
+//     if (data.result) {
+//       // don't emit..useless
+//       return this.proceedToNextLevel();
+//     }
+//     this.setState({ isAwaitingAnswer: false, incorrect: true });
+//   };
+//   async fetchQuestion() {
+//     if (store.userData.is_disqualified) return;
+//     if (
+//       this.state.isFetching ||
+//       (!store.eventBegan && !store.userData.is_admin)
+//     )
+//       return;
+//     this.setState({ isFetching: true });
+//     /**@type {import('../../api').PlayRoutes.getQuestion.response['success']} */
+//     const req = await getRequest(play.getQuestion);
+//     const error = req.error || req.data.error;
+//     if (error) {
+//       //??
+//       return this.setState({
+//         hasError: error,
+//         isFetching: false,
+//         fetchedQuestion: 1,
+//       });
+//     }
+//     const data = req.data;
+//     const prev = store.userData.current_level;
+//     store.userData.current_level = data.question_level || prev;
+//     this.setState({ fetchedQuestion: data, isFetching: false });
+//   }
+//   proceedToNextLevel = () => {
+//     this.setState({
+//       fetchedQuestion: null,
+//       isAwaitingAnswer: false,
+//       incorrect: false,
+//       answer: "",
+//     });
+//   };
+//   __focusAnswer() {
+//     const i = document.getElementById("answer-input");
+//     i && i.focus();
+//   }
+//   resetError = () => {
+//     this.setState({ incorrect: false, hasError: null });
+//     this.__focusAnswer();
+//   };
+//   render(_, state) {
+//     if (state.hasError) {
+//       return (
+//         <ErrorPopup
+//           errorHead="Can't play"
+//           reasons={[state.hasError]}
+//           close={this.resetError}
+//         />
+//       );
+//     }
+//     if (store.isLoggedIn && store.userData.is_disqualified)
+//       return (
+//         <div style={{ fontSize: "3rem" }}>
+//           Disqualified!
+//           <div>
+//             <A
+//               class="clr hoverable"
+//               style={{ marginTop: "20px" }}
+//               href="/why-am-i-disqualified"
+//             >
+//               Learn More
+//             </A>
+//           </div>
+//         </div>
+//       );
+//     if (!store.eventBegan && (!store.isLoggedIn || !store.userData.is_admin))
+//       return <div style={{ fontSize: "4rem" }}>Not yet</div>;
+//     return (
+//       <>
+//         {state.incorrect && (
+//           <>
+//             <div class="mask"></div>
+//             <ErrorPopup
+//               errorHead="Nope"
+//               reasons={["That is not the right answer"]}
+//               close={this.resetError}
+//             />
+//           </>
+//         )}
+//         {state.isFetching || !state.fetchedQuestion ? (
+//           placeholderQuestion
+//         ) : (
+//           <Question
+//             data={state.fetchedQuestion}
+//             value={state.answer}
+//             onInput={this.onInput}
+//             onSubmit={this._submit}
+//           />
+//         )}
+//         {state.isAwaitingAnswer && "Checking your answer..."}
+//         <div class="hint-help" style={{ margin: "auto", width: "70%" }}>
+//           <div>Find Hints On:</div>
+//           <SocialLinkContainer />
+//         </div>
+//       </>
+//     );
+//   }
+// }
 const extra = {
   autocomplete: "off",
   autocorrect: "off",

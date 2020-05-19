@@ -1,7 +1,5 @@
 import { A } from "@hydrophobefireman/ui-lib";
 import LogoLink from "../shared/LogoLink";
-import dpsImg from "../../images/dps.png";
-import Timer from "./Timer";
 
 import AuthStateSensitiveComponent from "../_AuthStateSensitiveComponent";
 import { appEvents } from "../../globalStore";
@@ -22,23 +20,14 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
           </div>
           <div class="heading-text main-title c_u">HALOCRYPT</div>
         </div>
-        <Timer />
         <div class="reg-btn-box">
           {!store.isLoggedIn ? (
-            <>
-              <A
-                href="/register"
-                class="landing-action-button heading-text hoverable"
-              >
-                Register
-              </A>
-              <A
-                href="/login"
-                class="heading-text hoverable landing-action-button"
-              >
-                Login
-              </A>
-            </>
+            <A
+              href="/login"
+              class="heading-text hoverable landing-action-button"
+            >
+              Login
+            </A>
           ) : (
             <A
               href={store.eventBegan ? "/play" : "profile"}
@@ -48,6 +37,7 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
             </A>
           )}
         </div>
+        <div>Registations have been closed.</div>
         <div style={{ marginTop: "85px" }}>
           <div class="t-container">
             <div class="clr" style={{ fontSize: "2rem" }}>

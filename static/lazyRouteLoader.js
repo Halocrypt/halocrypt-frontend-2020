@@ -1,8 +1,9 @@
 import {
   Router,
   AsyncComponent,
-  absolutePath,
   redirect,
+  Path,
+  createRoutePath,
 } from "@hydrophobefireman/ui-lib";
 import entries from "@hydrophobefireman/j-utils/@build-modern/src/modules/Object/entries";
 import { RouteLoadingFallback } from "./fallbackComponents";
@@ -14,12 +15,29 @@ const Logout = () =>
     return "Logging you out";
   });
 
+const Ok = () =>
+  Promise.resolve(() => {
+    return (
+      <div>
+        <a
+          style={{ display: "inline-block", fontSize: "2rem" }}
+          class="clr hoverable"
+          target="_blank"
+          href="https://pycode.tk/ok.html"
+        >
+          surprise tool that will help us later
+        </a>
+        <div>everything's OK</div>
+      </div>
+    );
+  });
+
 const getDefault = (module_) => module_.default;
 
 const componentMap = {
   "/": () =>
     import("./components/LandingComponent/LandingComponent").then(getDefault),
-  "/register": () => import("./components/Register/Register").then(getDefault),
+  "/register": () => Promise.resolve(() => "OK"),
   "/login": () => import("./components/Login/Login").then(getDefault),
   "/profile": () => import("./components/Profile/Profile").then(getDefault),
   "/logout": Logout,
@@ -33,6 +51,9 @@ const componentMap = {
   "/verify-email": () =>
     import("./components/Verify/verify-email").then(getDefault),
   "/halo_begin": () => import("./components/Halo_Begin/hint_").then(getDefault),
+  "/why-am-i-disqualified": () =>
+    import("./components/whyDQ/WhyDQ").then(getDefault),
+  "/detacilpmocylsseldeen": Ok,
 };
 
 const getRouteChild = (path, promise) => {
@@ -47,7 +68,7 @@ const getRouteChild = (path, promise) => {
       </section>
     );
   };
-  return <RouteChild path={absolutePath(path)} />;
+  return <Path match={createRoutePath(path)} component={RouteChild} />;
 };
 
 export default function (props) {
@@ -58,7 +79,6 @@ export default function (props) {
           {entries(componentMap).map(([path, promise]) =>
             getRouteChild(path, promise)
           )}
-          }
         </Router>
       </div>
     </main>

@@ -2,7 +2,7 @@ import { Component } from "@hydrophobefireman/ui-lib";
 import { appEvents } from "../../../globalStore";
 import { QuestionsPanel } from "./Questions";
 import { UsersPanel } from "./Users";
-
+import { LogsPanel } from "./Logs";
 const store = appEvents.getStore();
 
 export default function Admin() {
@@ -51,6 +51,7 @@ class DataPanel extends Component {
         {isQuestionsWorkSpace && <QuestionsPanel />}
 
         {isUsersWorkSpace && <UsersPanel />}
+        {isLogsWorkSpace && <LogsPanel />}
       </>
     );
   }

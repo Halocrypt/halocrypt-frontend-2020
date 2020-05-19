@@ -36,6 +36,11 @@ export default function Rules(Props) {
           <li class="list-element-rule">
             Beware of the spelling you enter, we do not autocorrect.
           </li>
+          <li class="list-element-rule">
+            And if it was not obvious, team play, asnwer sharing, hint sharing
+            and collaborating with other competitors in general is not allowed
+            and any such evidence can lead to disqualification.
+          </li>
         </ul>
       </div>
     </>

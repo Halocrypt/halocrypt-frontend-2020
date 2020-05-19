@@ -5,10 +5,9 @@ const autoPrefixPlugin = require("autoprefixer");
 const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin")
   .default;
 
-const WebpackModuleNoModulePlugin = require("webpack-module-nomodule-plugin");
-
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-
+const HtmlRuntimePlugin = require("html-webpack-inline-runtime-plugin");
+const SRIPlugin = require("webpack-subresource-integrity");
 const { basename } = require("path");
 const isProd = basename(__filename).includes(".prod");
 const mode = isProd ? "production" : "development";
@@ -65,6 +64,7 @@ function getCfg(isLegacy) {
     },
     entry: `${__dirname}/static/App.js`,
     output: {
+      publicPath: isProd ? "/docs/" : "/",
       ecmaVersion: isLegacy ? 5 : 6,
       path: `${__dirname}/docs`,
       filename: `${isLegacy ? "legacy" : "es6"}/[name]-[contenthash].js`,
@@ -83,6 +83,7 @@ function getCfg(isLegacy) {
         template: `${__dirname}/index.html`,
         xhtml: !0,
         favicon: "./favicon.ico",
+
         minify: prodOrDev(
           {
             collapseBooleanAttributes: !0,
@@ -95,14 +96,18 @@ function getCfg(isLegacy) {
           !1
         ),
       }),
-      new WebpackModuleNoModulePlugin(isLegacy ? "legacy" : "modern"),
       new MiniCssExtractPlugin({}),
       isProd
         ? new OptimizeCSSAssetsPlugin({ cssProcessor: require("cssnano") })
         : null,
       isProd ? new HTMLInlineCSSWebpackPlugin({}) : null,
+      new HtmlRuntimePlugin(),
+      new SRIPlugin({
+        hashFuncNames: ["sha256", "sha384","sha512"],
+        enabled: isProd,
+      }),
     ].filter(Boolean),
   };
 }
 
-module.exports = isProd ? [getCfg(false), getCfg(true)] : getCfg(false);
+module.exports = getCfg(false);
