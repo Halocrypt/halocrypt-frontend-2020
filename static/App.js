@@ -30,7 +30,7 @@ init();
 const store = appEvents.getStore();
 class App extends Component {
   componentDidMount() {
-    const qs = Router.getQs;
+    const qs = Router.qs;
     let c;
 
     if ((c = new URLSearchParams(qs).get("__loader"))) {
@@ -48,20 +48,10 @@ class App extends Component {
   }
 }
 
-async function fetchUserData() {
-  const ret = App;
-  if (store.isLoggedIn) return ret;
-  try {
-    await handler.checkAuth();
-  } catch (e) {
-    return UnexpectedError;
-  }
-  return ret;
-}
-const LoadApp = () => (
-  <AsyncComponent
-    componentPromise={fetchUserData}
-    fallbackComponent={CredLoadingFallBack}
-  />
-);
-render(<LoadApp />, document.getElementById("app-mount"));
+handler.checkAuth();
+
+const LoadApp = () => <App />;
+
+const mount = document.getElementById("app-mount");
+
+render(<LoadApp />, mount);

@@ -22,7 +22,7 @@ export default class Login extends AuthStateSensitiveComponent {
   }
   componentDidUpdate = this.loginCheck;
   componentDidMount() {
-    const p = new URLSearchParams(Router.getQs);
+    const p = new URLSearchParams(Router.qs);
     const next = p.get("next");
     if (next) {
       this.setState({ next });

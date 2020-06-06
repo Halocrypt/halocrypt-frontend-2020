@@ -199,7 +199,7 @@ function ProfileInfoField(props) {
 }
 
 async function loadProfile() {
-  const q = new URLSearchParams(Router.getQs);
+  const q = new URLSearchParams(Router.qs);
   const id = q.get("id");
   /**@type {import("../../api").UserData} */
   let data;
@@ -268,7 +268,7 @@ const skeletonData = {
 };
 
 export default () => {
-  const q = new URLSearchParams(Router.getQs);
+  const q = new URLSearchParams(Router.qs);
   const id = q.get("id");
   if (!id) {
     if (store.isLoggedIn) {

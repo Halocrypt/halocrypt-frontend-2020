@@ -22,12 +22,20 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
         </div>
         <div class="reg-btn-box">
           {!store.isLoggedIn ? (
-            <A
-              href="/login"
-              class="heading-text hoverable landing-action-button"
-            >
-              Login
-            </A>
+            <>
+              <A
+                href="/login"
+                class="heading-text hoverable landing-action-button"
+              >
+                Login
+              </A>
+              <A
+                href="/register"
+                class="heading-text hoverable landing-action-button"
+              >
+                Register
+              </A>
+            </>
           ) : (
             <A
               href={store.eventBegan ? "/play" : "profile"}
@@ -37,7 +45,7 @@ export default class LandingComponent extends AuthStateSensitiveComponent {
             </A>
           )}
         </div>
-        <div>Registations have been closed.</div>
+
         <div style={{ marginTop: "85px" }}>
           <div class="t-container">
             <div class="clr" style={{ fontSize: "2rem" }}>

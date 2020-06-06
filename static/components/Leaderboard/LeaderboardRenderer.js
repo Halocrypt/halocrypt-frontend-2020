@@ -1,4 +1,10 @@
-import Component, { A } from "@hydrophobefireman/ui-lib";
+import {
+  A,
+  useMemo,
+  useCallback,
+  useState,
+  useEffect,
+} from "@hydrophobefireman/ui-lib";
 import { play } from "../../apiRoutes";
 import { getRequest } from "../../http/requests";
 import { UnexpectedError } from "../../fallbackComponents";
@@ -32,6 +38,7 @@ export const fetchLeaderboard = async () => {
   return () => <SearchableLeaderboard data={players} />;
 };
 const PLACEHOLDER_USER = "-";
+
 function Username(props) {
   const player = props.x;
   const i = props.i;
@@ -62,31 +69,20 @@ function Username(props) {
   );
 }
 
-/**
- *
- * @param {{data:import('../../api').UserData[]}} props
- */
-export class Leaderboard extends Component {
-  MAX_ITEMS_IN_ONE_RENDER = 100;
-
-  state = { currentOffset: 0 };
-  incrementOffset = () =>
-    this.setState((ps) => ({
-      currentOffset: ps.currentOffset + this.MAX_ITEMS_IN_ONE_RENDER,
-    }));
-  decrementOffset = () =>
-    this.setState((ps) => ({
-      currentOffset: ps.currentOffset - this.MAX_ITEMS_IN_ONE_RENDER,
-    }));
-  getCurrentWindowElements() {
-    const data = this.props.data;
+const MAX_ITEMS_IN_ONE_RENDER = 100;
+function useFrozenListener(cb) {
+  return useCallback(cb, []);
+}
+function useCurrentWindowElements(props, currentOffset) {
+  return useMemo(() => {
+    const data = props.data;
     const dataLength = data.length;
     const ranks = [];
     const usernames = [];
     const levels = [];
 
-    const offset = this.state.currentOffset;
-    const numObjs = offset + this.MAX_ITEMS_IN_ONE_RENDER;
+    const offset = currentOffset;
+    const numObjs = offset + MAX_ITEMS_IN_ONE_RENDER;
 
     const hasPreDecidedRank = "rank" in (data[0] || {});
     for (let i = offset; i < numObjs && i < dataLength; i++) {
@@ -104,45 +100,61 @@ export class Leaderboard extends Component {
       );
     }
     return { ranks, usernames, levels };
-  }
-  render(props, state) {
-    const { ranks, usernames, levels } = this.getCurrentWindowElements();
-    const dataLength = props.data.length;
-    return (
-      <>
-        <OffsetButtons
-          maxCount={this.MAX_ITEMS_IN_ONE_RENDER}
-          offset={state.currentOffset}
-          dataLength={dataLength}
-          decrement={this.decrementOffset}
-          increment={this.incrementOffset}
-        />
-
-        <div class="pseudo ld-table heading-text">
-          <div class="ld-table-row">
-            <div class="ld-header left">Rank</div>
-            {ranks}
-          </div>
-          <div class="ld-table-row center">
-            <div class="ld-header center">Username</div>
-            {usernames}
-          </div>
-          <div class="ld-table-row">
-            <div class="ld-header right">Level</div>
-            {levels}
-          </div>
-        </div>
-        <OffsetButtons
-          maxCount={this.MAX_ITEMS_IN_ONE_RENDER}
-          offset={state.currentOffset}
-          dataLength={dataLength}
-          decrement={this.decrementOffset}
-          increment={this.incrementOffset}
-        />
-      </>
-    );
-  }
+  }, [currentOffset, props.data]);
 }
+export function Leaderboard(props) {
+  const [currentOffset, setCurrentOffset] = useState(0);
+  const incrementOffset = useFrozenListener(() =>
+    setCurrentOffset((prev) => prev + MAX_ITEMS_IN_ONE_RENDER)
+  );
+  const decrementOffset = useFrozenListener(() =>
+    setCurrentOffset((prev) => prev - MAX_ITEMS_IN_ONE_RENDER)
+  );
+
+  useEffect(() => {
+    setCurrentOffset(0);
+  }, [props.data]);
+
+  const { ranks, usernames, levels } = useCurrentWindowElements(
+    props,
+    currentOffset
+  );
+  const dataLength = props.data.length;
+  return (
+    <>
+      <OffsetButtons
+        maxCount={MAX_ITEMS_IN_ONE_RENDER}
+        offset={currentOffset}
+        dataLength={dataLength}
+        decrement={decrementOffset}
+        increment={incrementOffset}
+      />
+
+      <div class="pseudo ld-table heading-text">
+        <div class="ld-table-row">
+          <div class="ld-header left">Rank</div>
+          {ranks}
+        </div>
+        <div class="ld-table-row center">
+          <div class="ld-header center">Username</div>
+          {usernames}
+        </div>
+        <div class="ld-table-row">
+          <div class="ld-header right">Level</div>
+          {levels}
+        </div>
+      </div>
+      <OffsetButtons
+        maxCount={MAX_ITEMS_IN_ONE_RENDER}
+        offset={currentOffset}
+        dataLength={dataLength}
+        decrement={decrementOffset}
+        increment={incrementOffset}
+      />
+    </>
+  );
+}
+
 function OffsetButtons(props) {
   const maxCount = props.maxCount;
   const offset = props.offset;

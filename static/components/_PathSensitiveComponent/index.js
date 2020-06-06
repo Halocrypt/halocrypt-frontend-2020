@@ -4,7 +4,7 @@ import {
   RouterSubscription,
 } from "@hydrophobefireman/ui-lib";
 export default class extends Component {
-  state = { currentPath: Router.getPath };
+  state = { currentPath: Router.path };
   componentDidMount() {
     RouterSubscription.subscribe(this.__routeChange);
   }

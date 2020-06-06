@@ -37,7 +37,7 @@ const getDefault = (module_) => module_.default;
 const componentMap = {
   "/": () =>
     import("./components/LandingComponent/LandingComponent").then(getDefault),
-  "/register": () => Promise.resolve(() => "OK"),
+  "/register": () => import("./components/Register/Register").then(getDefault),
   "/login": () => import("./components/Login/Login").then(getDefault),
   "/profile": () => import("./components/Profile/Profile").then(getDefault),
   "/logout": Logout,
